@@ -11,44 +11,32 @@ import subprocess
 import sys
 from os.path import exists
 
-COLOURS = {"red": "\033[31m",
-           "blue": "\033[34m",
-           "green": "\033[32m",
-           "reset": "\033[0m",
-           "bold": "\033[1m"}
+COLOURS = {
+    "red": "\033[31m",
+    "blue": "\033[34m",
+    "green": "\033[32m",
+    "reset": "\033[0m",
+    "bold": "\033[1m",
+}
 
-BASE_URL = "https://raw.githubusercontent.com/Code-Institute-Org/gitpod-full-template/main/"
+BASE_URL = (
+    "https://raw.githubusercontent.com/Code-Institute-Org/gitpod-full-template/main/"
+)
 CURRENT_VERSION = 1.0
 THIS_VERSION = 1.0
 
 
-UPGRADE_FILE_LIST = [{"filename": ".vscode/settings.json",
-                      "url": ".vscode/settings.json"
-                      },
-                     {"filename": ".vscode/launch.json",
-                      "url": ".vscode/launch.json"
-                      },
-                     {"filename": ".gitpod.yml",
-                      "url": ".gitpod.yml"
-                      },
-                     {"filename": ".gitpod.dockerfile",
-                      "url": ".gitpod.dockerfile"
-                      },
-                     {"filename": ".vscode/heroku_config.sh",
-                      "url": ".vscode/heroku_config.sh"
-                      },
-                     {"filename": ".vscode/init_tasks.sh",
-                      "url": ".vscode/init_tasks.sh"
-                      },
-                     {"filename": ".vscode/uptime.sh",
-                      "url": ".vscode/uptime.sh"
-                      },
-                     {"filename": ".vscode/make_url.py",
-                      "url": ".vscode/make_url.py"
-                     },
-                     {"filename": ".vscode/arctictern.py",
-                      "url": ".vscode/arctictern.py"
-                     }]
+UPGRADE_FILE_LIST = [
+    {"filename": ".vscode/settings.json", "url": ".vscode/settings.json"},
+    {"filename": ".vscode/launch.json", "url": ".vscode/launch.json"},
+    {"filename": ".gitpod.yml", "url": ".gitpod.yml"},
+    {"filename": ".gitpod.dockerfile", "url": ".gitpod.dockerfile"},
+    {"filename": ".vscode/heroku_config.sh", "url": ".vscode/heroku_config.sh"},
+    {"filename": ".vscode/init_tasks.sh", "url": ".vscode/init_tasks.sh"},
+    {"filename": ".vscode/uptime.sh", "url": ".vscode/uptime.sh"},
+    {"filename": ".vscode/make_url.py", "url": ".vscode/make_url.py"},
+    {"filename": ".vscode/arctictern.py", "url": ".vscode/arctictern.py"},
+]
 
 FINAL_LINES = "\nexport POST_UPGRADE_RUN=1\nsource ~/.bashrc\n"
 
@@ -61,12 +49,12 @@ def get_versions():
     else:
         with open(".vscode/version.txt", "w") as f:
             f.write(str(THIS_VERSION))
-    
+
     r = requests.get(BASE_URL + ".vscode/version.txt")
     CURRENT_VERSION = float(r.content)
 
-    return {"this_version": THIS_VERSION,
-            "current_version": CURRENT_VERSION}
+    return {"this_version": THIS_VERSION, "current_version": CURRENT_VERSION}
+
 
 def needs_upgrade():
     """
@@ -76,7 +64,7 @@ def needs_upgrade():
     """
 
     versions = get_versions()
-    
+
     print(f"Upstream version: {versions['current_version']}")
     print(f"Local version: {versions['this_version']}")
 
@@ -97,7 +85,7 @@ def build_post_upgrade():
     upgrades = json.loads(r.content.decode("utf-8"))
     content = ""
 
-    for k,v in upgrades.items():
+    for k, v in upgrades.items():
         if float(k) > THIS_VERSION:
             print(f"Adding version changes for {k} to post_upgrade.sh")
             content += v
@@ -106,7 +94,7 @@ def build_post_upgrade():
         content += FINAL_LINES
         with open(".vscode/post_upgrade.sh", "w") as f:
             f.writelines(content)
-    
+
     print("Built post_upgrade.sh. Restart your workspace for it to take effect.")
 
 
@@ -133,7 +121,7 @@ def process(file, suffix):
         if result != 0:
             os.remove(f"{file}.tmp")
             return True
-    
+
     return False
 
 
@@ -153,7 +141,7 @@ def start_migration():
         result = process(file["filename"], file["url"])
         if result == True:
             push_and_recreate = True
-    
+
     if push_and_recreate:
         write_version()
 
@@ -166,7 +154,9 @@ def start_migration():
     print("the changes to take effect.\n")
 
     if push_and_recreate:
-        print(f"{COLOURS['red']}{COLOURS['bold']}*** IMPORTANT INFORMATION ***{COLOURS['reset']}")
+        print(
+            f"{COLOURS['red']}{COLOURS['bold']}*** IMPORTANT INFORMATION ***{COLOURS['reset']}"
+        )
         print("The files used to create this workspace have been updated")
         print("Please download any files that are in .gitignore and")
         print("recreate this workspace by clicking on the Gitpod button")
@@ -175,7 +165,9 @@ def start_migration():
 
 if __name__ == "__main__":
 
-    print(f"\n🐦 {COLOURS['blue']}{COLOURS['bold']}ArcticTern version 0.3{COLOURS['reset']}")
+    print(
+        f"\n🐦 {COLOURS['blue']}{COLOURS['bold']}ArcticTern version 0.3{COLOURS['reset']}"
+    )
     print("CI Template Migration Utility")
     print("-----------------------------")
     print("Upgrades the workspace to the latest version.\n")
