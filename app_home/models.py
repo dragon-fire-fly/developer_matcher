@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 
 
 class User(AbstractUser):
@@ -27,3 +28,11 @@ class User(AbstractUser):
         help_text="What is your portfolio URL?",
         max_length=255
         )
+
+
+class UserProfilePicture(models.Model):
+    user = models.ForeignKey(
+        User, related_name="profile-pic",
+        on_delete=models.CASCADE
+        )
+    profile_picture = CloudinaryField("profile picture")

@@ -51,6 +51,9 @@ Cloudinary:
 https://cloudinary.com/documentation/image_upload_api_reference
 
 CSS/bootstrap:
+navbar:
+https://getbootstrap.com/docs/4.0/components/navbar/
+cards:
 https://getbootstrap.com/docs/4.0/components/card/#card-columns
 
 Crispy forms:

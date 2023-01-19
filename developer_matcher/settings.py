@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# cloudinary API config variables
+cloudinary.config(
+    cloud_name=os.environ.get("cloudinary_cloud_name"),
+    api_key=os.environ.get("cloudinary_api_key"),
+    api_secret=os.environ.get("cloudinary_api_secret"),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary",
     "app_home",
 ]
 
