@@ -32,7 +32,7 @@ class User(AbstractUser):
 
 class UserProfilePicture(models.Model):
     user = models.ForeignKey(
-        User, related_name="profile-pic",
+        User, related_name="profile_pic",
         on_delete=models.CASCADE
         )
     profile_picture = CloudinaryField("profile picture")
