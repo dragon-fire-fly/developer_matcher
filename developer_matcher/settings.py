@@ -46,7 +46,7 @@ DEBUG = True
 # else:
 #     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['locahost', '127.0.0.1', 'developer-matcher.herokuapp.com']
 
 
 # Application definition
