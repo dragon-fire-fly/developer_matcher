@@ -39,7 +39,7 @@ class User(AbstractUser):
         )
     portfolio = models.URLField(
         help_text="What is your portfolio URL?",
-        max_length=255, blank=True, null=TruePython
+        max_length=255, blank=True, null=True
         )
 
 
