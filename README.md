@@ -23,6 +23,16 @@ The objective of Developer Matcher (better name pending...) is to link software 
 11. [As a **registered site user** I can **star and add comments to projects** so that **I can interact with projects, share my ideas and contact the project owner**](https://github.com/dragon-fire-fly/developer_matcher/issues/11)(issue #11)
 12. [As a **registered site user** I can **perform a search for projects based on a variety of parameters** so that **I can more easily find the type of project I am looking for**](https://github.com/dragon-fire-fly/developer_matcher/issues/12)(issue #12)
 
+### WireFrames
+Initial wireframe ideas:
+
+![Log in page](static/wireframes/home_login.png)
+![Register](static/wireframes/register.png)
+![Profile page](static/wireframes/profile.png)
+![About page](static/wireframes/about.png)
+![Find developers page](static/wireframes/find_developers.png)
+![Find projects page](static/wireframes/find_projects.png)
+
 
 ## Features
 
@@ -44,6 +54,18 @@ The objective of Developer Matcher (better name pending...) is to link software 
 ### Remaining Bugs
 
 ## Deployment
+### Github
+
+### Heroku
+- Create new app on Heroku
+
+- Create django secret key with https://djecrety.ir/
+- Add secret key to Heroku config variables
+- Add DATABASE_URL to Heroku config variables 
+- disable collectstatic with `heroku config:set DISABLE_COLLECTSTATIC=1`
+
+- Create a Procfile and add `web: gunicorn developer_matcher.wsgi:application` to allow gunicorn to act as the web server
+- Add Heroku app to list of allowed hosts in settings.py `ALLOWED_HOSTS = ['locahost', '127.0.0.1', 'developer-matcher.herokuapp.com']`
 
 ## Credits
 
