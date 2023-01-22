@@ -13,10 +13,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import env
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+if os.path.isfile("env.py"):
+    import env
 
 # cloudinary API config variables
 cloudinary.config(
@@ -33,10 +35,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_fs4!c*h5#spa-s!o3_zl21@(v(w1i^z_ok0=#c)i9n8+*i+cz"
+SECRET_KEY = os.environ.get("SECRET_KEY","")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = development
+
+# if development: 
+#     ALLOWED_HOSTS = ['localhost']
+# else:
+#     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
 ALLOWED_HOSTS = []
 
