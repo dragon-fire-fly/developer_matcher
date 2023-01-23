@@ -14,18 +14,18 @@ from pathlib import Path
 import os
 import dj_database_url
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary.uploader
+# import cloudinary.api
 
 if os.path.isfile("env.py"):
     import env
 
 # cloudinary API config variables
-cloudinary.config(
-    cloud_name=os.environ.get("cloudinary_cloud_name"),
-    api_key=os.environ.get("cloudinary_api_key"),
-    api_secret=os.environ.get("cloudinary_api_secret"),
-)
+# cloudinary.config(
+#     cloud_name=os.environ.get("cloudinary_cloud_name"),
+#     api_key=os.environ.get("cloudinary_api_key"),
+#     api_secret=os.environ.get("cloudinary_api_secret"),
+# )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,19 +36,15 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY","")
+SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = development
+DEBUG = os.environ.get("DEBUG", False)
 
-# if development: 
-#     ALLOWED_HOSTS = ['localhost']
-# else:
-#     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
-
-ALLOWED_HOSTS = ['locahost', '127.0.0.1', 'developer-matcher.herokuapp.com']
-
+ALLOWED_HOSTS = []
+host = os.environ.get("SITE_NAME")
+if host:
+    ALLOWED_HOSTS.append(host)
 
 # Application definition
 
