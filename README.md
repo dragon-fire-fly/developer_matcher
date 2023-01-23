@@ -26,12 +26,12 @@ The objective of Developer Matcher (better name pending...) is to link software 
 ### WireFrames
 Initial wireframe ideas:
 
-![Log in page](static/wireframes/home_login.png)
-![Register](static/wireframes/register.png)
-![Profile page](static/wireframes/profile.png)
-![About page](static/wireframes/about.png)
-![Find developers page](static/wireframes/find_developers.png)
-![Find projects page](static/wireframes/find_projects.png)
+![Log in page](documentation/wireframes/home_login.png)
+![Register](documentation/wireframes/register.png)
+![Profile page](documentation/wireframes/profile.png)
+![About page](documentation/wireframes/about.png)
+![Find developers page](documentation/wireframes/find_developers.png)
+![Find projects page](documentation/wireframes/find_projects.png)
 
 
 ## Features
