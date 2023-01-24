@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import User, UserProfilePicture, Project, ProgrammingLanguage
+from app_user.models import User
 
 # Create your views here.
 
