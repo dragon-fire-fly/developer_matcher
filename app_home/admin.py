@@ -39,10 +39,9 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class ProgrammingLanguageAdmin(admin.ModelAdmin):
-    fields = ["user", "project", "language"]
+    fields = ["language"]
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProgrammingLanguage, ProgrammingLanguageAdmin)
-
