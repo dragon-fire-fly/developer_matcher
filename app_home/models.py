@@ -2,13 +2,17 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
 from cloudinary.models import CloudinaryField
+from django_countries.fields import CountryField
 
-PROGRAMMING_LANGUAGES = [
-    ("python", "Python"),
-    ("html", "HTML"),
-    ("css", "CSS"),
-    ("javascript", "Javascript")
-    ]
+
+class ProgrammingLanguage(models.Model):
+    language = models.CharField(
+        help_text="Enter programming language",
+        max_length=50
+        )
+
+    def __str__(self):
+        return self.language
 
 
 class User(AbstractUser):
@@ -16,14 +20,10 @@ class User(AbstractUser):
     last_name and date_joined fields.
     Adds additional specific fields to this model.
     '''
-    p_language = MultiSelectField(
-        max_length=50,
-        help_text="Choose your programming language(s)",
-        choices=PROGRAMMING_LANGUAGES
-        )
-    location = models.CharField(
+    p_language = models.ManyToManyField(ProgrammingLanguage)
+    location = CountryField(
         help_text="Where do you live?",
-        max_length=255, blank=True, null=True
+        blank_label='Country', blank=True, null=True
         )
     github_username = models.CharField(
         help_text="What is your GitHub username?",
@@ -42,6 +42,9 @@ class User(AbstractUser):
         max_length=255, blank=True, null=True
         )
 
+    def __str__(self):
+        return f"<user: {self.username}>"
+
 
 class UserProfilePicture(models.Model):
     user = models.ForeignKey(
@@ -53,7 +56,7 @@ class UserProfilePicture(models.Model):
 
 class Project(models.Model):
     user = models.ManyToManyField(User)
-    # p_language = models.ForeignKey(ProgrammingLanguage)
+    p_language = models.ManyToManyField(ProgrammingLanguage)
     title = models.CharField(
         help_text="What is the title for your project?",
         max_length=100
@@ -62,12 +65,5 @@ class Project(models.Model):
         help_text="Enter your project description here",
         blank=True, null=True)
 
-
-class ProgrammingLanguage(models.Model):
-    user = models.ManyToManyField(User, blank=True)
-    project = models.ManyToManyField(Project, blank=True)
-    language = models.CharField(
-        help_text="Enter programming language",
-        max_length=50
-        )
-
+    def __str__(self):
+        return f"<Project name: {self.title}>"
