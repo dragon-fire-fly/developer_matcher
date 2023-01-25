@@ -14,14 +14,17 @@ class RegisterView(TemplateView):
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
             user = registration_form.save()
-            # automatically log the user in
+            # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:success"))
         return redirect(reverse("app_user:register"))
 
     def get(self, request, *args, **kwargs):
-        registration_form = UserRegistrationForm
+        # if the user is logged in, registration page is not available
+        if request.user.is_authenticated:
+            return redirect('/')
 
+        registration_form = UserRegistrationForm
         # show user signup page
         return render(
             request,
