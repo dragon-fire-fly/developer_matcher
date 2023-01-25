@@ -69,7 +69,7 @@ INSTALLED_APPS = [
 ]
 
 # Social accounts login
-SOCIALACCOUNT_LOGIN_ON_GET = False
+SOCIALACCOUNT_LOGIN_ON_GET = True
 AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
     ]

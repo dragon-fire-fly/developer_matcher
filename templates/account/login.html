@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 {% load i18n %}
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
@@ -19,6 +20,12 @@
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
           <button type="submit">{% trans "Sign In" %}</button>
+          <button class=" btn-outline-info">
+            <a href="{% provider_login_url 'google'%}?next=/">
+              <i class="fab fa-google"></i>
+              Sign In with Google
+            </a>
+          </button>
       </form>
     </div>
   </div>
