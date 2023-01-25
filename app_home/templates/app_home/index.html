@@ -2,6 +2,13 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Hello World</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h1>Hello World</h1>
+            Logged in as: {{ user.username }}
+        </div>
+    </div>
+</div>    
 
 {% endblock %}

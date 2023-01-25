@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
     "cloudinary",
+    "crispy_forms",
     "app_home",
     "app_user",
 ]
