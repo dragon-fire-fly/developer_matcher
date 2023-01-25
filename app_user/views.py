@@ -6,27 +6,27 @@ from .models import User, UserProfilePicture, Project, ProgrammingLanguage
 from .forms import UserSignupForm
 
 
-class SignupView(TemplateView):
+class RegisterView(TemplateView):
     model = User
-    template_name = "app_user/signup.html"
+    template_name = "app_user/register.html"
 
     def post(self, request, *args, **kwargs):
-        signup_form = UserSignupForm(request.POST)
-        if signup_form.is_valid():
-            user = signup_form.save()
+        registration_form = UserSignupForm(request.POST)
+        if registration_form.is_valid():
+            user = registration_form.save()
             # automatically log the user in
             login(request, user)
             return redirect(reverse("app_user:success"))
-        return redirect(reverse("app_user:signup"))
+        return redirect(reverse("app_user:register"))
 
     def get(self, request, *args, **kwargs):
-        signup_form = UserSignupForm
+        registration_form = UserSignupForm
 
         # show user signup page
         return render(
             request,
-            "app_user/signup.html",
+            "app_user/register.html",
             {
-                "signup_form": signup_form,
+                "registration_form": registration_form,
             },
         )
