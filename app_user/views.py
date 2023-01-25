@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from .models import User, UserProfilePicture, Project, ProgrammingLanguage
-from .forms import UserSignupForm
+from .forms import UserRegistrationForm
 
 
 class RegisterView(TemplateView):
@@ -11,7 +11,7 @@ class RegisterView(TemplateView):
     template_name = "app_user/register.html"
 
     def post(self, request, *args, **kwargs):
-        registration_form = UserSignupForm(request.POST)
+        registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
             user = registration_form.save()
             # automatically log the user in
@@ -20,7 +20,7 @@ class RegisterView(TemplateView):
         return redirect(reverse("app_user:register"))
 
     def get(self, request, *args, **kwargs):
-        registration_form = UserSignupForm
+        registration_form = UserRegistrationForm
 
         # show user signup page
         return render(
