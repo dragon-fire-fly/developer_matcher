@@ -1,6 +1,11 @@
 from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
-from .models import User, UserProfilePicture, Project, ProgrammingLanguage
+from .models import (
+    User,
+    UserProfilePicture,
+    Project,
+    ProgrammingLanguage,
+)
 
 
 class UserProfilePictureInLine(admin.TabularInline):
@@ -30,6 +35,7 @@ class UserAdmin(admin.ModelAdmin):
         "is_staff",
         "is_active",
         "is_superuser",
+        "follows",
     ]
     inlines = [UserProfilePictureInLine]
 
@@ -42,6 +48,7 @@ class ProgrammingLanguageAdmin(admin.ModelAdmin):
     fields = ["language"]
 
 
+# Register User,Project and ProgrammingLanguage
 admin.site.register(User, UserAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProgrammingLanguage, ProgrammingLanguageAdmin)
