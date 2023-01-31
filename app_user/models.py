@@ -49,6 +49,34 @@ class User(AbstractUser):
     def __str__(self):
         return f"<user: {self.username}>"
 
+    def to_json(self) -> dict:
+        """Function to represent the model as a json object"""
+        return {
+            "username": self.username,
+            "full name": self.get_full_name(),
+            "email": self.email,
+            "location": self.location,
+            "github username": self.github_username,
+            "github url": self.github_url,
+            "linked in url": self.linked_in,
+            "portfolio url": self.portfolio,
+        }
+
+    def to_json_list(self)-> dict:
+        """Function to represent the model as a json object"""
+        p_languages = []
+        for item in self.p_language.values():
+            p_languages.append(item["language"])
+
+        followed_by = []
+        for item in self.follows.values():
+            followed_by.append(item["follows"])
+
+        return {
+            "programming languages": p_languages,
+            "follows": followed_by,
+        }
+
 
 class UserProfilePicture(models.Model):
     user = models.ForeignKey(User, related_name="profile_pic", on_delete=models.CASCADE)

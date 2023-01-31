@@ -22,7 +22,7 @@ class RegisterView(TemplateView):
     def get(self, request, *args, **kwargs):
         # if the user is logged in, registration page is not available
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect("/")
 
         registration_form = UserRegistrationForm
         # show user signup page
@@ -33,3 +33,12 @@ class RegisterView(TemplateView):
                 "registration_form": registration_form,
             },
         )
+
+
+class ProfileView(TemplateView):
+    model = User
+    template_name = "app_user/user_profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
