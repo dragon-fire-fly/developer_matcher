@@ -23,6 +23,11 @@ class DeveloperOverview(TemplateView):
     model = User
     template_name = "app_home/developer_overview.html"
 
+    def get(self, request):
+        users = User.objects.all()
+        context = {"users": users}
+        return render(request, "app_home/developer_overview.html", context)
+
 
 class ProjectOverview(TemplateView):
     model = Project

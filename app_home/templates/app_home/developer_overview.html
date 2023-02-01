@@ -2,6 +2,22 @@
 {% block title %}Developers{% endblock %}
 
 {% block content %}
-<h1>Developer Overview</h1>
+<div class="row">
+    <div class="col-md-8 mt-3 offset-md-4">
+        <h1>Developer Overview</h1>
+    </div>
+</div>
+
+<div class="row">
+    {% for user in users %}
+    <div class="col-md-3">
+        <div class="card">
+            {{ user.username }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
 
 {% endblock %}
