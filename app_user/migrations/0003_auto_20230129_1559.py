@@ -7,16 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_user', '0002_auto_20230129_1550'),
+        ("app_user", "0002_auto_20230129_1550"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='follows',
-            field=models.ManyToManyField(blank=True, related_name='followed_by', to=settings.AUTH_USER_MODEL),
+            model_name="user",
+            name="follows",
+            field=models.ManyToManyField(
+                blank=True, related_name="followed_by", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.DeleteModel(
-            name='Profile',
+            name="Profile",
         ),
     ]
