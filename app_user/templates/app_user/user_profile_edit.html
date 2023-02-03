@@ -10,12 +10,10 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <input type="hidden" name="button" value="update">
                 <button>Update</button>
             </form>
             <a href="{% url 'app_user:profile' %}">Cancel</a>
         </div>
     </div>
-
 </div>
 {% endblock %}

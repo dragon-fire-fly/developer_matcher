@@ -27,9 +27,15 @@
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-3">
-            <form action="" method="POST">
+            <form method="POST">
                 {% csrf_token %}
+                <input type="hidden" name="method" value="edit">
                 <button>Edit Profile</button>
+            </form>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="method" value="delete">
+                <button>Delete Profile</button>
             </form>
         </div>
     </div>

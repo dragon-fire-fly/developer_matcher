@@ -44,8 +44,14 @@ class ProfileView(TemplateView):
         return context
 
     def post(self, request):
-        user = get_object_or_404(User, pk=request.user.pk)
-        return redirect(reverse("app_user:edit-profile"))
+        if request.POST["method"] == "edit":
+            return redirect(reverse("app_user:edit-profile"))
+        elif request.POST["method"] == "delete":
+            print("delete!")
+            user = get_object_or_404(User, pk=request.user.pk)
+            user.delete()
+            return redirect(reverse("app_user:register"))
+        return redirect(reverse("app_user:profile"))
 
 
 class EditProfileView(TemplateView):
