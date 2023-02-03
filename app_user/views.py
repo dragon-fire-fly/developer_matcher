@@ -54,7 +54,15 @@ class EditProfileView(TemplateView):
 
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
-
         context = {"form": UserEditForm(instance=user)}
 
         return render(request, "app_user/user_profile_edit.html", context)
+
+    def post(self, request):
+        # get the current user (or return a 404)
+        user = get_object_or_404(User, pk=request.user.pk)
+        # add data to the form and save it
+        form = UserEditForm(request.POST, instance=user)
+        form.save()
+        # redirect to main profile page
+        return redirect(reverse("app_user:profile"))
