@@ -2,28 +2,36 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<h1>{{ user.username }}'s Profile</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-3">
+            <h1>{{ user.username }}'s Profile</h1>
+            {% for key, value in user.to_json.items %}
+            {% if value %}
 
-<div class="row">
-    <div class="col-md">
-        {% for key, value in user.to_json.items %}
-        {% if value %}
+            <p><strong>{{ key.title }}:</strong> {{ value }}</p>
 
-        <p><strong>{{ key.title }}:</strong> {{ value }}</p>
+            {% endif %}
+            {% endfor %}
 
-        {% endif %}
-        {% endfor %}
-
-        {% for key, value in user.to_json_list.items %}
-        {% if value %}
+            {% for key, value in user.to_json_list.items %}
+            {% if value %}
             <p><strong>{{ key.title }}:</strong> 
                 {% for v in value %}
                 {{ v }}
                 {% endfor %}
             </p>
             {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-3">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button>Edit Profile</button>
+            </form>
+        </div>
     </div>
 </div>
-
 {% endblock %}
