@@ -138,6 +138,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "developer_matcher.wsgi.application"
 
+if os.getenv("GITHUB_WORKFLOW"):
+    # check if in GITHUB ACTION MODE 
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "github-actions",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "localhost",
+            "PORT": "5432",
+        }
+    }
+else:
+    # check if ENV Vars are set
+    import sys
+
+    if sys.argv[1].lower() != "test":
+        DATABASES = {
+            "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+        }
+    else:
+        TEST = True
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": "postgres",
+                "USER": "postgres",
+                "PASSWORD": "postgres",
+                "HOST": "localhost",
+                "PORT": "5432",
+            },
+        }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -149,7 +181,7 @@ WSGI_APPLICATION = "developer_matcher.wsgi.application"
 #     }
 # }
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+# DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
 
 # Password validation
