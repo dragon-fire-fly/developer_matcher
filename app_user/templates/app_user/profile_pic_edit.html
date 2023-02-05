@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Profile Picture{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">{{ user.username }}'s Profile Pictures</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <img src="/static/blackcat.webp" alt="" class="card-img-top">
+                <div class="card-body">
+                    <form method="POST" >
+                        {% csrf_token %}
+                        <input type="hidden" name="method" value="edit">
+                        <button>Add Profile Pic</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -72,3 +72,8 @@ class EditProfileView(TemplateView):
         form.save()
         # redirect to main profile page
         return redirect(reverse("app_user:profile"))
+
+
+class EditProfilePicView(TemplateView):
+    model = User
+    template_name = "app_user/profile_pic_edit.html"
