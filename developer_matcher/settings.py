@@ -37,7 +37,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
@@ -139,7 +139,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "developer_matcher.wsgi.application"
 
 if os.getenv("GITHUB_WORKFLOW"):
-    # check if in GITHUB ACTION MODE 
+    # check if in GITHUB ACTION MODE
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -155,9 +155,7 @@ else:
     import sys
 
     if sys.argv[1].lower() != "test":
-        DATABASES = {
-            "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-        }
+        DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
     else:
         TEST = True
         DATABASES = {
