@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
-from .models import User
+from django_countries.fields import CountryField
+from .models import User, ProgrammingLanguage
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -18,3 +19,28 @@ class UserRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class UserEditForm(forms.ModelForm):
+    p_language_queryset = ProgrammingLanguage.objects.all()
+    p_language_choices = []
+    for language in p_language_queryset:
+        p_language_choices.append((language.language.lower(), language.language))
+    p_language = forms.MultipleChoiceField(
+        choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
+    )
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "p_language",
+            "location",
+            "github_username",
+            "github_url",
+            "linked_in",
+            "portfolio",
+        ]

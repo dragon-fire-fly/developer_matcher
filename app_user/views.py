@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from .models import User, UserProfilePicture, Project, ProgrammingLanguage
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserEditForm
 
 
 class RegisterView(TemplateView):
@@ -42,3 +42,33 @@ class ProfileView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+    def post(self, request):
+        if request.POST["method"] == "edit":
+            return redirect(reverse("app_user:edit-profile"))
+        elif request.POST["method"] == "delete":
+            print("delete!")
+            user = get_object_or_404(User, pk=request.user.pk)
+            user.delete()
+            return redirect(reverse("app_user:register"))
+        return redirect(reverse("app_user:profile"))
+
+
+class EditProfileView(TemplateView):
+    model = User
+    template_name = "app_user/user_profile_edit.html"
+
+    def get(self, request):
+        user = get_object_or_404(User, pk=request.user.pk)
+        context = {"form": UserEditForm(instance=user)}
+
+        return render(request, "app_user/user_profile_edit.html", context)
+
+    def post(self, request):
+        # get the current user (or return a 404)
+        user = get_object_or_404(User, pk=request.user.pk)
+        # add data to the form and save it
+        form = UserEditForm(request.POST, instance=user)
+        form.save()
+        # redirect to main profile page
+        return redirect(reverse("app_user:profile"))

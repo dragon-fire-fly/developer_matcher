@@ -37,14 +37,11 @@ class User(AbstractUser):
     portfolio = models.URLField(
         help_text="What is your portfolio URL?", max_length=255, blank=True, null=True
     )
-    # Users that a user follows. Don't have to follow anyone and don't need to 
+    # Users that a user follows. Don't have to follow anyone and don't need to
     # be followed back by the same user.
     follows = models.ManyToManyField(
-        "self",
-        related_name="followed_by",
-        symmetrical=False,
-        blank=True
-        )
+        "self", related_name="followed_by", symmetrical=False, blank=True
+    )
 
     def __str__(self):
         return f"<user: {self.username}>"
@@ -62,7 +59,7 @@ class User(AbstractUser):
             "portfolio url": self.portfolio,
         }
 
-    def to_json_list(self)-> dict:
+    def to_json_list(self) -> dict:
         """Function to represent the model as a json object"""
         p_languages = []
         for item in self.p_language.values():
