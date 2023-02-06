@@ -37,6 +37,10 @@ class TestUserRegistration(TestCase):
         client = Client()
 
     def test_user_registration(self):
+        # Test number of users before form submission
+        self.assertEqual(
+            User.objects.count(), 1)
+
         # define url for registration page
         self.url = reverse("app_user:register")
 
@@ -60,30 +64,63 @@ class TestUserRegistration(TestCase):
                 "password2": "T35tP@55w0rd",
             },
         )
-
-        # check redirection following registration (302 status code)
+        # check redirection following registration
         self.assertEqual(response.status_code, 302)
+
         # check user redirected correctly to home page after signing up
         self.assertRedirects(response, "/user/success/")
+
         # check if user was added to the database
         self.assertEqual(
             User.objects.count(), 2)
 
-        # check for feedback if account creation failure
-
-        # check user logged in after signup 
-
-        # Check signup date is correctly added
-        self.assertTrue(
-            User.objects.get(
+        newly_created_user = User.objects.get(
                 username="user_created_for_testing_2"
-            ).date_joined, datetime.now()
+            )
+        # check user logged in and authenticated after signup
+        self.assertTrue(
+            newly_created_user.is_authenticated
         )
+
+        # check signup date is correctly added
+        self.assertTrue(
+            newly_created_user.date_joined, datetime.now()
+        )
+
+    def test_incorrect_user_registration(self):
+        # Test number of users before form submission
+        self.assertEqual(
+            User.objects.count(), 1)
+
+        # define url for registration page
+        self.url = reverse("app_user:register")
+
+        response = self.client.post(
+            self.url,
+            data={
+                "username": "user_created_for_testing_3",
+                "email": "test@test.com",
+                "password1": "T35tP@55w0rd",
+                "password2": "1nc0rr3ctT35tP@55w0rd",
+            },
+        )
+
+        # test that no new user was created (number of users after
+        # form submission)
+        self.assertEqual(
+            User.objects.count(), 1)
+
+        # test that browser redirects back to the form for resubmission
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, "/user/register/")
+
+        # check for feedback if account creation failure
 
         def test_user_login(self):
             # - user can log in with existing user
             self.client.force_login(user=user)
-            # - user receives feedback if login has failed (e.g. incorrect password)
+            # - user receives feedback if login has failed
+            # (e.g. incorrect password)
             pass
 
         def test_user_login_google(self):
