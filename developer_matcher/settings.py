@@ -22,11 +22,11 @@ if os.path.isfile("env.py"):
     import env
 
 # cloudinary API config variables
-# cloudinary.config(
-#     cloud_name=os.environ.get("cloudinary_cloud_name"),
-#     api_key=os.environ.get("cloudinary_api_key"),
-#     api_secret=os.environ.get("cloudinary_api_secret"),
-# )
+cloudinary.config(
+    cloud_name=os.environ.get("cloudinary_cloud_name"),
+    api_key=os.environ.get("cloudinary_api_key"),
+    api_secret=os.environ.get("cloudinary_api_secret"),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.sites",
+    "django_extensions",
     "cloudinary_storage",
     "django.contrib.staticfiles",
     "allauth",

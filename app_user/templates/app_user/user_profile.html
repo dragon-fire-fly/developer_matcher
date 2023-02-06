@@ -8,7 +8,10 @@
             <h1 class="text-center">{{ user.username }}'s Profile</h1>
             <div class="circle-container">
                 <div class="circle-img">
-                    <img src="/static/blackcat.webp" alt="">
+                    <a href="{% url 'app_user:edit-profile-pic' %}" class="circle-img">
+                        <img src={{user.profile_pic.values.0.profile_picture.url}} alt="">
+                    </a>
+                    
                 </div>
             </div>
         </div>
