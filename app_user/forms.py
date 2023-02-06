@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django_countries.fields import CountryField
-from .models import User, ProgrammingLanguage
+from .models import User, ProgrammingLanguage,UserProfilePicture
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -25,7 +25,7 @@ class UserEditForm(forms.ModelForm):
     p_language_queryset = ProgrammingLanguage.objects.all()
     p_language_choices = []
     for language in p_language_queryset:
-        p_language_choices.append((language.language.lower(), language.language))
+        p_language_choices.append((language.id, language.language))
     p_language = forms.MultipleChoiceField(
         choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
     )
@@ -44,3 +44,10 @@ class UserEditForm(forms.ModelForm):
             "linked_in",
             "portfolio",
         ]
+
+
+class AddProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = UserProfilePicture
+        fields = "__all__"
+        exclude = ["user"]

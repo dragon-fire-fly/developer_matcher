@@ -15,6 +15,12 @@
             <div class="card text-center">
                 <img src="{{picture}}" alt="" class="card-img-top">
                 <div class="card-body">
+                    <form method="POST" >
+                        {% csrf_token %}
+                        <input type="hidden" name="method" value="delete">
+                        {{ form }}
+                        <button type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -22,7 +28,7 @@
 
                 <form method="POST" >
                     {% csrf_token %}
-                    <input type="hidden" name="method" value="edit">
+                    <input type="hidden" name="method" value="add">
                     <button type="submit">Add Profile Pic</button>
                 </form>
     </div>

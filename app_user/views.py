@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from .models import User, UserProfilePicture, Project, ProgrammingLanguage
-from .forms import UserRegistrationForm, UserEditForm
+from .forms import UserRegistrationForm, UserEditForm, AddProfilePictureForm
 
 
 class RegisterView(TemplateView):
@@ -89,3 +89,12 @@ class EditProfilePicView(TemplateView):
         }
 
         return render(request, "app_user/profile_pic_edit.html", context)
+
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=request.user.pk)
+        if request.POST.get("method") == "add":
+            
+            return redirect(reverse("app_user:edit-profile-pic"))
+
+        elif request.POST.get("method") == "delete":
+            return redirect(reverse("app_user:edit-profile-pic"))
