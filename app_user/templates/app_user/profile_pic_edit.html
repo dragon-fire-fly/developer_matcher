@@ -10,18 +10,21 @@
     </div>
 
     <div class="row">
+        {% for picture in pictures %}
         <div class="col-md-3">
             <div class="card text-center">
-                <img src="{% url 'app_user:edit-profile-pic' %}" alt="" class="card-img-top">
+                <img src="{{picture}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <form method="POST" >
-                        {% csrf_token %}
-                        <input type="hidden" name="method" value="edit">
-                        <button type="submit">Add Profile Pic</button>
-                    </form>
                 </div>
             </div>
         </div>
+        {% endfor %}
+
+                <form method="POST" >
+                    {% csrf_token %}
+                    <input type="hidden" name="method" value="edit">
+                    <button type="submit">Add Profile Pic</button>
+                </form>
     </div>
 </div>
 

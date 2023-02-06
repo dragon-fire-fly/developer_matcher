@@ -77,3 +77,15 @@ class EditProfileView(TemplateView):
 class EditProfilePicView(TemplateView):
     model = User
     template_name = "app_user/profile_pic_edit.html"
+
+    def get(self, request):
+        user = get_object_or_404(User, pk=request.user.pk)
+        pictures = []
+        for picture in user.profile_pic.values():
+            pictures.append(picture["profile_picture"].url)
+        context = {
+            "user": user,
+            "pictures": pictures
+        }
+
+        return render(request, "app_user/profile_pic_edit.html", context)
