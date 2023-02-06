@@ -93,8 +93,17 @@ class EditProfilePicView(TemplateView):
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
         if request.POST.get("method") == "add":
-            
+            new_picture = AddProfilePictureForm(
+                request.POST,
+                request.FILES,
+                initial={"user": user}
+            )
+            if new_picture.is_valid():
+                new_picture = new_picture.save(commit=False)
+                new_picture.user = user
+                new_picture.save()
             return redirect(reverse("app_user:edit-profile-pic"))
 
         elif request.POST.get("method") == "delete":
-            return redirect(reverse("app_user:edit-profile-pic"))
+            print("delete")
+        return redirect(reverse("app_home:about"))

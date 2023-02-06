@@ -18,19 +18,19 @@
                     <form method="POST" >
                         {% csrf_token %}
                         <input type="hidden" name="method" value="delete">
-                        {{ form }}
                         <button type="submit">Delete</button>
                     </form>
                 </div>
             </div>
         </div>
         {% endfor %}
-
-                <form method="POST" >
-                    {% csrf_token %}
-                    <input type="hidden" name="method" value="add">
-                    <button type="submit">Add Profile Pic</button>
-                </form>
+        
+        <form method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="method" value="add">
+            {{ form }}
+            <button type="submit">Add Profile Pic</button>
+        </form>
     </div>
 </div>
 
