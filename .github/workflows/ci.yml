@@ -38,29 +38,21 @@ jobs:
         run: python --version
       - name: Install requirements # install application requirements
         run: pip install -r requirements.txt
-      - name: Run Database MakeMigrations # run migrations to create table in side car db container
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
-          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
-        run: python manage.py makemigrations
       - name: Run Database Migrations # run migrations to create table in side car db container
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
-          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+          GITHUB_SECRET: ${{ secrets.GH_SECRET }}
+          GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
         run: python manage.py migrate
       - name: Run Django Unittests # running tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
-          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+          GITHUB_SECRET: ${{ secrets.GH_SECRET }}
+          GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
         run: python manage.py test
       - name: Check pep8 with black # pep8 compliance check
         run: python -m black --check .
