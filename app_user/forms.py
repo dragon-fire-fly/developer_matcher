@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django_countries.fields import CountryField
-from .models import User, ProgrammingLanguage,UserProfilePicture
+from .models import User, ProgrammingLanguage, UserProfilePicture
 
 
 class UserRegistrationForm(UserCreationForm):

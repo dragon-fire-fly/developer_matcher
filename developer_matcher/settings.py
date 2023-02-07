@@ -38,7 +38,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if os.getenv("GITHUB_WORKFLOW"):
-    SECRET_KEY = "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Characters"
+    SECRET_KEY = (
+        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Characters"
+    )
 else:
     SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
