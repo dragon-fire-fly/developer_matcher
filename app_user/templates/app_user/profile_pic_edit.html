@@ -15,11 +15,11 @@
             <div class="card text-center">
                 <img src="{{picture}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" id="delete-pic-form">
                         {% csrf_token %}
                         <input type="hidden" name="method" value="delete">
                         <input type="hidden" name="pic_url" value="{{picture}}">
-                        <button type="submit">Delete</button>
+                        <button type="submit" data-toggle="modal" data-target="#delete-pic-modal" class="delete-pic-btn">Delete</button>
                     </form>
                 </div>
             </div>
@@ -34,5 +34,29 @@
         </form>
     </div>
 </div>
+
+<!-- Modal for delete picture button -->
+<!-- Modified from https://getbootstrap.com/docs/4.0/components/modal/ -->
+<div class="modal fade" id="delete-pic-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>This action will delete your picture</p>
+                <p>This action is IRREVERSIBLE. Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
