@@ -18,6 +18,7 @@
                     <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="method" value="delete">
+                        <input type="hidden" name="pic_url" value="{{picture}}">
                         <button type="submit">Delete</button>
                     </form>
                 </div>
