@@ -15,7 +15,7 @@
             <div class="card text-center">
                 <img src="{{picture}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <form method="POST" >
+                    <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="method" value="delete">
                         <button type="submit">Delete</button>
@@ -25,7 +25,7 @@
         </div>
         {% endfor %}
         
-        <form method="POST" >
+        <form method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="method" value="add">
             {{ form }}

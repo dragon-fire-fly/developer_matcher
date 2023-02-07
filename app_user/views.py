@@ -81,11 +81,13 @@ class EditProfilePicView(TemplateView):
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
         pictures = []
+        form = AddProfilePictureForm()
         for picture in user.profile_pic.values():
             pictures.append(picture["profile_picture"].url)
         context = {
             "user": user,
-            "pictures": pictures
+            "pictures": pictures,
+            "form": form,
         }
 
         return render(request, "app_user/profile_pic_edit.html", context)
