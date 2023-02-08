@@ -12,10 +12,48 @@ Unittesting was used to test the main functionality of the site and confirm that
 UserView testing
 Unittests were run for the following processes:
 1. Registration
-- Test that the user registration page successfully loads (status code 200) the correct 
-    - Test that a new use can successfully register on the site
+    - Test that the user registration page successfully loads (status code 200) 
+    - Test that the correct template is rendered for registration page
+    - Test that form is submitted
+    - Test that user is redirected (302 status) 
+    - Test that redirection is to success page
+    - Test that a new user is created in the db
+    - Test that user is logged in and authenitcated following resistration
+    - Test that a signup date is automatically generated
+    - Test that no new user is created if form not valid
+    - Test that browser redirects back to the form for resubmission if not valid
+
+2. User login/logout
+    - Test that the login page successfully loads (status code 200)  
+    - Test that existing user is able to login
+    - Test that existing user cannot log in with incorrect credentials
+    - Test that user is redirected to home 
 
 
+        print(response)
+        # - user can log in with existing user
+        response = self.client.post(
+            self.url,
+            data={
+                "username": "user_created_for_testing",
+                "password": "T35tP@55w0rd",
+                "password2": "T35tP@55w0rd",
+            },
+        )
+        
+        self.assertNotEqual(first, second)
+
+        # self.client.force_login(user=user)
+        # - user receives feedback if login has failed
+        # (e.g. incorrect password)
+
+    def test_user_login_google(self):
+        # - test user can sign up/in with google
+        pass
+
+    def test_user_login_github(self):
+        # - test user can sign up/in with github
+        pass
 
 
 
