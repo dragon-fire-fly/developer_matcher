@@ -17,7 +17,9 @@ class RegisterView(TemplateView):
             # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:success"))
-        return redirect(reverse("app_user:register"))
+        return render(request, "app_user/register.html", {
+                "registration_form": registration_form,
+            },)
 
     def get(self, request, *args, **kwargs):
         # if the user is logged in, registration page is not available
