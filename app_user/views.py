@@ -17,7 +17,9 @@ class RegisterView(TemplateView):
             # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:success"))
-        return redirect(reverse("app_user:register"))
+        return render(request, "app_user/register.html", {
+                "registration_form": registration_form,
+            },)
 
     def get(self, request, *args, **kwargs):
         # if the user is logged in, registration page is not available
@@ -47,7 +49,6 @@ class ProfileView(TemplateView):
         if request.POST["method"] == "edit":
             return redirect(reverse("app_user:edit-profile"))
         elif request.POST["method"] == "delete":
-            print("delete!")
             user = get_object_or_404(User, pk=request.user.pk)
             user.delete()
             return redirect(reverse("app_user:register"))
@@ -81,11 +82,13 @@ class EditProfilePicView(TemplateView):
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
         pictures = []
+        form = AddProfilePictureForm()
         for picture in user.profile_pic.values():
             pictures.append(picture["profile_picture"].url)
         context = {
             "user": user,
-            "pictures": pictures
+            "pictures": pictures,
+            "form": form,
         }
 
         return render(request, "app_user/profile_pic_edit.html", context)
@@ -94,9 +97,7 @@ class EditProfilePicView(TemplateView):
         user = get_object_or_404(User, pk=request.user.pk)
         if request.POST.get("method") == "add":
             new_picture = AddProfilePictureForm(
-                request.POST,
-                request.FILES,
-                initial={"user": user}
+                request.POST, request.FILES, initial={"user": user}
             )
             if new_picture.is_valid():
                 new_picture = new_picture.save(commit=False)
@@ -106,4 +107,11 @@ class EditProfilePicView(TemplateView):
 
         elif request.POST.get("method") == "delete":
             print("delete")
-        return redirect(reverse("app_home:about"))
+            user = get_object_or_404(User, pk=request.user.pk)
+            pic_url = request.POST["pic_url"]
+            for num in range(len(user.profile_pic.values())):
+                if user.profile_pic.values()[num]["profile_picture"].url == pic_url:
+                    id_pic_to_delete = user.profile_pic.values()[num]["id"]
+            picture = get_object_or_404(UserProfilePicture, pk=id_pic_to_delete)
+            picture.delete()
+        return redirect(reverse("app_user:edit-profile-pic"))
