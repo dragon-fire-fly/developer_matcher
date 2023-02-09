@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.sites",
-    "django_extensions",
     "cloudinary_storage",
     "django.contrib.staticfiles",
     "allauth",
@@ -160,9 +159,7 @@ else:
     # check if ENV Vars are set
     import sys
 
-    if sys.argv[1].lower() != "test":
-        DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
-    else:
+    if "test" in sys.argv:
         TEST = True
         DATABASES = {
             "default": {
@@ -174,6 +171,10 @@ else:
                 "PORT": "5432",
             },
         }
+    else:
+        DATABASES = {
+            "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+            }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

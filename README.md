@@ -35,6 +35,59 @@ Initial wireframe ideas:
 
 
 ## Features
+1. Register 
+
+2. Log in 
+
+3. View/edit/delete profile
+
+4. Add/edit/delete profile pic
+
+
+
+
+
+
+### Log in
+
+#### Regular
+
+#### Allauth
+in login template:
+`{% load socialaccount %}`
+`<a href="{% provider_login_url 'google'%}?next=/">
+    <i class="fab fa-google"></i>
+    Sign In with Google
+</a>`
+
+in settings.py:
+`   'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',`
+
+
+`SOCIALACCOUNT_LOGIN_ON_GET = True
+AUTHENTICATION_BACKENDS = [
+    "allauth.account.auth_backends.AuthenticationBackend",
+    ]
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    }
+}
+SITE_ID = 1
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"`
+
 
 
 
@@ -67,9 +120,12 @@ Initial wireframe ideas:
 - Create a Procfile and add `web: gunicorn developer_matcher.wsgi:application` to allow gunicorn to act as the web server
 - Add Heroku app to list of allowed hosts in settings.py `ALLOWED_HOSTS = ['locahost', '127.0.0.1', 'developer-matcher.herokuapp.com']`
 
-## Credits
+- Add config vars - cloudinary, database_url, port, secret_key, google_client_id, google_secret, github_client_id, github_secret
 
-Cloudinary:
+## Credits
+### Content
+
+Cloudinary image upload API:
 https://cloudinary.com/documentation/image_upload_api_reference
 
 CSS/bootstrap:
@@ -81,3 +137,20 @@ https://getbootstrap.com/docs/4.0/components/card/#card-columns
 Crispy forms:
 https://simpleisbetterthancomplex.com/tutorial/2018/08/13/how-to-use-bootstrap-4-forms-with-django.html
 
+AllAuth/OAuth:
+For integration of google and github login options
+https://learndjango.com/tutorials/django-allauth-tutorial
+https://pylessons.com/django-google-oauth
+
+General Django:
+https://pylessons.com/user-registration - user registration - models and forms
+https://docs.djangoproject.com/en/4.1/ref/class-based-views/generic-editing/ - generic views
+https://docs.djangoproject.com/en/4.1/topics/http/file-uploads/ - uploading images ()
+https://pypi.org/project/better-profanity/ - profanity checking
+
+Testing:
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
+
+JavaScript:
+JS for modal
+https://www.w3schools.com/howto/howto_css_modals.asp
