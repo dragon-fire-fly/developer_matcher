@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "app_home",
     "app_user",
+    "django_extensions",
 ]
 
 # Social accounts login
