@@ -47,10 +47,10 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = []
-host = os.environ.get("SITE_NAME")
-if host:
-    ALLOWED_HOSTS.append(host)
+ALLOWED_HOSTS = ["developer-matcher.herokuapp.com", "127.0.0.1", "localhost"]
+# host = os.environ.get("SITE_NAME")
+# if host:
+#     ALLOWED_HOSTS.append(host)
 
 # Application definition
 
