@@ -38,7 +38,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if os.getenv("GITHUB_WORKFLOW"):
-    SECRET_KEY = "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Characters"
+    SECRET_KEY = (
+        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Characters"
+    )
 else:
     SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
@@ -59,7 +61,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.sites",
-    "django_extensions",
     "cloudinary_storage",
     "django.contrib.staticfiles",
     "allauth",
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "app_home",
     "app_user",
+    "django_extensions",
 ]
 
 # Social accounts login
@@ -158,9 +160,7 @@ else:
     # check if ENV Vars are set
     import sys
 
-    if sys.argv[1].lower() != "test":
-        DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
-    else:
+    if "test" in sys.argv:
         TEST = True
         DATABASES = {
             "default": {
@@ -172,6 +172,10 @@ else:
                 "PORT": "5432",
             },
         }
+    else:
+        DATABASES = {
+            "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+            }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

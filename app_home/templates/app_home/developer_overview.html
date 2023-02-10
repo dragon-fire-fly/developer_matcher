@@ -2,35 +2,38 @@
 {% block title %}Developers{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8 mt-3 offset-md-4">
-        <h1>Developer Overview</h1>
-    </div>
-</div>
-
-{% if user.is_authenticated %}
-<div class="row">
-    {% for user in users %}
-    <div class="col-md-3">
-        <div class="card text-center">
-            {{ user.username }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-4">
+            <h1>Developer Overview</h1>
         </div>
     </div>
-    {% endfor %}
-</div>
 
-{% else %}
-<div class="row">
-    <div class="col-md-8 offset-2">
-        <p>Please log in or register to see other developers</p>
-        <p><a href="{% url 'app_user:register' %}">Register</a></p>
-        <p><a href="/user/login/">Login</a></p>
-        
+    {% if user.is_authenticated %}
+    <div class="row">
+        {% for dev in users %}
+            {% if dev != user %}
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <a href="{% url 'app_home:profile-detail-view' dev.username %}">
+                            <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
+                        </a>
+                        <a href="{% url 'app_home:profile-detail-view' dev.username %}">{{ dev.username }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
+
+    {% else %}
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <p>Please log in or register to see other developers</p>
+            <p><a href="{% url 'app_user:register' %}">Register</a></p>
+            <p><a href="/user/login/">Login</a></p>
+            
+        </div>
+    </div>
+    {% endif %}
 </div>
-
-
-{% endif %}
-
-
 {% endblock %}
