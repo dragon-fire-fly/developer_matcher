@@ -6,7 +6,11 @@ from django_countries.fields import CountryField
 
 
 class ProgrammingLanguage(models.Model):
-    language = models.CharField(help_text="Enter programming language", max_length=50)
+    language = models.CharField(
+        help_text="Enter programming language",
+        max_length=50
+        )
+    # language_icon = CloudinaryField("p_language_icon")
 
     def __str__(self):
         return self.language
@@ -92,3 +96,7 @@ class Project(models.Model):
 
     def __str__(self):
         return f"<Project name: {self.title}>"
+
+class ProjectPicture(models.Model):
+    project = models.ForeignKey(Project, related_name="project_pic", on_delete=models.CASCADE)
+    project_picture = CloudinaryField("project picture")

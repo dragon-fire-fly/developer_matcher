@@ -4,12 +4,18 @@ from .models import (
     User,
     UserProfilePicture,
     Project,
+    ProjectPicture,
     ProgrammingLanguage,
 )
 
 
 class UserProfilePictureInLine(admin.TabularInline):
     model = UserProfilePicture
+    extra = 0
+
+
+class ProjectPictureInLine(admin.TabularInline):
+    model = ProjectPicture
     extra = 0
 
 
@@ -41,7 +47,8 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    fields = ["title", "description", "user"]
+    fields = ["title", "description", "user", "p_language"]
+    inlines = [ProjectPictureInLine]
 
 
 class ProgrammingLanguageAdmin(admin.ModelAdmin):

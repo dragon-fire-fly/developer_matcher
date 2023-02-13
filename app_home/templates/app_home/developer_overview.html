@@ -19,6 +19,10 @@
                             <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
                         </a>
                         <a href="{% url 'app_home:profile-detail-view' dev.username %}">{{ dev.username }}</a>
+                        <p>{% for language in dev.p_language.values %}
+                            {{ language.language }}
+                            {% endfor %}
+                        </p>
                     </div>
                 </div>
             {% endif %}
