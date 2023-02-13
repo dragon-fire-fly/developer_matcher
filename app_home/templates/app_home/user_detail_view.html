@@ -16,22 +16,20 @@
     <div class="row">
         <div class="col-md-8 offset-md-3">
             {% for key, value in user_for_profile.to_json.items %}
-            {% if value %}
+            {% if value and key != 'email' %}
 
             <p><strong>{{ key.title }}:</strong> {{ value }}</p>
 
             {% endif %}
             {% endfor %}
 
-            {% for key, value in user.to_json_list.items %}
+            {% for key, value in user_for_profile.to_json_list.items %}
             {% if value %}
             <p><strong>{{ key.title }}:</strong> 
-                {% for v in value %}
-                {{ v }}
-                {% endfor %}
-            </p>
+                {% for language in value %}{{ language }} {% endfor %}</p>
             {% endif %}
             {% endfor %}
+
         </div>
     </div>
 </div>
