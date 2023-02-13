@@ -36,6 +36,15 @@ class ProjectOverview(TemplateView):
     model = Project
     template_name = "app_home/project_overview.html"
 
+    def get(self, request):
+        projects = Project.objects.all()
+
+        context = {
+            "projects": projects
+            }
+        return render(request, "app_home/project_overview.html", context)
+
+
 
 class ProfileDetailView(TemplateView):
     model = User
@@ -50,3 +59,18 @@ class ProfileDetailView(TemplateView):
             "user_for_profile": user_to_get
         }
         return render(request, "app_home/user_detail_view.html", context)
+
+
+class ProjectDetailView(TemplateView):
+    model = Project
+    template_name = "app_home/profile_detail_view.html"
+
+    def get(self, request, *args, **kwargs):
+        project_for_profile = kwargs["title"]
+        project_to_get = get_object_or_404(Project, title=project_for_profile)
+
+        context = {
+            "user": request.user,
+            "project_for_profile": project_to_get
+        }
+        return render(request, "app_home/project_detail_view.html", context)

@@ -5,6 +5,7 @@ from .views import (
     DeveloperOverview,
     ProjectOverview,
     ProfileDetailView,
+    ProjectDetailView,
 )
 
 app_name = "app_home"
@@ -22,5 +23,10 @@ urlpatterns = [
         "users/<str:username>",
         ProfileDetailView.as_view(),
         name="profile-detail-view"
+        ),
+        path(
+        "users/<str:title>",
+        ProjectDetailView.as_view(),
+        name="project-detail-view"
         ),
 ]

@@ -2,33 +2,41 @@
 {% block title %}Projects{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8 mt-3 offset-md-4">
-        <h1>Project Overview</h1>
-    </div>
-</div>
-
-{% if user.is_authenticated %}
-<div class="row">
-    {% for user in users %}
-    <div class="col-md-3">
-        <div class="card text-center">
-            <!-- projects will go here -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-4">
+            <h1>Project Overview</h1>
         </div>
     </div>
-    {% endfor %}
-</div>
 
-{% else %}
-<div class="row">
-    <div class="col-md-8 offset-2">
-        <p>Please log in or register to see projects</p>
-        <p><a href="{% url 'app_user:register' %}">Register</a></p>
-        <p><a href="/user/login/">Login</a></p>
-        
+    {% if user.is_authenticated %}
+        <div class="row">
+            {% for project in projects %}
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <a href="{% url 'app_home:project-detail-view' project.title %}">
+                                <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top dev-img">
+                            </a>
+                            <a href="{% url 'app_home:project-detail-view' project.title %}">{{ project.title }}</a>
+                            <p>{% for language in project.p_language.values %}
+                                {{ language.language }}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <p>Please log in or register to see projects</p>
+            <p><a href="{% url 'app_user:register' %}">Register</a></p>
+            <p><a href="/user/login/">Login</a></p>
+            
+        </div>
     </div>
 </div>
-
 
 {% endif %}
 
