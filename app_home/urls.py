@@ -25,7 +25,7 @@ urlpatterns = [
         name="profile-detail-view"
         ),
         path(
-        "users/<str:title>",
+        "projects/<str:title>",
         ProjectDetailView.as_view(),
         name="project-detail-view"
         ),

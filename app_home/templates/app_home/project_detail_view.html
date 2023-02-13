@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">{{ project.title }}</h1>
+            <div class="circle-container">
+                <div class="circle-img">
+                        <img src={{project.project_pic.values.0.project_picture.url}} alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-3">
+            
+            <p><strong>Title:</strong> {{ project.title }}</p>
+            <p><strong>Description:</strong> {{ project.description }}</p>
+            <p><strong>Project Owner:</strong> {{ project.user.values.0.username }}</p>
+            <p><strong>Programming Languages:</strong> 
+                {% for language in project.p_language.values %}
+                {{ language.language }}
+                {% endfor %}</p>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

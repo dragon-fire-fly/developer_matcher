@@ -71,6 +71,7 @@ class ProjectDetailView(TemplateView):
 
         context = {
             "user": request.user,
-            "project_for_profile": project_to_get
+            "project": project_to_get
         }
+
         return render(request, "app_home/project_detail_view.html", context)
