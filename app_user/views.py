@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
+from django.contrib import messages
 from .models import User, UserProfilePicture, Project, ProgrammingLanguage
 from .forms import UserRegistrationForm, UserEditForm, AddProfilePictureForm
 
@@ -45,14 +46,12 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def post(self, request):
-        if request.POST["method"] == "edit":
-            return redirect(reverse("app_user:edit-profile"))
-        elif request.POST["method"] == "delete":
-            user = get_object_or_404(User, pk=request.user.pk)
-            user.delete()
-            return redirect(reverse("app_user:register"))
-        return redirect(reverse("app_user:profile"))
+
+def delete_profile(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+    user.delete()
+    messages.success(request, "Profile successfully deleted!")
+    return redirect(reverse("app_home:index"))
 
 
 class EditProfileView(TemplateView):

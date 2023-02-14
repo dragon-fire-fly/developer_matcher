@@ -21,19 +21,29 @@
                 <a class="nav-item nav-link active" href="{% url 'app_home:index' %}">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{% url 'app_home:developer-overview' %}">Developer Search</a>
                 <a class="nav-item nav-link" href="{% url 'app_home:project-overview' %}">Project Search</a>
-                <a class="nav-item nav-link disabled" href="{% url 'app_home:about' %}">About</a>
+                <a class="nav-item nav-link" href="{% url 'app_home:about' %}">About</a>
                 {% if user.is_authenticated %}
-                <a class="nav-item nav-link disabled" href="/user/logout">Log out</a>
-                <a class="nav-item nav-link disabled" href="/user/profile">My Profile</a>
+                <a class="nav-item nav-link" href="{% url 'account_logout' %}">Log out</a>
+                <a class="nav-item nav-link" href="{% url 'app_user:profile' %}">My Profile</a>
                 <p>Signed in as {{ user.username }}</p>
                 {% else %}
-                <a class="nav-item nav-link disabled" href="{% url 'app_user:register' %}">Register</a>
-                <a class="nav-item nav-link disabled" href="/user/login/">Login</a>
+                <a class="nav-item nav-link" href="{% url 'app_user:register' %}">Register</a>
+                <a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a>
                 {% endif %}
 
             </div>
         </div>
     </nav>
+    {% if messages %}
+    <section>
+        {% for msg in messages %}
+            <!-- all django message tags mirror bootstrap, except error/danger -->
+            <aside class="alert {% if msg.tags == 'error' %}alert-danger{% else %}alert-{{ msg.tags }}{% endif %} text-center" role="alert">
+                <h3>{{ msg }}</h3>
+            </aside>
+        {% endfor %}
+    </section>
+    {% endif %} 
 
     {% block content %}{% endblock %}
     
