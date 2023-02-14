@@ -10,7 +10,7 @@ class ProgrammingLanguage(models.Model):
         help_text="Enter programming language",
         max_length=50
         )
-    # language_icon = CloudinaryField("p_language_icon")
+    language_icon = CloudinaryField("image", default="p_language_icon")
 
     def __str__(self):
         return self.language
@@ -64,10 +64,12 @@ class User(AbstractUser):
         }
 
     def to_json_list(self) -> dict:
-        """Function to represent the model as a json object"""
+        """Function to represent the model as json lists"""
         p_languages = []
+        p_language_icons = []
         for item in self.p_language.values():
             p_languages.append(item["language"])
+            p_language_icons.append(item["language_icon"].url)
 
         followed_by = []
         for item in self.follows.values():
@@ -75,6 +77,7 @@ class User(AbstractUser):
 
         return {
             "programming languages": p_languages,
+            "p_language_icons": p_language_icons,
             "follows": followed_by,
         }
 

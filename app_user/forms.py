@@ -51,13 +51,13 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    p_language_queryset = ProgrammingLanguage.objects.all()
-    p_language_choices = []
-    for language in p_language_queryset:
-        p_language_choices.append((language.id, language.language))
-    p_language = forms.MultipleChoiceField(
-        choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
-    )
+    # p_language_queryset = ProgrammingLanguage.objects.all()
+    # p_language_choices = []
+    # for language in p_language_queryset:
+    #     p_language_choices.append((language.id, language.language))
+    # p_language = forms.MultipleChoiceField(
+    #     choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
+    # )
 
     class Meta:
         model = User

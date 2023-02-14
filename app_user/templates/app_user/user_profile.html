@@ -28,27 +28,43 @@
 
             {% for key, value in user.to_json_list.items %}
             {% if value %}
+            {% if key == "p_language_icons" %}
+            {% for v in value %}
+            <img src="{{v}}" alt="" class="icon">
+            {% endfor %}
+            {% else %}
             <p><strong>{{ key.title }}:</strong> 
                 {% for v in value %}
                 {{ v }}
                 {% endfor %}
+                {% endif %}
             </p>
             {% endif %}
             {% endfor %}
+
+            <!-- {% if user.to_json_list %}
+            <p><strong>Programming languages:</strong> 
+            {% for language in user.to_json_list.p_languages %}
+                language
+                {% endfor %}
+            </p>
+            {% endif %} -->
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-3">
-            <form method="POST" >
+            <a href="{% url 'app_user:edit-profile' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-profile-modal">Delete Profile</a>
+            <!-- <form method="POST" >
                 {% csrf_token %}
                 <input type="hidden" name="method" value="edit">
                 <button>Edit Profile</button>
-            </form>
-            <form method="POST" id="delete-form">
+            </form> -->
+            <!-- <form method="POST" id="delete-form">
                 {% csrf_token %}
                 <input type="hidden" name="method" value="delete">
                 <button data-toggle="modal" data-target="#delete-profile-modal" id="delete-profile-btn">Delete Profile</button>
-            </form>
+            </form> -->
         </div>
     </div>
 </div>
@@ -59,7 +75,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you sure?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span id="close-modal-span" aria-hidden="true">&times;</span>
                 </button>
@@ -70,7 +86,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirm-delete">Delete my account</button>
+                <a href="{% url 'app_user:delete-profile' %}" class="btn btn-danger" id="confirm-delete">Delete my account</a>
             </div>
         </div>
     </div>
