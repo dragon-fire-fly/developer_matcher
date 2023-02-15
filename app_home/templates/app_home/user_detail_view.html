@@ -25,10 +25,25 @@
 
             {% for key, value in user_for_profile.to_json_list.items %}
             {% if value %}
+            {% if key == "p_language_icons" %}
+            {% for v in value %}
+            <img src="{{v}}" alt="" class="icon">
+            {% endfor %}
+            {% else %}
             <p><strong>{{ key.title }}:</strong> 
-                {% for language in value %}{{ language }} {% endfor %}</p>
+                {% for v in value %}
+                {{ v }}
+                {% endfor %}
+                {% endif %}
+            </p>
             {% endif %}
             {% endfor %}
+
+            <!-- {% if user_projects %}
+            {% for project in user_projects %}
+                hello
+            {% endfor %}
+            {% endif %} -->
 
         </div>
     </div>

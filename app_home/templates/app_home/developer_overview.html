@@ -20,7 +20,7 @@
                         </a>
                         <a href="{% url 'app_home:profile-detail-view' dev.username %}">{{ dev.username }}</a>
                         <p>{% for language in dev.p_language.values %}
-                            {{ language.language }}
+                            <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                             {% endfor %}
                         </p>
                     </div>
