@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
+from django.contrib import messages
 from .models import User, UserProfilePicture, Project, ProgrammingLanguage
 from .forms import UserRegistrationForm, UserEditForm, AddProfilePictureForm
 
@@ -17,9 +18,13 @@ class RegisterView(TemplateView):
             # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:success"))
-        return render(request, "app_user/register.html", {
+        return render(
+            request,
+            "app_user/register.html",
+            {
                 "registration_form": registration_form,
-            },)
+            },
+        )
 
     def get(self, request, *args, **kwargs):
         # if the user is logged in, registration page is not available
@@ -45,14 +50,12 @@ class ProfileView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def post(self, request):
-        if request.POST["method"] == "edit":
-            return redirect(reverse("app_user:edit-profile"))
-        elif request.POST["method"] == "delete":
-            user = get_object_or_404(User, pk=request.user.pk)
-            user.delete()
-            return redirect(reverse("app_user:register"))
-        return redirect(reverse("app_user:profile"))
+
+def delete_profile(request):
+    user = get_object_or_404(User, pk=request.user.pk)
+    user.delete()
+    messages.success(request, "Profile successfully deleted!")
+    return redirect(reverse("app_home:index"))
 
 
 class EditProfileView(TemplateView):
@@ -81,13 +84,12 @@ class EditProfilePicView(TemplateView):
 
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
-        pictures = []
+        # get all the pictures for the selected user
+        pic_query_set = user.profile_pic.values()
         form = AddProfilePictureForm()
-        for picture in user.profile_pic.values():
-            pictures.append(picture["profile_picture"].url)
         context = {
             "user": user,
-            "pictures": pictures,
+            "pictures": pic_query_set,
             "form": form,
         }
 
@@ -95,6 +97,10 @@ class EditProfilePicView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
+        # as there are two post methods (add and delete), they have a hidden input field
+        # called "method" added to distinguish them
+
+        # the add route
         if request.POST.get("method") == "add":
             new_picture = AddProfilePictureForm(
                 request.POST, request.FILES, initial={"user": user}
@@ -105,13 +111,10 @@ class EditProfilePicView(TemplateView):
                 new_picture.save()
             return redirect(reverse("app_user:edit-profile-pic"))
 
+        # the delete route
         elif request.POST.get("method") == "delete":
-            print("delete")
-            user = get_object_or_404(User, pk=request.user.pk)
-            pic_url = request.POST["pic_url"]
-            for num in range(len(user.profile_pic.values())):
-                if user.profile_pic.values()[num]["profile_picture"].url == pic_url:
-                    id_pic_to_delete = user.profile_pic.values()[num]["id"]
-            picture = get_object_or_404(UserProfilePicture, pk=id_pic_to_delete)
+            # retrieve the id from the post request in the template
+            pic_id = request.POST["pic_id"]
+            picture = get_object_or_404(UserProfilePicture, pk=pic_id)
             picture.delete()
         return redirect(reverse("app_user:edit-profile-pic"))

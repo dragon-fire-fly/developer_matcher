@@ -18,16 +18,15 @@ def validate_username(data):
 
     # Check username for profanity and do not allow if present
     if profanity.contains_profanity(username):
-        raise ValidationError(
-            "Please do not use profanities in your username!"
-        )
+        raise ValidationError("Please do not use profanities in your username!")
     else:
         # Check if username already taken and return error if so
         try:
             taken_username = User.objects.get(username=username)
             raise ValidationError(
                 "The chosen username is already taken. Please choose another.",
-                code="invalid")
+                code="invalid",
+            )
         except User.DoesNotExist:
             return
 
@@ -51,13 +50,13 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    p_language_queryset = ProgrammingLanguage.objects.all()
-    p_language_choices = []
-    for language in p_language_queryset:
-        p_language_choices.append((language.id, language.language))
-    p_language = forms.MultipleChoiceField(
-        choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
-    )
+    # p_language_queryset = ProgrammingLanguage.objects.all()
+    # p_language_choices = []
+    # for language in p_language_queryset:
+    #     p_language_choices.append((language.id, language.language))
+    # p_language = forms.MultipleChoiceField(
+    #     choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
+    # )
 
     class Meta:
         model = User

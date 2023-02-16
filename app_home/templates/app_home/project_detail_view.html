@@ -15,17 +15,17 @@
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-3">
-            
             <p><strong>Title:</strong> {{ project.title }}</p>
             <p><strong>Description:</strong> {{ project.description }}</p>
-            <p><strong>Project Owner:</strong> {{ project.user.values.0.username }}</p>
+            {% if project.user.values.0.username %}
+            <p><strong>Project Owner:</strong><a href="{% url 'app_home:profile-detail-view' project.user.values.0.username %}">{{ project.user.values.0.username }}</a></p>
+            {% else %}
+            <p><strong>Project Owner:</strong>This project no longer has an owner</p>
+            {% endif %}
             <p><strong>Programming Languages:</strong> 
                 {% for language in project.p_language.values %}
                 {{ language.language }}
                 {% endfor %}</p>
-
-
-
         </div>
     </div>
 </div>

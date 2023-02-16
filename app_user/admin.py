@@ -52,7 +52,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class ProgrammingLanguageAdmin(admin.ModelAdmin):
-    fields = ["language"]
+    fields = ["language", "language_icon"]
 
 
 # Register User,Project and ProgrammingLanguage

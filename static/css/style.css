@@ -23,3 +23,13 @@
     height: 100%;
     object-fit: cover;
 }
+
+.icon {
+    height: 50px;
+    width: 50px;;
+}
+
+.icon-sm {
+    height: 30px;
+    width: 30px;;
+}

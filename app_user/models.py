@@ -6,11 +6,8 @@ from django_countries.fields import CountryField
 
 
 class ProgrammingLanguage(models.Model):
-    language = models.CharField(
-        help_text="Enter programming language",
-        max_length=50
-        )
-    # language_icon = CloudinaryField("p_language_icon")
+    language = models.CharField(help_text="Enter programming language", max_length=50)
+    language_icon = CloudinaryField("image", default="p_language_icon")
 
     def __str__(self):
         return self.language
@@ -64,10 +61,12 @@ class User(AbstractUser):
         }
 
     def to_json_list(self) -> dict:
-        """Function to represent the model as a json object"""
+        """Function to represent the model as json lists"""
         p_languages = []
+        p_language_icons = []
         for item in self.p_language.values():
             p_languages.append(item["language"])
+            p_language_icons.append(item["language_icon"].url)
 
         followed_by = []
         for item in self.follows.values():
@@ -75,6 +74,7 @@ class User(AbstractUser):
 
         return {
             "programming languages": p_languages,
+            "p_language_icons": p_language_icons,
             "follows": followed_by,
         }
 
@@ -85,7 +85,7 @@ class UserProfilePicture(models.Model):
 
 
 class Project(models.Model):
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(User, blank=True)
     p_language = models.ManyToManyField(ProgrammingLanguage)
     title = models.CharField(
         help_text="What is the title for your project?", max_length=100
@@ -97,6 +97,9 @@ class Project(models.Model):
     def __str__(self):
         return f"<Project name: {self.title}>"
 
+
 class ProjectPicture(models.Model):
-    project = models.ForeignKey(Project, related_name="project_pic", on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, related_name="project_pic", on_delete=models.CASCADE
+    )
     project_picture = CloudinaryField("project picture")
