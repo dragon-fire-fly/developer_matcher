@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_user', '0003_programminglanguage_language_icon'),
+        ("app_user", "0003_programminglanguage_language_icon"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='project',
-            name='user',
+            model_name="project",
+            name="user",
             field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL),
         ),
     ]
