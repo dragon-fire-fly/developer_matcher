@@ -39,11 +39,12 @@
             {% endif %}
             {% endfor %}
 
-            <!-- {% if user_projects %}
+            {% if user_projects %}
+            <p>Projects: 
             {% for project in user_projects %}
-                hello
-            {% endfor %}
-            {% endif %} -->
+                {{project.title}}
+            {% endfor %}</p>
+            {% endif %}
 
         </div>
     </div>
