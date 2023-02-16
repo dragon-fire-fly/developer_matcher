@@ -85,7 +85,7 @@ class UserProfilePicture(models.Model):
 
 
 class Project(models.Model):
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(User, blank=True)
     p_language = models.ManyToManyField(ProgrammingLanguage)
     title = models.CharField(
         help_text="What is the title for your project?", max_length=100
