@@ -84,15 +84,12 @@ class EditProfilePicView(TemplateView):
 
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
+        # get all the pictures for the selected user
         pic_query_set = user.profile_pic.values()
-        # picture_ids = []
         form = AddProfilePictureForm()
-        # for picture in pic_query_set:
-        #     breakpoint()
-        # #     pictures.append(picture.id)
         context = {
             "user": user,
-            "picture_q_set": pic_query_set,
+            "pictures": pic_query_set,
             "form": form,
         }
 
@@ -100,6 +97,10 @@ class EditProfilePicView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
+        # as there are two post methods (add and delete), they have a hidden input field
+        # called "method" added to distinguish them
+
+        # the add route
         if request.POST.get("method") == "add":
             new_picture = AddProfilePictureForm(
                 request.POST, request.FILES, initial={"user": user}
@@ -110,36 +111,10 @@ class EditProfilePicView(TemplateView):
                 new_picture.save()
             return redirect(reverse("app_user:edit-profile-pic"))
 
-        # elif request.POST.get("method") == "delete":
-        #     pic_url = request.POST["pic_url"]
-        # elif request.POST.get("method") == "delete":
-        #     print("delete")
-        #     user = get_object_or_404(User, pk=request.user.pk)
-        #     pic_url = request.POST["pic_url"]
-        #     for num in range(len(user.profile_pic.values())):
-        #         if user.profile_pic.values()[num]["profile_picture"].url == pic_url:
-        #             id_pic_to_delete = user.profile_pic.values()[num]["id"]
-        #     picture = get_object_or_404(UserProfilePicture, pk=id_pic_to_delete)
-        #     picture.delete()
-        # return redirect(reverse("app_user:edit-profile-pic"))
-
-
-# class DeleteProfilePicView(TemplateView):
-#     model = UserProfilePicture
-#     template_name = "app_user/profile_pic_edit.html"
-
-#     def post(self, request, *args, **kwargs):
-#         breakpoint()
-#         pic_id = kwargs["id"]
-#         picture = get_object_or_404(UserProfilePicture, pk=pic_id)
-#         picture.delete()
-#         messages.success(request, "Profile picture successfully deleted!")
-#         return redirect(reverse("app_user:edit-profile-pic"))
-
-
-def delete_profile_pic(request, *args, **kwargs):
-    pic_pk = kwargs.pk
-    pic = get_object_or_404(UserProfilePicture, pk=pic_pk)
-    pic.delete()
-    messages.success(request, "Profile picture successfully deleted!")
-    return redirect(reverse("app_user:profile"))
+        # the delete route
+        elif request.POST.get("method") == "delete":
+            # retrieve the id from the post request in the template
+            pic_id = request.POST["pic_id"]
+            picture = get_object_or_404(UserProfilePicture, pk=pic_id)
+            picture.delete()
+        return redirect(reverse("app_user:edit-profile-pic"))
