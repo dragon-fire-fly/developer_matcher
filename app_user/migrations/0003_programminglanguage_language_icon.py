@@ -7,13 +7,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_user', '0002_projectpicture'),
+        ("app_user", "0002_projectpicture"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='programminglanguage',
-            name='language_icon',
-            field=cloudinary.models.CloudinaryField(default='p_language_icon', max_length=255, verbose_name='image'),
+            model_name="programminglanguage",
+            name="language_icon",
+            field=cloudinary.models.CloudinaryField(
+                default="p_language_icon", max_length=255, verbose_name="image"
+            ),
         ),
     ]

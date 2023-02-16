@@ -18,16 +18,15 @@ def validate_username(data):
 
     # Check username for profanity and do not allow if present
     if profanity.contains_profanity(username):
-        raise ValidationError(
-            "Please do not use profanities in your username!"
-        )
+        raise ValidationError("Please do not use profanities in your username!")
     else:
         # Check if username already taken and return error if so
         try:
             taken_username = User.objects.get(username=username)
             raise ValidationError(
                 "The chosen username is already taken. Please choose another.",
-                code="invalid")
+                code="invalid",
+            )
         except User.DoesNotExist:
             return
 

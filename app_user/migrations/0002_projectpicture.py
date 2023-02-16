@@ -8,16 +8,36 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_user', '0001_initial'),
+        ("app_user", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProjectPicture',
+            name="ProjectPicture",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('project_picture', cloudinary.models.CloudinaryField(max_length=255, verbose_name='project picture')),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='project_pic', to='app_user.project')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "project_picture",
+                    cloudinary.models.CloudinaryField(
+                        max_length=255, verbose_name="project picture"
+                    ),
+                ),
+                (
+                    "project",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="project_pic",
+                        to="app_user.project",
+                    ),
+                ),
             ],
         ),
     ]
