@@ -84,3 +84,19 @@ class CreateProjectView(FormView):
         context = {"form": project_form}
 
         return render(request, "app_home/create_project.html", context)
+
+    def post(self, request):
+        user = request.user
+        form = self.form_class(request.POST)
+        p_langs = form.data.getlist("p_language")
+
+        if form.is_valid():
+            new_project = form.save()
+            new_project.user.add(user)
+            for lang in p_langs:
+                new_project.p_language.add(lang)
+                new_project.save()
+            messages.success(request, "Project successfully created!")
+            return redirect(reverse("app_home:project-overview"))
+        messages.error(request, "Project not created")
+        return redirect(reverse("app_home:create-project"))
