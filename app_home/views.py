@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView
-from app_user.models import User, Project
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.views.generic import TemplateView, FormView
+from app_user.models import User, Project, ProgrammingLanguage
+from .forms import ProjectCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -71,3 +73,35 @@ class ProjectDetailView(TemplateView):
         context = {"user": request.user, "project": project_to_get}
 
         return render(request, "app_home/project_detail_view.html", context)
+
+
+class CreateProjectView(FormView):
+    template_name = "app_home/create_project.html"
+    form_class = ProjectCreationForm
+
+    def get(self, request):
+        project_form = ProjectCreationForm()
+        context = {"form": project_form}
+
+        return render(request, "app_home/create_project.html", context)
+
+    def post(self, request):
+        user = request.user
+        form = self.form_class(request.POST)
+        p_langs = form.data.getlist("p_language")
+
+        if form.is_valid():
+            new_project = form.save()
+            new_project.user.add(user)
+            for lang in p_langs:
+                new_project.p_language.add(lang)
+                new_project.save()
+            messages.success(request, "Project successfully created!")
+            return redirect(reverse("app_home:project-detail-view", kwargs={"title": new_project.title}))
+        elif "profanity" in form.errors.as_text():
+            messages.error(request, "Please do not use profanities in your project name!")
+        elif "duplicate_name" in form.errors.as_text():
+            messages.error(request, "Project name already taken! Please choose another.")
+        else:
+            messages.error(request, "Please select at least one programming language")
+        return redirect(reverse("app_home:create-project"))

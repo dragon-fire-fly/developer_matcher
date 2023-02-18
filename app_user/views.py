@@ -46,9 +46,17 @@ class ProfileView(TemplateView):
     model = User
     template_name = "app_user/user_profile.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    def get(self, request):
+        user = request.user
+        try:
+            user_projects = Project.objects.filter(user=user)
+        except:
+            user_projects = None
+        context = {
+            "user": user,
+            "user_projects": user_projects,
+        }
+        return render(request, "app_user/user_profile.html", context)
 
 
 def delete_profile(request):
@@ -114,7 +122,7 @@ class EditProfilePicView(TemplateView):
         # the delete route
         elif request.POST.get("method") == "delete":
             # retrieve the id from the post request in the template
-            pic_id = request.POST["pic_id"]
+            pic_id = int(request.POST["pic_id"])
             picture = get_object_or_404(UserProfilePicture, pk=pic_id)
             picture.delete()
         return redirect(reverse("app_user:edit-profile-pic"))

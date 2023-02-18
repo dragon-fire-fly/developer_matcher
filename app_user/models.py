@@ -88,7 +88,7 @@ class Project(models.Model):
     user = models.ManyToManyField(User, blank=True)
     p_language = models.ManyToManyField(ProgrammingLanguage)
     title = models.CharField(
-        help_text="What is the title for your project?", max_length=100
+        help_text="What is the title for your project?", max_length=100, unique=True,
     )
     description = models.TextField(
         help_text="Enter your project description here", blank=True, null=True
