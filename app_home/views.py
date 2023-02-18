@@ -97,6 +97,11 @@ class CreateProjectView(FormView):
                 new_project.p_language.add(lang)
                 new_project.save()
             messages.success(request, "Project successfully created!")
-            return redirect(reverse("app_home:project-overview"))
-        messages.error(request, "Project not created")
+            return redirect(reverse("app_home:project-detail-view", kwargs={"title": new_project.title}))
+        elif "profanity" in form.errors.as_text():
+            messages.error(request, "Please do not use profanities in your project name!")
+        elif "duplicate_name" in form.errors.as_text():
+            messages.error(request, "Project name already taken! Please choose another.")
+        else:
+            messages.error(request, "Please select at least one programming language")
         return redirect(reverse("app_home:create-project"))

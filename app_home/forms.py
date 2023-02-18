@@ -1,9 +1,32 @@
 from django import forms
 from django.forms import ModelForm, ValidationError
 from app_user.models import Project, ProjectPicture, ProgrammingLanguage
+from django.contrib import messages
+from better_profanity import profanity
 
 
+def validate_project_name(data):
+    """Checks that a project name is not already taken and does not
+    contain profanities"""
 
+    if isinstance(data, str):
+        project_name = data
+    else:
+        project_name = data.cleaned_data["title"]
+
+    # Check project name for profanity and do not allow if present
+    if profanity.contains_profanity(project_name):
+        raise ValidationError("profanity")
+    else:
+        # Check if project name already taken and return error if so
+        try:
+            taken_project_name = Project.objects.get(title=project_name)
+            raise ValidationError(
+            "duplicate_name",
+            code="invalid",
+            )
+        except Project.DoesNotExist:
+            return
 
 
 class ProjectCreationForm(forms.ModelForm):
