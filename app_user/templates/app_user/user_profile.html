@@ -42,29 +42,18 @@
             {% endif %}
             {% endfor %}
 
-            <!-- {% if user.to_json_list %}
-            <p><strong>Programming languages:</strong> 
-            {% for language in user.to_json_list.p_languages %}
-                language
-                {% endfor %}
-            </p>
-            {% endif %} -->
+            {% if user_projects %}
+            <p>Projects: 
+            {% for project in user_projects %}
+                <a href="{% url 'app_home:project-detail-view' project.title %}">{{project.title}}</a>
+            {% endfor %}</p>
+            {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-3">
             <a href="{% url 'app_user:edit-profile' %}" class="btn btn-primary">Edit Profile</a>
             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-profile-modal">Delete Profile</a>
-            <!-- <form method="POST" >
-                {% csrf_token %}
-                <input type="hidden" name="method" value="edit">
-                <button>Edit Profile</button>
-            </form> -->
-            <!-- <form method="POST" id="delete-form">
-                {% csrf_token %}
-                <input type="hidden" name="method" value="delete">
-                <button data-toggle="modal" data-target="#delete-profile-modal" id="delete-profile-btn">Delete Profile</button>
-            </form> -->
         </div>
     </div>
 </div>
