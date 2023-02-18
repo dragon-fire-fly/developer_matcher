@@ -10,6 +10,12 @@
     </div>
 
     {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'app_home:create-project' %}" class="btn btn-primary">Create a New Project</a>
+        </div>
+    </div>
+
         <div class="row">
             {% for project in projects %}
                     <div class="col-md-3">
@@ -19,7 +25,7 @@
                             </a>
                             <a href="{% url 'app_home:project-detail-view' project.title %}">{{ project.title }}</a>
                             <p>{% for language in project.p_language.values %}
-                                {{ language.language }}
+                                <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                                 {% endfor %}
                             </p>
                         </div>
