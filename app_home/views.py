@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView
-from app_user.models import User, Project
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.views.generic import TemplateView, FormView
+from app_user.models import User, Project, ProgrammingLanguage
+from .forms import ProjectCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -71,3 +73,14 @@ class ProjectDetailView(TemplateView):
         context = {"user": request.user, "project": project_to_get}
 
         return render(request, "app_home/project_detail_view.html", context)
+
+
+class CreateProjectView(FormView):
+    template_name = "app_home/create_project.html"
+    form_class = ProjectCreationForm
+
+    def get(self, request):
+        project_form = ProjectCreationForm()
+        context = {"form": project_form}
+
+        return render(request, "app_home/create_project.html", context)
