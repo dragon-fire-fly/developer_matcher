@@ -20,10 +20,10 @@
             {% for project in projects %}
                     <div class="col-md-3">
                         <div class="card text-center">
-                            <a href="{% url 'app_home:project-detail-view' project.title %}">
+                            <a href="{% url 'app_home:project-detail-view' project.pk %}">
                                 <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top dev-img">
                             </a>
-                            <a href="{% url 'app_home:project-detail-view' project.title %}">{{ project.title }}</a>
+                            <a href="{% url 'app_home:project-detail-view' project.pk %}">{{ project.title }}</a>
                             <p>{% for language in project.p_language.values %}
                                 <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                                 {% endfor %}

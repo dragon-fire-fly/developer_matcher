@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
 from app_user.models import User, Project, ProgrammingLanguage
-from .forms import ProjectCreationForm
+from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 
 # Create your views here.
@@ -67,8 +67,8 @@ class ProjectDetailView(TemplateView):
     template_name = "app_home/project_detail_view.html"
 
     def get(self, request, *args, **kwargs):
-        project_for_profile = kwargs["title"]
-        project_to_get = get_object_or_404(Project, title=project_for_profile)
+        project_pk = kwargs["pk"]
+        project_to_get = get_object_or_404(Project, pk=project_pk)
 
         context = {"user": request.user, "project": project_to_get}
 
@@ -105,3 +105,33 @@ class CreateProjectView(FormView):
         else:
             messages.error(request, "Please select at least one programming language")
         return redirect(reverse("app_home:create-project"))
+
+
+class ProjectEditView(TemplateView):
+    template_name = "app_home/edit_project.html"
+    form_class = ProjectEditForm
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        context = {"form": ProjectEditForm(instance=project)}
+
+        return render(request, "app_home/edit_project.html", context)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        form = self.form_class(request.POST)
+        p_langs = form.data.getlist("p_language")
+
+        if form.is_valid():
+            project = form.save()
+            project.user.add(user)
+            for lang in p_langs:
+                project.p_language.add(lang)
+                project.save()
+            messages.success(request, "Project successfully edited!")
+            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project.pk}))
+        elif "profanity" in form.errors.as_text():
+            messages.error(request, "Please do not use profanities in your project name!")
+        else:
+            messages.error(request, "Please select at least one programming language")
+        return render(request, "app_home/edit_project.html", {})

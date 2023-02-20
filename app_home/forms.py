@@ -50,3 +50,24 @@ class ProjectCreationForm(forms.ModelForm):
 
     def clean(self):
         validate_project_name(self)
+
+class AddProjectPictureForm(forms.ModelForm):
+    class Meta:
+        model = ProjectPicture
+        fields = "__all__"
+        exclude = ["project"]
+
+
+class ProjectEditForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ["p_language", "title", "description"]
+
+    def save(self, commit=True):
+        project = super(ProjectEditForm, self).save(commit=False)
+        if commit:
+            project.save()
+        return project
+
+    def clean(self):
+        validate_project_name(self)
