@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-3">
+            <h1>Edit Project</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button>Edit Project</button>
+            </form>
+            <a href="{% url 'app_home:project-overview' %}">Cancel</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

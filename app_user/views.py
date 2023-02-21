@@ -76,13 +76,24 @@ class EditProfileView(TemplateView):
 
         return render(request, "app_user/user_profile_edit.html", context)
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         # get the current user (or return a 404)
         user = get_object_or_404(User, pk=request.user.pk)
         # add data to the form and save it
         form = UserEditForm(request.POST, instance=user)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile successfully updated!")
         # redirect to main profile page
+            return redirect(reverse("app_user:profile"))
+        elif "profanity" in form.errors.as_text():
+            messages.error(request, "Please do not use profanities in your username!")
+            return redirect("app_user:edit-profile")
+        elif "duplicate_name" in form.errors.as_text():
+            messages.error(request, "Username already in use! Please choose another")
+            return redirect("app_user:edit-profile")
+        else:
+            messages.error(request, "Form could not be submitted")
         return redirect(reverse("app_user:profile"))
 
 

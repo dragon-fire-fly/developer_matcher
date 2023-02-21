@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
-from app_user.models import User, Project, ProgrammingLanguage
-from .forms import ProjectCreationForm
+from app_user.models import User, Project, ProgrammingLanguage, ProjectPicture
+from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 
 # Create your views here.
@@ -37,8 +37,8 @@ class ProfileDetailView(TemplateView):
     template_name = "app_home/user_detail_view.html"
 
     def get(self, request, *args, **kwargs):
-        username_for_profile = kwargs["username"]
-        user_to_get = get_object_or_404(User, username=username_for_profile)
+        profile_pk = kwargs["pk"]
+        user_to_get = get_object_or_404(User, pk=profile_pk)
         try:
             user_to_get_projects = Project.objects.filter(user=user_to_get)
         except:
@@ -67,8 +67,8 @@ class ProjectDetailView(TemplateView):
     template_name = "app_home/project_detail_view.html"
 
     def get(self, request, *args, **kwargs):
-        project_for_profile = kwargs["title"]
-        project_to_get = get_object_or_404(Project, title=project_for_profile)
+        project_pk = kwargs["pk"]
+        project_to_get = get_object_or_404(Project, pk=project_pk)
 
         context = {"user": request.user, "project": project_to_get}
 
@@ -97,7 +97,7 @@ class CreateProjectView(FormView):
                 new_project.p_language.add(lang)
                 new_project.save()
             messages.success(request, "Project successfully created!")
-            return redirect(reverse("app_home:project-detail-view", kwargs={"title": new_project.title}))
+            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk}))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your project name!")
         elif "duplicate_name" in form.errors.as_text():
@@ -105,3 +105,89 @@ class CreateProjectView(FormView):
         else:
             messages.error(request, "Please select at least one programming language")
         return redirect(reverse("app_home:create-project"))
+
+
+class EditProjectView(TemplateView):
+    model = Project
+    template_name = "app_home/edit_project.html"
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        context = {"form": ProjectEditForm(instance=project)}
+
+        return render(request, "app_home/edit_project.html", context)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        form = ProjectEditForm(request.POST, instance=project)
+        p_langs = form.data.getlist("p_language")
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.p_language.set(p_langs)
+            project.save()
+            messages.success(request, "Project successfully edited!")
+            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project.pk}))
+        elif "profanity" in form.errors.as_text():
+            messages.error(request, "Please do not use profanities in your project name!")
+            return render(request, "app_home/edit_project.html", {"form": form})
+        elif "duplicate_name" in form.errors.as_text():
+            messages.error(request, "Project name already in use! Please choose another")
+            return render(request, "app_home/edit_project.html", {"form": form})
+        else:
+            messages.error(request, "Please select at least one programming language")
+        return render(request, "app_home/edit_project.html", {"form": form})
+
+
+class DeleteProjectView(TemplateView):
+    model = Project
+    template_name = "app_home/about.html"
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        project.delete()
+        messages.success(request, "Profile successfully deleted!")
+        return redirect(reverse("app_home:project-overview"))
+
+
+class AddProjectPicture(TemplateView):
+    model = ProjectPicture
+    template_name = "app_home/project_picture.html"
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        if project.project_pic:
+            pic_query_set = project.project_pic.values()
+        else:            
+            pic_query_set = [""]
+        form = AddProjectPictureForm()
+        context = {
+            "project": project,
+            "pictures": pic_query_set,
+            "form": form,
+        }
+        return render(request, "app_home/project_picture.html", context)
+
+    def post(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        project_pk = project.pk
+
+        new_picture = AddProjectPictureForm(
+                request.POST, request.FILES, initial={"project": project}
+            )
+        if new_picture.is_valid():
+            new_picture = new_picture.save(commit=False)
+            new_picture.project = project
+            new_picture.save()
+
+        return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project_pk}))
+
+
+class DeleteProjectPicture(TemplateView):
+    model = ProjectPicture
+    template_name = "app_home/project_picture.html"
+
+    def get(self, request, *args, **kwargs):
+        pic_to_delete = get_object_or_404(ProjectPicture, pk=kwargs["pk"])
+        pic_to_delete.delete()
+        return redirect(reverse("app_home:project-overview"))

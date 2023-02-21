@@ -45,7 +45,7 @@
             {% if user_projects %}
             <p>Projects: 
             {% for project in user_projects %}
-                <a href="{% url 'app_home:project-detail-view' project.title %}">{{project.title}}</a>
+                <a href="{% url 'app_home:project-detail-view' project.pk %}">{{project.title}}</a>
             {% endfor %}</p>
             {% endif %}
         </div>

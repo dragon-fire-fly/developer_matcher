@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Project Picture{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Project {{ project.title }}'s Pictures</h1>
+        </div>
+    </div>
+
+    <div class="row">        
+        {% for picture in pictures %}
+        <div class="col-md-3">
+            <div class="card text-center">
+                <img src="{{picture.project_picture.url}}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <a href="{% url 'app_home:delete-project-pic' picture.id %}">Delete</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}        
+        
+        <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="method" value="add">
+            {{ form }}
+            <button type="submit">Add Project Pic</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
