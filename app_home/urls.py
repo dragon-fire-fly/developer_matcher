@@ -21,5 +21,7 @@ urlpatterns = [
     path(
         "projects/delete/<int:pk>/", views.DeleteProjectView.as_view(), name="delete-project"
     ),
-
+    path(
+        "projects/picture/<int:pk>/", views.AddProjectPicture.as_view(), name="add-project-pic"
+    ),
 ]

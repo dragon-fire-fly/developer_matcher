@@ -153,3 +153,17 @@ class DeleteProjectView(TemplateView):
 class AddProjectPicture(TemplateView):
     model = ProjectPicture
     template_name = "app_home/project_picture.html"
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        if project.project_pic:
+            pic_query_set = project.project_pic.values()
+        else:            
+            pic_query_set = [""]
+        form = AddProjectPictureForm()
+        context = {
+            "project": project,
+            "pictures": pic_query_set,
+            "form": form,
+        }
+        return render(request, "app_home/project_picture.html", context)

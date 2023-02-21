@@ -12,13 +12,7 @@
                         <img src={{project.project_pic.values.0.project_picture.url}} alt="">
                 </div>
             </div>
-            {% else %}
-            <form method="POST"  enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="method" value="add">
-                {{ project_pic_form }}
-                <button type="submit">Add Project Pic</button>
-            </form>
+            <a href="{% url 'app_home:add-project-pic' project.pk %}">Add a picture</a>
             {% endif %}
         </div>
     </div>
