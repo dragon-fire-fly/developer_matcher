@@ -167,3 +167,15 @@ class AddProjectPicture(TemplateView):
             "form": form,
         }
         return render(request, "app_home/project_picture.html", context)
+
+    def post(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+
+        new_picture = AddProjectPictureForm(
+                request.POST, request.FILES, initial={"project": project}
+            )
+        if new_picture.is_valid():
+            new_picture = new_picture.save(commit=False)
+            new_picture.project = project
+            new_picture.save()
+        return redirect(reverse("app_home:project-edit-view", pk=kwargs["pk"]))
