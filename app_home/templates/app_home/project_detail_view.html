@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ project.title }}</h1>
+            {% if project.user.values.0.id == user.id %}
             {% if project.project_pic.values.0.project_picture %}
             <div class="circle-container">
                 <div class="circle-img">
@@ -16,6 +17,11 @@
             </div>
             {% else %}
             <a href="{% url 'app_home:add-project-pic' project.pk %}">Add a picture</a>
+            {% endif %}
+            {% else %}
+            <div class="circle-container">
+                <div class="circle-img">
+                    <img src={{project.project_pic.values.0.project_picture.url}} alt="">
             {% endif %}
         </div>
     </div>
@@ -37,13 +43,14 @@
                 <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                 {% endfor %}
             </p>
-
+            {% if project.user.values.0.id == user.id %}
             <div class="row">
                 <div class="col-md-8 offset-md-3">
                     <a href="{% url 'app_home:project-edit-view' project.pk %}" class="btn btn-primary">Edit Project</a>
                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-project-modal">Delete Project</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
