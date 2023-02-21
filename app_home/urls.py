@@ -10,7 +10,7 @@ urlpatterns = [
     path("projects/", views.ProjectOverview.as_view(), name="project-overview"),
     path("projects/create/", views.CreateProjectView.as_view(), name="create-project"),
     path(
-        "users/<str:username>/", views.ProfileDetailView.as_view(), name="profile-detail-view"
+        "users/<int:pk>/", views.ProfileDetailView.as_view(), name="profile-detail-view"
     ),
     path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail-view"

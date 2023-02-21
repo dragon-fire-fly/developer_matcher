@@ -37,8 +37,8 @@ class ProfileDetailView(TemplateView):
     template_name = "app_home/user_detail_view.html"
 
     def get(self, request, *args, **kwargs):
-        username_for_profile = kwargs["username"]
-        user_to_get = get_object_or_404(User, username=username_for_profile)
+        profile_pk = kwargs["pk"]
+        user_to_get = get_object_or_404(User, pk=profile_pk)
         try:
             user_to_get_projects = Project.objects.filter(user=user_to_get)
         except:
@@ -97,7 +97,7 @@ class CreateProjectView(FormView):
                 new_project.p_language.add(lang)
                 new_project.save()
             messages.success(request, "Project successfully created!")
-            return redirect(reverse("app_home:project-detail-view", kwargs={"title": new_project.title}))
+            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk}))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your project name!")
         elif "duplicate_name" in form.errors.as_text():
