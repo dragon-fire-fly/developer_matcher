@@ -16,6 +16,6 @@ urlpatterns = [
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail-view"
     ),
     path(
-        "projects/edit/<int:pk>/", views.ProjectEditView.as_view(), name="project-edit-view"
+        "projects/edit/<int:pk>/", views.EditProjectView.as_view(), name="project-edit-view"
     ),
 ]

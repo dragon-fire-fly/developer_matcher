@@ -13,6 +13,9 @@ def validate_project_name(data):
         project_name = data
     else:
         project_name = data.cleaned_data["title"]
+        if data.instance:
+            if data.instance.title == project_name:
+                return
 
     # Check project name for profanity and do not allow if present
     if profanity.contains_profanity(project_name):
@@ -21,10 +24,7 @@ def validate_project_name(data):
         # Check if project name already taken and return error if so
         try:
             taken_project_name = Project.objects.get(title=project_name)
-            raise ValidationError(
-            "duplicate_name",
-            code="invalid",
-            )
+            raise ValidationError("duplicate_name")
         except Project.DoesNotExist:
             return
 

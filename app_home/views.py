@@ -107,9 +107,9 @@ class CreateProjectView(FormView):
         return redirect(reverse("app_home:create-project"))
 
 
-class ProjectEditView(TemplateView):
+class EditProjectView(TemplateView):
+    model = Project
     template_name = "app_home/edit_project.html"
-    form_class = ProjectEditForm
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
@@ -119,19 +119,21 @@ class ProjectEditView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        form = self.form_class(request.POST)
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        form = ProjectEditForm(request.POST, instance=project)
         p_langs = form.data.getlist("p_language")
-
         if form.is_valid():
-            project = form.save()
-            project.user.add(user)
-            for lang in p_langs:
-                project.p_language.add(lang)
-                project.save()
+            project = form.save(commit=False)
+            project.p_language.set(p_langs)
+            project.save()
             messages.success(request, "Project successfully edited!")
             return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project.pk}))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your project name!")
+            return redirect("app_home:project-edit-view", pk=kwargs["pk"])
+        elif "duplicate_name" in form.errors.as_text():
+            messages.error(request, "Project name already in use! Please choose another")
+            return redirect("app_home:project-edit-view", pk=kwargs["pk"])
         else:
             messages.error(request, "Please select at least one programming language")
         return render(request, "app_home/edit_project.html", {})
