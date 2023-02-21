@@ -170,6 +170,7 @@ class AddProjectPicture(TemplateView):
 
     def post(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
+        project_pk = project.pk
 
         new_picture = AddProjectPictureForm(
                 request.POST, request.FILES, initial={"project": project}
@@ -178,4 +179,15 @@ class AddProjectPicture(TemplateView):
             new_picture = new_picture.save(commit=False)
             new_picture.project = project
             new_picture.save()
-        return redirect(reverse("app_home:project-edit-view", pk=kwargs["pk"]))
+
+        return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project_pk}))
+
+
+class DeleteProjectPicture(TemplateView):
+    model = ProjectPicture
+    template_name = "app_home/project_picture.html"
+
+    def get(self, request, *args, **kwargs):
+        pic_to_delete = get_object_or_404(ProjectPicture, pk=kwargs["pk"])
+        pic_to_delete.delete()
+        return redirect(reverse("app_home:project-overview"))

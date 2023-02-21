@@ -16,12 +16,8 @@
             <div class="card text-center">
                 <img src="{{picture.project_picture.url}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="method" value="delete">
-                        <input type="hidden" name="pic_id" value="{{picture.id}}">
-                        <button class="btn btn-primary delete-pic-btn" data-bs-toggle="modal" data-bs-target="#delete-pic-modal">Delete</button>
-                    </form>
+                    <a href="{% url 'app_home:delete-project-pic' picture.id %}">Delete</a>
+
                 </div>
             </div>
         </div>

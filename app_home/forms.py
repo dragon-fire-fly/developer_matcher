@@ -51,12 +51,6 @@ class ProjectCreationForm(forms.ModelForm):
     def clean(self):
         validate_project_name(self)
 
-class AddProjectPictureForm(forms.ModelForm):
-    class Meta:
-        model = ProjectPicture
-        fields = "__all__"
-        exclude = ["project"]
-
 
 class ProjectEditForm(forms.ModelForm):
     p_language_objects = ProgrammingLanguage.objects.all()
@@ -79,3 +73,10 @@ class ProjectEditForm(forms.ModelForm):
 
     def clean(self):
         validate_project_name(self)
+
+
+class AddProjectPictureForm(forms.ModelForm):
+    class Meta:
+        model = ProjectPicture
+        fields = "__all__"
+        exclude = ["project"]

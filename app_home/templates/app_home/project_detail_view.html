@@ -9,9 +9,12 @@
             {% if project.project_pic.values.0.project_picture %}
             <div class="circle-container">
                 <div class="circle-img">
+                    <a href="{% url 'app_home:add-project-pic' project.pk %}">
                         <img src={{project.project_pic.values.0.project_picture.url}} alt="">
+                    </a>
                 </div>
             </div>
+            {% else %}
             <a href="{% url 'app_home:add-project-pic' project.pk %}">Add a picture</a>
             {% endif %}
         </div>
