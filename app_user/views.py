@@ -14,10 +14,10 @@ class RegisterView(TemplateView):
     def post(self, request, *args, **kwargs):
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
-            user = registration_form.save()
+            user = registration_form.save(commit=False)
             # automatically log the user in following account creation
             login(request, user)
-            return redirect(reverse("app_user:success"))
+            return redirect(reverse("app_user:profile"))
         return render(
             request,
             "app_user/register.html",
@@ -92,9 +92,11 @@ class EditProfileView(TemplateView):
         elif "duplicate_name" in form.errors.as_text():
             messages.error(request, "Username already in use! Please choose another")
             return redirect("app_user:edit-profile")
+        elif not form["p_language"].value():
+            messages.error(request, "Please select at least one programming language")
         else:
             messages.error(request, "Form could not be submitted")
-        return redirect(reverse("app_user:profile"))
+        return redirect(reverse("app_user:edit-profile"))
 
 
 class EditProfilePicView(TemplateView):

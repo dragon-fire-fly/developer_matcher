@@ -13,28 +13,65 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'app_home:index' %}">Developer Matcher</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{% url 'app_home:index' %}">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="{% url 'app_home:developer-overview' %}">Developer Search</a>
-                <a class="nav-item nav-link" href="{% url 'app_home:project-overview' %}">Project Search</a>
-                <a class="nav-item nav-link" href="{% url 'app_home:about' %}">About</a>
-                {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'account_logout' %}">Log out</a>
-                <a class="nav-item nav-link" href="{% url 'app_user:profile' %}">My Profile</a>
-                <p>Signed in as {{ user.username }}</p>
-                {% else %}
-                <a class="nav-item nav-link" href="{% url 'app_user:register' %}">Register</a>
-                <a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a>
-                {% endif %}
+        <a href="{% url 'app_home:index' %}" class="navbar-brand">Developer Matcher</a>
 
-            </div>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="active nav-item mr-2"><a class="nav-link active" href="{% url 'app_home:index' %}">Home</a></li>
+                <li class="nav-item mr-2"><a class="nav-link" href="{% url 'app_home:developer-overview' %}">Developer Search</a></li>
+                <li class="nav-item mr-2"><a class="nav-link" href="{% url 'app_home:project-overview' %}">Project Search</a></li>
+                <li class="nav-item mr-2"><a class="nav-link" href="{% url 'app_home:about' %}">About</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item mr-2 d-block d-sm-none"><a class="nav-link" href="{% url 'account_logout' %}">Log out</a></li>
+                <li class="nav-item mr-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:profile' %}">My Profile</a></li>
+                {% else %}
+                <li class="nav-item mr-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:register' %}">Register</a></li>
+                <li class="nav-item mr-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a></li>
+                {% endif %}
+            </ul>
         </div>
+        <div class="d-none d-md-block">
+            {% if user.is_authenticated %}
+            <p class="navbar-text my-auto mr-2"><i>Logged in as {{user.username.title}}</i></p>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="text-decoration: none;">
+                {% if user.profile_pic.values %}
+                <img style="width: 60px; border-radius: 50%;" src="{{ user.profile_pic.values.0.profile_picture.url }}"><b class="caret"></b>
+                {% else %}
+                <img style="width: 60px; border-radius: 50%;" src="http://placekitten.com/60/60"><b class="caret"></b>
+                {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" style="font-size:120%;">
+                <li><a href="{% url 'app_user:profile' %}">My Profile</a></li>
+                <li><a href="/user/logout/">Log out</a></li>
+            </ul>
+            {% else %}
+            <p class="navbar-text my-auto mr-2"><i>Sign up now!</i></p>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><b class="caret"></b></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="/user/login/">Sign In</a></li>
+                <li><a href="{% url 'app_user:register' %}">Sign Up</a></li>
+            </ul>
+            {% endif %}
+        </div>
+
+
+
+
+
     </nav>
+
+
+
+
+
+
+
+
+
     {% if messages %}
     <section>
         {% for msg in messages %}
