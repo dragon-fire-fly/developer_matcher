@@ -59,6 +59,14 @@ class AddProjectPictureForm(forms.ModelForm):
 
 
 class ProjectEditForm(forms.ModelForm):
+    p_language_objects = ProgrammingLanguage.objects.all()
+    lang_choices = []
+    n = 0
+    for lang in p_language_objects:
+        n += 1
+        lang_choices.append((n, lang.language))
+
+    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lang_choices)
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]

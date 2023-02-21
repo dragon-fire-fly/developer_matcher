@@ -18,4 +18,8 @@ urlpatterns = [
     path(
         "projects/edit/<int:pk>/", views.EditProjectView.as_view(), name="project-edit-view"
     ),
+    path(
+        "projects/delete/<int:pk>/", views.DeleteProjectView.as_view(), name="delete-project"
+    ),
+
 ]

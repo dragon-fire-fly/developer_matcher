@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
-from app_user.models import User, Project, ProgrammingLanguage
+from app_user.models import User, Project, ProgrammingLanguage, ProjectPicture
 from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 
@@ -130,10 +130,26 @@ class EditProjectView(TemplateView):
             return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project.pk}))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your project name!")
-            return redirect("app_home:project-edit-view", pk=kwargs["pk"])
+            return render(request, "app_home/edit_project.html", {"form": form})
         elif "duplicate_name" in form.errors.as_text():
             messages.error(request, "Project name already in use! Please choose another")
-            return redirect("app_home:project-edit-view", pk=kwargs["pk"])
+            return render(request, "app_home/edit_project.html", {"form": form})
         else:
             messages.error(request, "Please select at least one programming language")
-        return render(request, "app_home/edit_project.html", {})
+        return render(request, "app_home/edit_project.html", {"form": form})
+
+
+class DeleteProjectView(TemplateView):
+    model = Project
+    template_name = "app_home/about.html"
+
+    def get(self, request, *args, **kwargs):
+        project = get_object_or_404(Project, pk=kwargs["pk"])
+        project.delete()
+        messages.success(request, "Profile successfully deleted!")
+        return redirect(reverse("app_home:project-overview"))
+
+
+class AddProjectPicture(TemplateView):
+    model = ProjectPicture
+    template_name = "app_home/project_picture.html"
