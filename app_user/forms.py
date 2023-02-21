@@ -15,18 +15,19 @@ def validate_username(data):
         username = data
     else:
         username = data.cleaned_data["username"]
+        if data.instance:
+            # check if username is unchanged
+            if data.instance.username == username:
+                return
 
     # Check username for profanity and do not allow if present
     if profanity.contains_profanity(username):
-        raise ValidationError("Please do not use profanities in your username!")
+        raise ValidationError("profanity")
     else:
         # Check if username already taken and return error if so
         try:
             taken_username = User.objects.get(username=username)
-            raise ValidationError(
-                "The chosen username is already taken. Please choose another.",
-                code="invalid",
-            )
+            raise ValidationError("duplicate_name")
         except User.DoesNotExist:
             return
 
@@ -50,13 +51,11 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    # p_language_queryset = ProgrammingLanguage.objects.all()
-    # p_language_choices = []
-    # for language in p_language_queryset:
-    #     p_language_choices.append((language.id, language.language))
-    # p_language = forms.MultipleChoiceField(
-    #     choices=p_language_choices, widget=forms.CheckboxSelectMultiple, required=False
-    # )
+    p_language_objects = ProgrammingLanguage.objects.all()
+    lang_choices = []
+    for lang in p_language_objects:
+        lang_choices.append((lang.id, lang.language))
+    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(),choices=lang_choices, initial={"value":[1]})
 
     class Meta:
         model = User
@@ -72,6 +71,9 @@ class UserEditForm(forms.ModelForm):
             "linked_in",
             "portfolio",
         ]
+    
+    def clean(self):
+        validate_username(self)
 
 
 class AddProfilePictureForm(forms.ModelForm):
