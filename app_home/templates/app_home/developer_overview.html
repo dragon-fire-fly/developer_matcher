@@ -16,7 +16,11 @@
                 <div class="col-md-3">
                     <div class="card text-center">
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
+                            {% if dev.profile_pic.values %}
                             <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
+                        {% else %}
+                        <img src="http://placekitten.com/300/300" alt="" class="card-img-top dev-img">
+                        {% endif %}
                         </a>
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">{{ dev.username }}</a>
                         <p>{% for language in dev.p_language.values %}
