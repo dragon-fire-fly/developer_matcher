@@ -3,11 +3,15 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
-from .models import User, UserProfilePicture, Project, ProgrammingLanguage
+from .models import User, UserProfilePicture, Project, ProgrammingLanguage, Message
 from .forms import UserRegistrationForm, UserEditForm, AddProfilePictureForm
 
 
 class RegisterView(TemplateView):
+    """
+    View for a new user to register on the site.
+    """
+
     model = User
     template_name = "app_user/register.html"
 
@@ -43,6 +47,10 @@ class RegisterView(TemplateView):
 
 
 class ProfileView(TemplateView):
+    """
+    View for user to view their own profile.
+    """
+
     model = User
     template_name = "app_user/user_profile.html"
 
@@ -67,6 +75,10 @@ def delete_profile(request):
 
 
 class EditProfileView(TemplateView):
+    """
+    View to edit the logged in user's profile
+    """
+
     model = User
     template_name = "app_user/user_profile_edit.html"
 
@@ -84,7 +96,7 @@ class EditProfileView(TemplateView):
         if form.is_valid():
             form.save()
             messages.success(request, "Profile successfully updated!")
-        # redirect to main profile page
+            # redirect to main profile page
             return redirect(reverse("app_user:profile"))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your username!")
@@ -100,6 +112,10 @@ class EditProfileView(TemplateView):
 
 
 class EditProfilePicView(TemplateView):
+    """
+    View to add or delete a profile picture
+    """
+
     model = User
     template_name = "app_user/profile_pic_edit.html"
 
@@ -139,3 +155,14 @@ class EditProfilePicView(TemplateView):
             picture = get_object_or_404(UserProfilePicture, pk=pic_id)
             picture.delete()
         return redirect(reverse("app_user:edit-profile-pic"))
+
+
+class Messages(TemplateView):
+    """
+    View of user's received and sent messages
+    """
+
+    model = Message
+    template_name = "app_user/messages.html"
+
+    # def get(self, request):
