@@ -168,7 +168,6 @@ class Messages(TemplateView):
     def get(self, request):
         received_msgs = Message.objects.filter(user_receiver=request.user)
         sent_msgs = Message.objects.filter(user_sender=request.user)
-        # breakpoint()
         context = {
             "received_msgs": received_msgs,
             "sent_msgs": sent_msgs,
@@ -186,7 +185,12 @@ class IndividualMsg(TemplateView):
     def get(self, request, *args, **kwargs):
         message_pk = kwargs["pk"]
         message = Message.objects.get(pk=message_pk)
+        if message.user_sender == request.user:
+            msg_type = "sent"
+        else:
+            msg_type = "received"
         context = {
-            "msg": message
+            "msg": message,
+            "msg_type": msg_type,
         }
         return render(request, "app_user/individual_msg.html", context)

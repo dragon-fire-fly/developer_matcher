@@ -12,7 +12,8 @@
     <title>{% block title %} Developer Matcher {% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a href="{% url 'app_home:index' %}" class="navbar-brand">Developer Matcher</a>
 
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -46,6 +47,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right" style="font-size:120%;">
                 <li><a href="{% url 'app_user:profile' %}">My Profile</a></li>
+                <li><a href="{% url 'app_user:messages' %}">My Messages</a></li>
                 <li><a href="/user/logout/">Log out</a></li>
             </ul>
             {% else %}

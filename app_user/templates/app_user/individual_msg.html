@@ -5,10 +5,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+            {% if msg_type == received %}
             <h1 class="text-center">Message from {{ msg.user_sender.username }}</h1>
-            <p>Title: {{ msg.title }}</p>
-            <p>Message: {{ msg.message }}</p>
-            <p>Received: {{ msg.sent_date }}</p>
+            <p><u><strong>Title:</strong> {{ msg.title }}</p>
+            <p><strong>Message:</strong> {{ msg.message }}</p>
+            <p><strong>Received:</strong> {{ msg.sent_date }}</p>
+            {% else %}
+            <h1 class="text-center">Your message to {{ msg.user_receiver.username }}</h1>
+            <p><strong>Title:</strong> {{ msg.title }}</p>
+            <p><strong>Message:</strong> {{ msg.message }}</p>
+            <p><strong>Sent:</strong> {{ msg.sent_date }}</p>
+            {% endif %}
         </div>
     </div>
 </div>
