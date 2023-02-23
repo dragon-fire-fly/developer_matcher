@@ -179,6 +179,7 @@ class IndividualMsg(TemplateView):
     """
     View of a specific selected message
     """
+
     model = Message
     template_name = "app_user/messages.html"
 

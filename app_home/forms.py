@@ -45,6 +45,14 @@ class ProjectCreationForm(forms.ModelForm):
         model = Project
         fields = ["p_language", "title", "description"]
 
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
+
     def save(self, commit=True):
         project = super(ProjectCreationForm, self).save(commit=False)
         if commit:
@@ -70,6 +78,14 @@ class ProjectEditForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
 
     def save(self, commit=True):
         project = super(ProjectEditForm, self).save(commit=False)

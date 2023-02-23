@@ -74,6 +74,14 @@ class UserEditForm(forms.ModelForm):
             "portfolio",
         ]
 
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
+
     def clean(self):
         validate_username(self)
 
