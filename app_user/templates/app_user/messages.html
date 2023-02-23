@@ -6,6 +6,12 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ user.username }}'s Messages</h1>
+
+            <p>Recieved messages:</p>
+            {% for msg in received_msgs %}
+
+            <a href="{% url 'app_user:individual_msg' msg.pk %}"><p>From: {{ msg.user_sender.username }}, Title: {{ msg.title }}, Received: {{ msg.sent_date }}</p></a>
+            {% endfor %}
         </div>
     </div>
 </div>

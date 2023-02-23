@@ -18,4 +18,5 @@ urlpatterns = [
         name="success",
     ),
     path("messages/", views.Messages.as_view(), name="messages"),
+    path("messages/<int:pk>/", views.IndividualMsg.as_view(), name="individual_msg"),
 ]

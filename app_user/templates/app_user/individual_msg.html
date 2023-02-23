@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Message{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Message from {{ msg.user_sender.username }}</h1>
+            <p>Title: {{ msg.title }}</p>
+            <p>Message: {{ msg.message }}</p>
+            <p>Received: {{ msg.sent_date }}</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

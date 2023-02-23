@@ -165,4 +165,28 @@ class Messages(TemplateView):
     model = Message
     template_name = "app_user/messages.html"
 
-    # def get(self, request):
+    def get(self, request):
+        received_msgs = Message.objects.filter(user_receiver=request.user)
+        sent_msgs = Message.objects.filter(user_sender=request.user)
+        # breakpoint()
+        context = {
+            "received_msgs": received_msgs,
+            "sent_msgs": sent_msgs,
+        }
+        return render(request, "app_user/messages.html", context)
+
+
+class IndividualMsg(TemplateView):
+    """
+    View of a specific selected message
+    """
+    model = Message
+    template_name = "app_user/messages.html"
+
+    def get(self, request, *args, **kwargs):
+        message_pk = kwargs["pk"]
+        message = Message.objects.get(pk=message_pk)
+        context = {
+            "msg": message
+        }
+        return render(request, "app_user/individual_msg.html", context)
