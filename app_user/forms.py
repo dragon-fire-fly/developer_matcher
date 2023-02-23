@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.forms import ModelForm, ValidationError
 from django_countries.fields import CountryField
 from better_profanity import profanity
-from .models import User, ProgrammingLanguage, UserProfilePicture
+from .models import User, ProgrammingLanguage, UserProfilePicture, Message
 
 
 def validate_username(data):
@@ -91,3 +91,9 @@ class AddProfilePictureForm(forms.ModelForm):
         model = UserProfilePicture
         fields = "__all__"
         exclude = ["user"]
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ["title", "message"]
