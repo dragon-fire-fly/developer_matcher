@@ -214,3 +214,14 @@ class AddMessage(TemplateView):
             "form": form,
         }
         return render(request, "app_user/new_message.html", context)
+
+    def post(self, request, *args, **kwargs):
+        new_msg = MessageForm(request.POST)
+        if new_msg.is_valid():
+            new_msg = new_msg.save(commit=False)
+            new_msg.user_sender_id = request.POST["sender"]
+            new_msg.user_receiver_id = request.POST["receiver"]
+            new_msg.save()
+            messages.success(request, "Message sent!")
+        return redirect("app_user:messages")
+

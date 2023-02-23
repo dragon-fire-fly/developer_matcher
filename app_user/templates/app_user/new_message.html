@@ -11,6 +11,8 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
+                <input type="hidden" name="sender" value="{{ sender.pk }}">
+                <input type="hidden" name="receiver" value="{{ receiver.pk }}">
                 <button>Send!</button>
             </form>
         </div>

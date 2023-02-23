@@ -11,7 +11,7 @@
             <p><strong>Message:</strong> {{ msg.message }}</p>
             <p><strong>Received:</strong> {{ msg.sent_date }}</p>
             {% else %}
-            <h1 class="text-center">Your message to {{ msg.user_receiver.username }}</h1>
+            <h1 class="text-center">Your message to <br>{{ msg.user_receiver.username }}</h1>
             <p><strong>Title:</strong> {{ msg.title }}</p>
             <p><strong>Message:</strong> {{ msg.message }}</p>
             <p><strong>Sent:</strong> {{ msg.sent_date }}</p>
