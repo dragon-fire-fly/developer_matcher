@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_user', '0004_alter_project_user'),
+        ("app_user", "0004_alter_project_user"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='project',
-            name='title',
-            field=models.CharField(help_text='What is the title for your project?', max_length=100, unique=True),
+            model_name="project",
+            name="title",
+            field=models.CharField(
+                help_text="What is the title for your project?",
+                max_length=100,
+                unique=True,
+            ),
         ),
     ]

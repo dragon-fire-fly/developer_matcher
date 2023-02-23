@@ -37,7 +37,10 @@ class ProjectCreationForm(forms.ModelForm):
         n += 1
         lang_choices.append((n, lang.language))
 
-    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lang_choices)
+    p_language = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple, choices=lang_choices
+    )
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
@@ -60,7 +63,10 @@ class ProjectEditForm(forms.ModelForm):
         n += 1
         lang_choices.append((n, lang.language))
 
-    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lang_choices)
+    p_language = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple, choices=lang_choices
+    )
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]

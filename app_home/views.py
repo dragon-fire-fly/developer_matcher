@@ -3,11 +3,16 @@ from django.views.generic import TemplateView, FormView
 from app_user.models import User, Project, ProgrammingLanguage, ProjectPicture
 from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 
 class HomeView(TemplateView):
+    """
+    View for the home page.
+    """
+
     model = User
     template_name = "app_home/index.html"
 
@@ -17,11 +22,19 @@ class HomeView(TemplateView):
 
 
 class AboutView(TemplateView):
+    """
+    View for the about page.
+    """
+
     model = User
     template_name = "app_home/about.html"
 
 
-class DeveloperOverview(TemplateView):
+class DeveloperOverview(TemplateView, LoginRequiredMixin):
+    """
+    View for the general overview displaying all users except the logged in user.
+    """
+
     model = User
     template_name = "app_home/developer_overview.html"
 
@@ -33,6 +46,10 @@ class DeveloperOverview(TemplateView):
 
 
 class ProfileDetailView(TemplateView):
+    """
+    View for rendering detailed profile view for chosen user.
+    """
+
     model = User
     template_name = "app_home/user_detail_view.html"
 
@@ -52,6 +69,10 @@ class ProfileDetailView(TemplateView):
 
 
 class ProjectOverview(TemplateView):
+    """
+    Project overview view.
+    """
+
     model = Project
     template_name = "app_home/project_overview.html"
 
@@ -63,6 +84,10 @@ class ProjectOverview(TemplateView):
 
 
 class ProjectDetailView(TemplateView):
+    """
+    View for rendering the detail page for a project.
+    """
+
     model = Project
     template_name = "app_home/project_detail_view.html"
 
@@ -76,6 +101,10 @@ class ProjectDetailView(TemplateView):
 
 
 class CreateProjectView(FormView):
+    """
+    View to create a project.
+    """
+
     template_name = "app_home/create_project.html"
     form_class = ProjectCreationForm
 
@@ -97,17 +126,27 @@ class CreateProjectView(FormView):
                 new_project.p_language.add(lang)
                 new_project.save()
             messages.success(request, "Project successfully created!")
-            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk}))
+            return redirect(
+                reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk})
+            )
         elif "profanity" in form.errors.as_text():
-            messages.error(request, "Please do not use profanities in your project name!")
+            messages.error(
+                request, "Please do not use profanities in your project name!"
+            )
         elif "duplicate_name" in form.errors.as_text():
-            messages.error(request, "Project name already taken! Please choose another.")
+            messages.error(
+                request, "Project name already taken! Please choose another."
+            )
         else:
             messages.error(request, "Please select at least one programming language")
         return redirect(reverse("app_home:create-project"))
 
 
 class EditProjectView(TemplateView):
+    """
+    View to edit a project
+    """
+
     model = Project
     template_name = "app_home/edit_project.html"
 
@@ -127,19 +166,31 @@ class EditProjectView(TemplateView):
             project.p_language.set(p_langs)
             project.save()
             messages.success(request, "Project successfully edited!")
-            return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project.pk}))
+            return redirect(
+                reverse("app_home:project-detail-view", kwargs={"pk": project.pk})
+            )
         elif "profanity" in form.errors.as_text():
-            messages.error(request, "Please do not use profanities in your project name!")
+            messages.error(
+                request, "Please do not use profanities in your project name!"
+            )
             return render(request, "app_home/edit_project.html", {"form": form})
         elif "duplicate_name" in form.errors.as_text():
-            messages.error(request, "Project name already in use! Please choose another")
+            messages.error(
+                request, "Project name already in use! Please choose another"
+            )
             return render(request, "app_home/edit_project.html", {"form": form})
-        else:
+        elif not form["p_language"].value():
             messages.error(request, "Please select at least one programming language")
+        else:
+            messages.error(request, "Form could not be submitted. Please try again")
         return render(request, "app_home/edit_project.html", {"form": form})
 
 
 class DeleteProjectView(TemplateView):
+    """
+    View to delete a project
+    """
+
     model = Project
     template_name = "app_home/about.html"
 
@@ -151,6 +202,10 @@ class DeleteProjectView(TemplateView):
 
 
 class AddProjectPicture(TemplateView):
+    """
+    View to add a picture to a project
+    """
+
     model = ProjectPicture
     template_name = "app_home/project_picture.html"
 
@@ -158,7 +213,7 @@ class AddProjectPicture(TemplateView):
         project = get_object_or_404(Project, pk=kwargs["pk"])
         if project.project_pic:
             pic_query_set = project.project_pic.values()
-        else:            
+        else:
             pic_query_set = [""]
         form = AddProjectPictureForm()
         context = {
@@ -173,17 +228,23 @@ class AddProjectPicture(TemplateView):
         project_pk = project.pk
 
         new_picture = AddProjectPictureForm(
-                request.POST, request.FILES, initial={"project": project}
-            )
+            request.POST, request.FILES, initial={"project": project}
+        )
         if new_picture.is_valid():
             new_picture = new_picture.save(commit=False)
             new_picture.project = project
             new_picture.save()
 
-        return redirect(reverse("app_home:project-detail-view", kwargs={"pk": project_pk}))
+        return redirect(
+            reverse("app_home:project-detail-view", kwargs={"pk": project_pk})
+        )
 
 
 class DeleteProjectPicture(TemplateView):
+    """
+    View to delete pictures from projects
+    """
+
     model = ProjectPicture
     template_name = "app_home/project_picture.html"
 
