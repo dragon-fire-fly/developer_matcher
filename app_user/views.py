@@ -225,3 +225,12 @@ class AddMessage(TemplateView):
             messages.success(request, "Message sent!")
         return redirect("app_user:messages")
 
+
+class DeleteMessage(TemplateView):
+    model = Message
+
+    def get(self, request, *args, **kwargs):
+        message = get_object_or_404(Message, pk=kwargs["pk"])
+        message.delete()
+        messages.success(request, "Message successfully deleted!")
+        return redirect(reverse("app_user:messages"))

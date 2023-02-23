@@ -8,7 +8,12 @@
             <h1 class="text-center">{{ user_for_profile.username }}'s Profile</h1>
             <div class="circle-container">
                 <div class="circle-img">
+                        {% if user_for_profile.profile_pic.values %}
                         <img src={{user_for_profile.profile_pic.values.0.profile_picture.url}} alt="">
+                        {% else %}
+                        <img src="http://placekitten.com/300/300" alt="">
+                        {% endif %}
+                        </a>
                 </div>
             </div>
         </div>
@@ -45,7 +50,8 @@
                 <a href="{% url 'app_home:project-detail-view' project.pk %}">{{project.title}}</a>
             {% endfor %}</p>
             {% endif %}
-
+            
+            <a href="{% url 'app_user:add_message' user_for_profile.pk %}">Send message</a>
         </div>
     </div>
 </div>
