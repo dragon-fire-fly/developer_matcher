@@ -16,7 +16,7 @@
                 </div>
             </div>
             {% else %}
-            <a href="{% url 'app_home:add-project-pic' project.pk %}">Add a picture</a>
+            <a href="{% url 'app_home:add-project-pic' project.pk %}" class="btn btn-primary offset-md-5">Add a picture</a>
             {% endif %}
             {% else %}
             <div class="circle-container">
