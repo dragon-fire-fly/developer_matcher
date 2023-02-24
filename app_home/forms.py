@@ -37,10 +37,21 @@ class ProjectCreationForm(forms.ModelForm):
         n += 1
         lang_choices.append((n, lang.language))
 
-    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lang_choices)
+    p_language = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple, choices=lang_choices
+    )
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
 
     def save(self, commit=True):
         project = super(ProjectCreationForm, self).save(commit=False)
@@ -60,10 +71,21 @@ class ProjectEditForm(forms.ModelForm):
         n += 1
         lang_choices.append((n, lang.language))
 
-    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=lang_choices)
+    p_language = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple, choices=lang_choices
+    )
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
 
     def save(self, commit=True):
         project = super(ProjectEditForm, self).save(commit=False)

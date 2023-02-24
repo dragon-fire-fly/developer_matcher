@@ -11,10 +11,14 @@
                     <a href="{% url 'app_user:edit-profile-pic' %}" class="circle-img">
                         {% if user.profile_pic.values %}
                         <img src={{user.profile_pic.values.0.profile_picture.url}} alt="">
-                        </a></div></div>
+                        </a>
+                    </div>
+                </div>
                         {% else %}
                         <img src="http://placekitten.com/300/300" alt="">
-                        </a></div></div>
+                        </a>
+                    </div>
+                </div>
                         You have been assigned a random kitten placeholder image. 
                         Please click the image if you would like to upload your own picture.
                         {% endif %}

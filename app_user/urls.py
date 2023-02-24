@@ -17,4 +17,6 @@ urlpatterns = [
         TemplateView.as_view(template_name="app_user/success.html"),
         name="success",
     ),
+    path("messages/", views.Messages.as_view(), name="messages"),
+    path("messages/<int:pk>/", views.IndividualMsg.as_view(), name="individual_msg"),
 ]

@@ -55,7 +55,9 @@ class UserEditForm(forms.ModelForm):
     lang_choices = []
     for lang in p_language_objects:
         lang_choices.append((lang.id, lang.language))
-    p_language = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(),choices=lang_choices, initial={"value":[1]})
+    p_language = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple(), choices=lang_choices
+    )
 
     class Meta:
         model = User
@@ -71,7 +73,15 @@ class UserEditForm(forms.ModelForm):
             "linked_in",
             "portfolio",
         ]
-    
+
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
+        p_langs_init = []
+        for lang in p_lang_q_set:
+            p_langs_init.append(lang.pk)
+        self.initial["p_language"] = p_langs_init
+
     def clean(self):
         validate_username(self)
 

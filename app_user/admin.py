@@ -6,6 +6,7 @@ from .models import (
     Project,
     ProjectPicture,
     ProgrammingLanguage,
+    Message,
 )
 
 
@@ -55,7 +56,13 @@ class ProgrammingLanguageAdmin(admin.ModelAdmin):
     fields = ["language", "language_icon"]
 
 
+class MessageAdmin(admin.ModelAdmin):
+    fields = ["user_sender", "user_receiver", "title", "message"]
+    exclude = ["sent_date"]
+
+
 # Register User,Project and ProgrammingLanguage
 admin.site.register(User, UserAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProgrammingLanguage, ProgrammingLanguageAdmin)
+admin.site.register(Message, MessageAdmin)

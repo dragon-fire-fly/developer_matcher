@@ -88,7 +88,9 @@ class Project(models.Model):
     user = models.ManyToManyField(User, blank=True)
     p_language = models.ManyToManyField(ProgrammingLanguage)
     title = models.CharField(
-        help_text="What is the title for your project?", max_length=100, unique=True,
+        help_text="What is the title for your project?",
+        max_length=100,
+        unique=True,
     )
     description = models.TextField(
         help_text="Enter your project description here", blank=True, null=True
@@ -103,3 +105,20 @@ class ProjectPicture(models.Model):
         Project, related_name="project_pic", on_delete=models.CASCADE
     )
     project_picture = CloudinaryField("project picture")
+
+
+class Message(models.Model):
+    user_sender = models.ForeignKey(
+        User, related_name="sender", on_delete=models.CASCADE
+    )
+    user_receiver = models.ForeignKey(
+        User, related_name="receiver", on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    sent_date = models.DateField(auto_now_add=True, blank=False)
+
+    def __str__(self) -> str:
+        return (
+            f"<Message from {self.user_sender} Subject: {self.title} @{self.sent_date}>"
+        )

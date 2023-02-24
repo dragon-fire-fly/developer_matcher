@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">{{ user.username }}'s Messages</h1>
+
+            <p>Recieved messages:</p>
+            {% for msg in received_msgs %}
+
+            <p>From: <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">{{ msg.user_sender.username }}</a>, 
+                Title: <a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a>, Received: {{ msg.sent_date }}</p>
+            {% endfor %}
+
+            <p>Sent messages:</p>
+            {% for msg in sent_msgs %}
+
+            <p>Sent to: <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a>, 
+                Title: <a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a>, Received: {{ msg.sent_date }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
