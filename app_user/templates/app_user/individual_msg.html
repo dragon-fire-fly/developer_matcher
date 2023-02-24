@@ -5,17 +5,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            {% if msg_type == received %}
-            <h1 class="text-center">Message from {{ msg.user_sender.username }}</h1>
-            <p><u><strong>Title:</strong> {{ msg.title }}</p>
+            {% if msg_type == "received" %}
+            <h1 class="text-center">Message from <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">{{ msg.user_sender.username }}</a></h1>
+            <p><strong>Title:</strong> {{ msg.title }}</p>
             <p><strong>Message:</strong> {{ msg.message }}</p>
             <p><strong>Received:</strong> {{ msg.sent_date }}</p>
+            <a href="{% url 'app_user:add_message' msg.user_sender.pk %}">Reply</a>
             {% else %}
-            <h1 class="text-center">Your message to {{ msg.user_receiver.username }}</h1>
+            <h1 class="text-center">Your message to <br>{{ msg.user_receiver.username }}</h1>
             <p><strong>Title:</strong> {{ msg.title }}</p>
             <p><strong>Message:</strong> {{ msg.message }}</p>
             <p><strong>Sent:</strong> {{ msg.sent_date }}</p>
             {% endif %}
+            <a href="{% url 'app_user:delete_message' msg.pk %}">Delete</a>
         </div>
     </div>
 </div>

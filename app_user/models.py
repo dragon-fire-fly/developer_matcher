@@ -5,21 +5,13 @@ from cloudinary.models import CloudinaryField
 from django_countries.fields import CountryField
 
 
-class ProgrammingLanguage(models.Model):
-    language = models.CharField(help_text="Enter programming language", max_length=50)
-    language_icon = CloudinaryField("image", default="p_language_icon")
-
-    def __str__(self):
-        return self.language
-
-
 class User(AbstractUser):
     """Inherits from AbstractUser to gain username, email, first_name,
     last_name and date_joined fields.
     Adds additional specific fields to this model.
     """
 
-    p_language = models.ManyToManyField(ProgrammingLanguage)
+    p_language = models.ManyToManyField("ProgramLang")
     location = CountryField(
         help_text="Where do you live?", blank_label="Country", blank=True, null=True
     )
@@ -86,7 +78,7 @@ class UserProfilePicture(models.Model):
 
 class Project(models.Model):
     user = models.ManyToManyField(User, blank=True)
-    p_language = models.ManyToManyField(ProgrammingLanguage)
+    p_language = models.ManyToManyField("ProgramLang")
     title = models.CharField(
         help_text="What is the title for your project?",
         max_length=100,
@@ -105,6 +97,17 @@ class ProjectPicture(models.Model):
         Project, related_name="project_pic", on_delete=models.CASCADE
     )
     project_picture = CloudinaryField("project picture")
+
+
+class ProgramLang(models.Model):
+    language = models.CharField(
+        help_text="Enter programming language",
+        max_length=50
+    )
+    language_icon = CloudinaryField("image", default="p_language_icon")
+
+    def __str__(self):
+        return self.language
 
 
 class Message(models.Model):

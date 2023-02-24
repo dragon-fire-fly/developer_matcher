@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Message{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Send a message to <br>{{ receiver.username }}</h1>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="hidden" name="sender" value="{{ sender.pk }}">
+                <input type="hidden" name="receiver" value="{{ receiver.pk }}">
+                <button>Send!</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

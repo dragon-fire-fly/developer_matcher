@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.forms import ModelForm, ValidationError
 from django_countries.fields import CountryField
 from better_profanity import profanity
-from .models import User, ProgrammingLanguage, UserProfilePicture
+from .models import User, ProgramLang, UserProfilePicture, Message
 
 
 def validate_username(data):
@@ -51,13 +51,13 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    p_language_objects = ProgrammingLanguage.objects.all()
-    lang_choices = []
-    for lang in p_language_objects:
-        lang_choices.append((lang.id, lang.language))
-    p_language = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple(), choices=lang_choices
-    )
+    # p_language_objects = ProgramLang.objects.all()
+    # lang_choices = []
+    # for lang in p_language_objects:
+    #     lang_choices.append((lang.id, lang.language))
+    # p_language = forms.MultipleChoiceField(
+    #     widget=forms.CheckboxSelectMultiple(), choices=lang_choices
+    # )
 
     class Meta:
         model = User
@@ -74,13 +74,13 @@ class UserEditForm(forms.ModelForm):
             "portfolio",
         ]
 
-    def __init__(self, *args, **kwargs):
-        super(UserEditForm, self).__init__(*args, **kwargs)
-        p_lang_q_set = ProgrammingLanguage.objects.filter(user=self.instance)
-        p_langs_init = []
-        for lang in p_lang_q_set:
-            p_langs_init.append(lang.pk)
-        self.initial["p_language"] = p_langs_init
+    # def __init__(self, *args, **kwargs):
+    #     super(UserEditForm, self).__init__(*args, **kwargs)
+    #     p_lang_q_set = ProgramLang.objects.filter(user=self.instance)
+    #     p_langs_init = []
+    #     for lang in p_lang_q_set:
+    #         p_langs_init.append(lang.pk)
+    #     self.initial["p_language"] = p_langs_init
 
     def clean(self):
         validate_username(self)
@@ -91,3 +91,9 @@ class AddProfilePictureForm(forms.ModelForm):
         model = UserProfilePicture
         fields = "__all__"
         exclude = ["user"]
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ["title", "message"]

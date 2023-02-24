@@ -12,11 +12,8 @@ urlpatterns = [
     path(
         "profile/picture/", views.EditProfilePicView.as_view(), name="edit-profile-pic"
     ),
-    path(
-        "success/",
-        TemplateView.as_view(template_name="app_user/success.html"),
-        name="success",
-    ),
     path("messages/", views.Messages.as_view(), name="messages"),
     path("messages/<int:pk>/", views.IndividualMsg.as_view(), name="individual_msg"),
+    path("messages/send/<int:pk>/", views.AddMessage.as_view(), name="add_message"),
+    path("messages/delete/<int:pk>/", views.DeleteMessage.as_view(), name="delete_message"),
 ]

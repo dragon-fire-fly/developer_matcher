@@ -3,8 +3,13 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
-from .models import User, UserProfilePicture, Project, ProgrammingLanguage, Message
-from .forms import UserRegistrationForm, UserEditForm, AddProfilePictureForm
+from .models import User, UserProfilePicture, Project, ProgramLang, Message
+from .forms import (
+    UserRegistrationForm,
+    UserEditForm,
+    AddProfilePictureForm,
+    MessageForm,
+)
 
 
 class RegisterView(TemplateView):
@@ -100,14 +105,12 @@ class EditProfileView(TemplateView):
             return redirect(reverse("app_user:profile"))
         elif "profanity" in form.errors.as_text():
             messages.error(request, "Please do not use profanities in your username!")
-            return redirect("app_user:edit-profile")
         elif "duplicate_name" in form.errors.as_text():
             messages.error(request, "Username already in use! Please choose another")
-            return redirect("app_user:edit-profile")
         elif not form["p_language"].value():
             messages.error(request, "Please select at least one programming language")
         else:
-            messages.error(request, "Form could not be submitted")
+            messages.error(request, "Form could not be submitted. Please try again.")
         return redirect(reverse("app_user:edit-profile"))
 
 
@@ -195,3 +198,39 @@ class IndividualMsg(TemplateView):
             "msg_type": msg_type,
         }
         return render(request, "app_user/individual_msg.html", context)
+
+
+class AddMessage(TemplateView):
+    model = Message
+    template_name = "app_user:new_message.html"
+
+    def get(self, request, *args, **kwargs):
+        form = MessageForm(
+            initial={"user_sender": request.user, "user_receiver": kwargs["pk"]}
+        )
+        context = {
+            "sender": request.user,
+            "receiver": get_object_or_404(User, pk=kwargs["pk"]),
+            "form": form,
+        }
+        return render(request, "app_user/new_message.html", context)
+
+    def post(self, request, *args, **kwargs):
+        new_msg = MessageForm(request.POST)
+        if new_msg.is_valid():
+            new_msg = new_msg.save(commit=False)
+            new_msg.user_sender_id = request.POST["sender"]
+            new_msg.user_receiver_id = request.POST["receiver"]
+            new_msg.save()
+            messages.success(request, "Message sent!")
+        return redirect("app_user:messages")
+
+
+class DeleteMessage(TemplateView):
+    model = Message
+
+    def get(self, request, *args, **kwargs):
+        message = get_object_or_404(Message, pk=kwargs["pk"])
+        message.delete()
+        messages.success(request, "Message successfully deleted!")
+        return redirect(reverse("app_user:messages"))
