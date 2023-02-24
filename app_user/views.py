@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
-from .models import User, UserProfilePicture, Project, ProgrammingLanguage, Message
+from .models import User, UserProfilePicture, Project, ProgramLang, Message
 from .forms import (
     UserRegistrationForm,
     UserEditForm,

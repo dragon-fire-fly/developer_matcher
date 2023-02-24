@@ -5,7 +5,7 @@ from .models import (
     UserProfilePicture,
     Project,
     ProjectPicture,
-    ProgrammingLanguage,
+    ProgramLang,
     Message,
 )
 
@@ -64,5 +64,5 @@ class MessageAdmin(admin.ModelAdmin):
 # Register User,Project and ProgrammingLanguage
 admin.site.register(User, UserAdmin)
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(ProgrammingLanguage, ProgrammingLanguageAdmin)
+admin.site.register(ProgramLang, ProgrammingLanguageAdmin)
 admin.site.register(Message, MessageAdmin)

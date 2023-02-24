@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
-from app_user.models import User, Project, ProgrammingLanguage, ProjectPicture
+from app_user.models import User, Project, ProgramLang, ProjectPicture
 from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
