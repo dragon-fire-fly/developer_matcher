@@ -156,6 +156,9 @@ class EditProjectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
+        # if project.user.get() != request.user:
+        #     return redirect("app_home:project-overview")
+        # else:
         context = {"form": ProjectEditForm(instance=project)}
 
         return render(request, "app_home/edit_project.html", context)
@@ -250,7 +253,7 @@ class AddProjectPicture(LoginRequiredMixin, TemplateView):
             new_picture.save()
 
         return redirect(
-            reverse("app_home:project-detail-view", kwargs={"pk": project_pk})
+            reverse("app_home:add-project-pic", kwargs={"pk": project_pk})
         )
 
 
