@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from app_user.models import User, Project, ProgramLang
 
 
-class TestHomeViewGetViews(TestCase):
+class TestAppHomeViews(TestCase):
     def setUp(self):
         # create test users
         self.user1 = User.objects.create(
@@ -30,6 +30,10 @@ class TestHomeViewGetViews(TestCase):
             title="ProjectTitle2",
             description="project description2",
         )
+
+        # create test languages
+        self.language1 = ProgramLang.objects.create(language="Python")
+        self.language2 = ProgramLang.objects.create(language="HTML")
 
     def test_homeview_get(self):
         template = "app_home/index.html"
@@ -134,3 +138,87 @@ class TestHomeViewGetViews(TestCase):
         # check that project1 and 2 not in project overview
         self.assertNotContains(response, self.project1.title)
         self.assertNotContains(response, self.project2.title)
+
+    def test_project_detail_view_project_exists(self):
+        template = "app_home/project_detail_view.html"
+        url = reverse(
+            "app_home:project-detail-view", kwargs={"pk": self.project1.pk}
+        )
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+        self.assertContains(response, self.project1.title)
+
+    def test_project_detail_view_project_does_not_exist(self):
+        template = "app_home/project_detail_view.html"
+        url = reverse("app_home:project-detail-view", kwargs={"pk": 999})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_create_project_get(self):
+        template = "app_home/create_project.html"
+        url = reverse("app_home:create-project")
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+
+    def test_create_project_post_valid(self):
+        url = reverse("app_home:create-project")
+
+        self.client.force_login(self.user1)
+        # count number projects before new project creation
+        project_count = Project.objects.count()
+        # create new project
+        response = self.client.post(
+            url,
+            {
+                "title": "ProjectTitle3",
+                "description": "Project description3",
+                "p_language": [
+                    self.language1.pk,
+                    self.language2.pk,
+                ],
+            },
+        )
+
+        # Check that project was created successfully
+        self.assertEqual(response.status_code, 302)
+        # number of projects has increased by one
+        self.assertEqual(Project.objects.count(), project_count + 1)
+        # new project has correct title
+        self.assertEqual(Project.objects.last().title, "ProjectTitle3")
+        # check p langs have been added
+        self.assertCountEqual(
+            Project.objects.last().p_language.all(),
+            [self.language1, self.language2]
+        )
+        # check new project belongs to logged in user
+        self.assertEqual(Project.objects.last().user.last(), self.user1)
+
+    def test_create_project_post_invalid(self):
+        url = reverse("app_home:create-project")
+
+        self.client.force_login(self.user1)
+        # count number projects before new project creation
+        project_count = Project.objects.count()
+        # try to create new project without a title
+        response = self.client.post(
+            url,
+            {
+                "title": "",
+                "description": "",
+                "p_language": [
+                    self.language1.pk,
+                    self.language2.pk,
+                ],
+            },
+        )
+
+        # Check that project was NOT created
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Project.objects.count(), project_count)
