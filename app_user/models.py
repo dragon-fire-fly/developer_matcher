@@ -13,13 +13,22 @@ class User(AbstractUser):
 
     p_language = models.ManyToManyField("ProgramLang")
     location = CountryField(
-        help_text="Where do you live?", blank_label="Country", blank=True, null=True
+        help_text="Where do you live?",
+        blank_label="Country",
+        blank=True,
+        null=True,
     )
     github_username = models.CharField(
-        help_text="What is your GitHub username?", max_length=255, blank=True, null=True
+        help_text="What is your GitHub username?",
+        max_length=255,
+        blank=True,
+        null=True,
     )
     github_url = models.URLField(
-        help_text="What is your GitHub URL?", max_length=255, blank=True, null=True
+        help_text="What is your GitHub URL?",
+        max_length=255,
+        blank=True,
+        null=True,
     )
     linked_in = models.URLField(
         help_text="What is the URL of your linkedin profile?",
@@ -28,7 +37,10 @@ class User(AbstractUser):
         null=True,
     )
     portfolio = models.URLField(
-        help_text="What is your portfolio URL?", max_length=255, blank=True, null=True
+        help_text="What is your portfolio URL?",
+        max_length=255,
+        blank=True,
+        null=True,
     )
     # Users that a user follows. Don't have to follow anyone and don't need to
     # be followed back by the same user.
@@ -72,7 +84,9 @@ class User(AbstractUser):
 
 
 class UserProfilePicture(models.Model):
-    user = models.ForeignKey(User, related_name="profile_pic", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="profile_pic", on_delete=models.CASCADE
+    )
     profile_picture = CloudinaryField("profile picture")
 
 
@@ -100,7 +114,9 @@ class ProjectPicture(models.Model):
 
 
 class ProgramLang(models.Model):
-    language = models.CharField(help_text="Enter programming language", max_length=50)
+    language = models.CharField(
+        help_text="Enter programming language", max_length=50
+    )
     language_icon = CloudinaryField("image", default="p_language_icon")
 
     def __str__(self):
@@ -119,6 +135,5 @@ class Message(models.Model):
     sent_date = models.DateField(auto_now_add=True, blank=False)
 
     def __str__(self) -> str:
-        return (
-            f"<Message from {self.user_sender} Subject: {self.title} @{self.sent_date}>"
-        )
+        return f"""<Message from {self.user_sender}
+        Subject: {self.title} @{self.sent_date}>"""

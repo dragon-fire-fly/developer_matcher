@@ -104,13 +104,21 @@ class EditProfileView(TemplateView):
             # redirect to main profile page
             return redirect(reverse("app_user:profile"))
         elif "profanity" in form.errors.as_text():
-            messages.error(request, "Please do not use profanities in your username!")
+            messages.error(
+                request, "Please do not use profanities in your username!"
+            )
         elif "duplicate_name" in form.errors.as_text():
-            messages.error(request, "Username already in use! Please choose another")
+            messages.error(
+                request, "Username already in use! Please choose another"
+            )
         elif not form["p_language"].value():
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         else:
-            messages.error(request, "Form could not be submitted. Please try again.")
+            messages.error(
+                request, "Form could not be submitted. Please try again."
+            )
         return redirect(reverse("app_user:edit-profile"))
 
 
@@ -137,8 +145,8 @@ class EditProfilePicView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
-        # as there are two post methods (add and delete), they have a hidden input field
-        # called "method" added to distinguish them
+        # as there are two post methods (add and delete), they have a hidden
+        # input field called "method" added to distinguish them
 
         # the add route
         if request.POST.get("method") == "add":
@@ -206,7 +214,10 @@ class AddMessage(TemplateView):
 
     def get(self, request, *args, **kwargs):
         form = MessageForm(
-            initial={"user_sender": request.user, "user_receiver": kwargs["pk"]}
+            initial={
+                "user_sender": request.user,
+                "user_receiver": kwargs["pk"],
+            }
         )
         context = {
             "sender": request.user,

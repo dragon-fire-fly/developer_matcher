@@ -32,7 +32,8 @@ class AboutView(TemplateView):
 
 class DeveloperOverview(TemplateView, LoginRequiredMixin):
     """
-    View for the general overview displaying all users except the logged in user.
+    View for the general overview displaying all users except the
+    logged in user.
     """
 
     model = User
@@ -127,7 +128,10 @@ class CreateProjectView(FormView):
                 new_project.save()
             messages.success(request, "Project successfully created!")
             return redirect(
-                reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk})
+                reverse(
+                    "app_home:project-detail-view",
+                    kwargs={"pk": new_project.pk},
+                )
             )
         elif "profanity" in form.errors.as_text():
             messages.error(
@@ -138,7 +142,9 @@ class CreateProjectView(FormView):
                 request, "Project name already taken! Please choose another."
             )
         else:
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         return redirect(reverse("app_home:create-project"))
 
 
@@ -167,22 +173,32 @@ class EditProjectView(TemplateView):
             project.save()
             messages.success(request, "Project successfully edited!")
             return redirect(
-                reverse("app_home:project-detail-view", kwargs={"pk": project.pk})
+                reverse(
+                    "app_home:project-detail-view", kwargs={"pk": project.pk}
+                )
             )
         elif "profanity" in form.errors.as_text():
             messages.error(
                 request, "Please do not use profanities in your project name!"
             )
-            return render(request, "app_home/edit_project.html", {"form": form})
+            return render(
+                request, "app_home/edit_project.html", {"form": form}
+            )
         elif "duplicate_name" in form.errors.as_text():
             messages.error(
                 request, "Project name already in use! Please choose another"
             )
-            return render(request, "app_home/edit_project.html", {"form": form})
+            return render(
+                request, "app_home/edit_project.html", {"form": form}
+            )
         elif not form["p_language"].value():
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         else:
-            messages.error(request, "Form could not be submitted. Please try again")
+            messages.error(
+                request, "Form could not be submitted. Please try again"
+            )
         return render(request, "app_home/edit_project.html", {"form": form})
 
 

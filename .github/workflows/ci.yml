@@ -55,4 +55,4 @@ jobs:
           GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
         run: python manage.py test
       - name: Check pep8 with black # pep8 compliance check
-        run: python -m black --check .
+        run: python -m black --line-length 79 --check .

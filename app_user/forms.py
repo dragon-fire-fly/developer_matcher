@@ -33,7 +33,9 @@ def validate_username(data):
 
 
 class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(help_text="Enter a valid email address", required=True)
+    email = forms.EmailField(
+        help_text="Enter a valid email address", required=True
+    )
 
     class Meta:
         model = get_user_model()
