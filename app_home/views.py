@@ -28,7 +28,7 @@ class AboutView(TemplateView):
     template_name = "app_home/about.html"
 
 
-class DeveloperOverview(LoginRequiredMixin, TemplateView):
+class DeveloperOverview(TemplateView):
     """
     View for the general overview displaying all users except the
     logged in user.
@@ -67,7 +67,7 @@ class ProfileDetailView(LoginRequiredMixin, TemplateView):
         return render(request, "app_home/user_detail_view.html", context)
 
 
-class ProjectOverview(LoginRequiredMixin, TemplateView):
+class ProjectOverview(TemplateView):
     """
     Project overview view.
     """

@@ -85,11 +85,16 @@ class TestAppHomeViews(TestCase):
 
     def test_profile_detail_view_success(self):
         template = "app_home/user_detail_view.html"
-
         # show user profile of existing user
         url = reverse(
             "app_home:profile-detail-view", kwargs={"pk": self.user2.pk}
         )
+
+        # no user logged in
+        response = self.client.get(url)
+        # redirected to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
 
         # force login of user1
         self.client.force_login(self.user1)
@@ -112,11 +117,20 @@ class TestAppHomeViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_project_overview(self):
-        # project overview when logged in
-        self.client.force_login(self.user1)
         template = "app_home/project_overview.html"
 
         url = reverse("app_home:project-overview")
+        response = self.client.get(url)
+
+        # project overview page when not logged in
+        self.assertTemplateUsed(template)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "Please log in or register to see projects"
+        )
+
+        # project overview when logged in
+        self.client.force_login(self.user1)
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -144,6 +158,13 @@ class TestAppHomeViews(TestCase):
         url = reverse(
             "app_home:project-detail-view", kwargs={"pk": self.project1.pk}
         )
+        # no user logged in
+        response = self.client.get(url)
+        # redirected to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
+
+        # when user logged in
         self.client.force_login(self.user1)
         response = self.client.get(url)
 
@@ -154,6 +175,7 @@ class TestAppHomeViews(TestCase):
     def test_project_detail_view_project_does_not_exist(self):
         template = "app_home/project_detail_view.html"
         url = reverse("app_home:project-detail-view", kwargs={"pk": 999})
+        self.client.force_login(self.user1)
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 404)
@@ -161,6 +183,14 @@ class TestAppHomeViews(TestCase):
     def test_create_project_get(self):
         template = "app_home/create_project.html"
         url = reverse("app_home:create-project")
+
+        # no user logged in
+        response = self.client.get(url)
+        # redirected to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
+
+        # user logged in
         self.client.force_login(self.user1)
         response = self.client.get(url)
 
@@ -228,6 +258,14 @@ class TestAppHomeViews(TestCase):
         url = reverse(
             "app_home:project-edit-view", kwargs={"pk": self.project1.pk}
         )
+
+        # no user logged in
+        response = self.client.get(url)
+        # redirected to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
+
+        # user logged in
         self.client.force_login(self.user1)
         response = self.client.get(url)
 
