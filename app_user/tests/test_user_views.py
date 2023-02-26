@@ -43,6 +43,8 @@ class TestUserRegistration(TestCase):
 
         # test POST request with data from form
         # test user can submit form on registration page
+
+
 #         response = self.client.post(
 #             self.url,
 #             data={

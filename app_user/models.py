@@ -100,10 +100,7 @@ class ProjectPicture(models.Model):
 
 
 class ProgramLang(models.Model):
-    language = models.CharField(
-        help_text="Enter programming language",
-        max_length=50
-    )
+    language = models.CharField(help_text="Enter programming language", max_length=50)
     language_icon = CloudinaryField("image", default="p_language_icon")
 
     def __str__(self):

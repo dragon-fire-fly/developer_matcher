@@ -37,7 +37,7 @@ class TestUserLogin(TestCase):
 
         # response when not logged in
         response = self.client.get(url)
-        
+
         self.assertTemplateUsed(template)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Please log in to continue")
