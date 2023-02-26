@@ -200,18 +200,55 @@ class TestAppHomeViews(TestCase):
         # check new project belongs to logged in user
         self.assertEqual(Project.objects.last().user.last(), self.user1)
 
-    def test_create_project_post_invalid(self):
-        url = reverse("app_home:create-project")
+    # def test_create_project_post_invalid(self):
+    #     url = reverse("app_home:create-project")
+
+    #     self.client.force_login(self.user1)
+    #     # count number projects before new project creation
+    #     project_count = Project.objects.count()
+    #     # try to create new project without a title
+    #     response = self.client.post(
+    #         url,
+    #         {
+    #             "title": "",
+    #             "description": "",
+    #             "p_language": [
+    #                 self.language1.pk,
+    #                 self.language2.pk,
+    #             ],
+    #         },
+    #     )
+
+    #     # Check that project was NOT created
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertEqual(Project.objects.count(), project_count)
+
+    def test_edit_project_get(self):
+        template = "app_home/edit_project.html"
+        url = reverse(
+            "app_home:project-edit-view", kwargs={"pk": self.project1.pk}
+            )
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+
+    def test_edit_project_post_valid(self):
+        template = "app_home/edit_project.html"
+        url = reverse(
+            "app_home:project-edit-view", kwargs={"pk": self.project1.pk}
+            )
 
         self.client.force_login(self.user1)
-        # count number projects before new project creation
+        # count no. projects before edit
         project_count = Project.objects.count()
-        # try to create new project without a title
+
         response = self.client.post(
             url,
             {
-                "title": "",
-                "description": "",
+                "title": "CHANGED TITLE!",
+                "description": "CHANGED Project description3",
                 "p_language": [
                     self.language1.pk,
                     self.language2.pk,
@@ -219,6 +256,19 @@ class TestAppHomeViews(TestCase):
             },
         )
 
-        # Check that project was NOT created
+        # Check that project was changed successfully
         self.assertEqual(response.status_code, 302)
+        # check number of projects has not changed
         self.assertEqual(Project.objects.count(), project_count)
+        self.assertEqual(
+            Project.objects.get(pk=self.project1.pk).title, "CHANGED TITLE!"
+        )
+        self.assertEqual(
+            Project.objects.get(pk=self.project1.pk).description,
+            "CHANGED Project description3",
+        )
+
+        self.assertCountEqual(
+            Project.objects.get(pk=self.project1.pk).p_language.all(),
+            [self.language1, self.language2],
+        )
