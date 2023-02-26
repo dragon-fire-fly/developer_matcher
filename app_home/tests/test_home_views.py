@@ -48,7 +48,7 @@ class TestHomeViewGetViews(TestCase):
 
         self.assertTemplateUsed(template)
         self.assertEqual(response.status_code, 200)
-        ## to be updated once home page has some content.
+        # to be updated once home page has some content.
         self.assertNotContains(response, "Please log in to continue")
 
     def test_aboutview_get(self):
@@ -83,7 +83,9 @@ class TestHomeViewGetViews(TestCase):
         template = "app_home/user_detail_view.html"
 
         # show user profile of existing user
-        url = reverse("app_home:profile-detail-view", kwargs={"pk": self.user2.pk})
+        url = reverse(
+            "app_home:profile-detail-view", kwargs={"pk": self.user2.pk}
+        )
 
         # force login of user1
         self.client.force_login(self.user1)
@@ -104,3 +106,31 @@ class TestHomeViewGetViews(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 404)
+
+    def test_project_overview(self):
+        # project overview when logged in
+        self.client.force_login(self.user1)
+        template = "app_home/project_overview.html"
+
+        url = reverse("app_home:project-overview")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+        self.assertContains(response, self.project1.title)
+        self.assertContains(response, self.project2.title)
+
+    def test_project_overview_no_projects(self):
+        # delete project1 and project2
+        Project.objects.all().delete()
+
+        self.client.force_login(self.user1)
+        template = "app_home/project_overview.html"
+        url = reverse("app_home:project-overview")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+        # check that project1 and 2 not in project overview
+        self.assertNotContains(response, self.project1.title)
+        self.assertNotContains(response, self.project2.title)
