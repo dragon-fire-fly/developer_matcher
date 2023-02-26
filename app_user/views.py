@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User, UserProfilePicture, Project, ProgramLang, Message
 from .forms import (
     UserRegistrationForm,
@@ -51,7 +52,7 @@ class RegisterView(TemplateView):
         )
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     """
     View for user to view their own profile.
     """
@@ -79,7 +80,7 @@ def delete_profile(request):
     return redirect(reverse("app_home:index"))
 
 
-class EditProfileView(TemplateView):
+class EditProfileView(LoginRequiredMixin, TemplateView):
     """
     View to edit the logged in user's profile
     """
@@ -122,7 +123,7 @@ class EditProfileView(TemplateView):
         return redirect(reverse("app_user:edit-profile"))
 
 
-class EditProfilePicView(TemplateView):
+class EditProfilePicView(LoginRequiredMixin, TemplateView):
     """
     View to add or delete a profile picture
     """
@@ -168,7 +169,7 @@ class EditProfilePicView(TemplateView):
         return redirect(reverse("app_user:edit-profile-pic"))
 
 
-class Messages(TemplateView):
+class Messages(LoginRequiredMixin, TemplateView):
     """
     View of user's received and sent messages
     """
@@ -186,7 +187,7 @@ class Messages(TemplateView):
         return render(request, "app_user/messages.html", context)
 
 
-class IndividualMsg(TemplateView):
+class IndividualMsg(LoginRequiredMixin, TemplateView):
     """
     View of a specific selected message
     """
@@ -208,7 +209,7 @@ class IndividualMsg(TemplateView):
         return render(request, "app_user/individual_msg.html", context)
 
 
-class AddMessage(TemplateView):
+class AddMessage(LoginRequiredMixin, TemplateView):
     model = Message
     template_name = "app_user:new_message.html"
 
@@ -237,7 +238,7 @@ class AddMessage(TemplateView):
         return redirect("app_user:messages")
 
 
-class DeleteMessage(TemplateView):
+class DeleteMessage(LoginRequiredMixin, TemplateView):
     model = Message
 
     def get(self, request, *args, **kwargs):

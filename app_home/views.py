@@ -5,8 +5,6 @@ from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
-
 
 class HomeView(TemplateView):
     """
@@ -30,7 +28,7 @@ class AboutView(TemplateView):
     template_name = "app_home/about.html"
 
 
-class DeveloperOverview(TemplateView, LoginRequiredMixin):
+class DeveloperOverview(LoginRequiredMixin, TemplateView):
     """
     View for the general overview displaying all users except the
     logged in user.
@@ -46,7 +44,7 @@ class DeveloperOverview(TemplateView, LoginRequiredMixin):
         return render(request, "app_home/developer_overview.html", context)
 
 
-class ProfileDetailView(TemplateView):
+class ProfileDetailView(LoginRequiredMixin, TemplateView):
     """
     View for rendering detailed profile view for chosen user.
     """
@@ -69,7 +67,7 @@ class ProfileDetailView(TemplateView):
         return render(request, "app_home/user_detail_view.html", context)
 
 
-class ProjectOverview(TemplateView):
+class ProjectOverview(LoginRequiredMixin, TemplateView):
     """
     Project overview view.
     """
@@ -84,7 +82,7 @@ class ProjectOverview(TemplateView):
         return render(request, "app_home/project_overview.html", context)
 
 
-class ProjectDetailView(TemplateView):
+class ProjectDetailView(LoginRequiredMixin, TemplateView):
     """
     View for rendering the detail page for a project.
     """
@@ -101,7 +99,7 @@ class ProjectDetailView(TemplateView):
         return render(request, "app_home/project_detail_view.html", context)
 
 
-class CreateProjectView(FormView):
+class CreateProjectView(LoginRequiredMixin, FormView):
     """
     View to create a project.
     """
@@ -148,7 +146,7 @@ class CreateProjectView(FormView):
         return redirect(reverse("app_home:create-project"))
 
 
-class EditProjectView(TemplateView):
+class EditProjectView(LoginRequiredMixin, TemplateView):
     """
     View to edit a project
     """
@@ -202,7 +200,7 @@ class EditProjectView(TemplateView):
         return render(request, "app_home/edit_project.html", {"form": form})
 
 
-class DeleteProjectView(TemplateView):
+class DeleteProjectView(LoginRequiredMixin, TemplateView):
     """
     View to delete a project
     """
@@ -217,7 +215,7 @@ class DeleteProjectView(TemplateView):
         return redirect(reverse("app_home:project-overview"))
 
 
-class AddProjectPicture(TemplateView):
+class AddProjectPicture(LoginRequiredMixin, TemplateView):
     """
     View to add a picture to a project
     """
@@ -256,7 +254,7 @@ class AddProjectPicture(TemplateView):
         )
 
 
-class DeleteProjectPicture(TemplateView):
+class DeleteProjectPicture(LoginRequiredMixin, TemplateView):
     """
     View to delete pictures from projects
     """
