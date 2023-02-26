@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from app_user.models import User, Project, ProgramLang
 
 
-class TestUserLogin(TestCase):
+class TestHomeViewGetViews(TestCase):
     def setUp(self):
         # create test users
         self.user1 = User.objects.create(
@@ -56,7 +56,7 @@ class TestUserLogin(TestCase):
         template = "app_home/about.html"
         url = reverse("app_home:about")
         response = self.client.get(url)
-        
+
         self.assertTemplateUsed(template)
         self.assertEqual(response.status_code, 200)
 
@@ -78,3 +78,29 @@ class TestUserLogin(TestCase):
         self.assertNotContains(
             response, "Please log in or register to see other developers"
         )
+
+    def test_profile_detail_view_success(self):
+        template = "app_home/user_detail_view.html"
+
+        # show user profile of existing user
+        url = reverse("app_home:profile-detail-view", kwargs={"pk": self.user2.pk})
+
+        # force login of user1
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
+        # check that logged in user is user1
+        self.assertEqual(response.context["user"], self.user1)
+        # check that user of the viewed profile is user2
+        self.assertEqual(response.context["user_for_profile"], self.user2)
+
+    def test_profile_detail_view_not_found(self):
+        # show 404 for profile of NONE existing user
+        url = reverse("app_home:profile-detail-view", kwargs={"pk": 999})
+
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)
