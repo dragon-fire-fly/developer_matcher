@@ -390,7 +390,9 @@ class TestAppHomeViews(TestCase):
 
     def test_add_project_picture_get(self):
         template = "app_home/project_picture.html"
-        url = reverse("app_home:add-project-pic", kwargs={"pk": self.project1.pk})
+        url = reverse(
+            "app_home:add-project-pic", kwargs={"pk": self.project1.pk}
+        )
 
         # non logged in user
         response = self.client.get(url)
@@ -409,7 +411,7 @@ class TestAppHomeViews(TestCase):
         template = "app_home/project_picture.html"
         url = reverse(
             "app_home:add-project-pic", kwargs={"pk": self.project1.pk}
-            )
+        )
         # number of pics before upload
         no_pics = len(self.project1.project_pic.all())
 
@@ -432,13 +434,13 @@ class TestAppHomeViews(TestCase):
     @mock.patch("cloudinary.uploader.upload")
     def test_delete_project_picture_post(self, mock_uploader_upload):
         # logging in project owner
-        self.client.force_login(self.user1)  
+        self.client.force_login(self.user1)
 
         # setup - add a mocked picture
         template = "app_home/project_picture.html"
         url = reverse(
             "app_home:add-project-pic", kwargs={"pk": self.project1.pk}
-            )
+        )
 
         # number of pics before upload
         no_pics = len(self.project1.project_pic.all())
@@ -459,7 +461,7 @@ class TestAppHomeViews(TestCase):
         template = "app_home/project_picture.html"
         url = reverse(
             "app_home:delete-project-pic", kwargs={"pk": picture_object.pk}
-            )
+        )
         response = self.client.get(url)
         # test that the picture is deleted
         self.assertEqual(len(self.project1.project_pic.all()), no_pics)
