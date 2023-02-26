@@ -55,8 +55,8 @@ class TestUserRegistration(TestCase):
         # check redirection following registration
         self.assertEqual(response.status_code, 302)
 
-        # check user redirected correctly to home page after signing up
-        self.assertRedirects(response, "/user/success/")
+        # check user redirected correctly to user profile after signing up
+        self.assertRedirects(response, "/user/profile/")
 
         # check if user was added to the database
         self.assertEqual(User.objects.count(), 1)

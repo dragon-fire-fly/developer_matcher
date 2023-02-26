@@ -23,7 +23,7 @@ class RegisterView(TemplateView):
     def post(self, request, *args, **kwargs):
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
-            user = registration_form.save(commit=False)
+            user = registration_form.save()
             # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:profile"))
