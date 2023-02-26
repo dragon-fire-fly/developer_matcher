@@ -265,7 +265,15 @@ class TestAppHomeViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f"/user/login/?next={url}")
 
-        # user logged in
+        # # user (NOT project owner)logged in
+        # self.client.force_login(self.user2)
+        # response = self.client.get(url)
+
+        # self.assertEqual(response.status_code, 200)
+        # self.assertTemplateUsed(response, "app_home/project_overview.html")
+        # self.assertRedirects(response, reverse("app_home:project-overview"))
+
+        # Project owner logged in
         self.client.force_login(self.user1)
         response = self.client.get(url)
 
@@ -351,3 +359,44 @@ class TestAppHomeViews(TestCase):
             Project.objects.get(pk=self.project2.pk).p_language.all(),
             self.project2.p_language.all(),
         )
+
+    def test_delete_project(self):
+        template = "app_home/edit_project.html"
+        url = reverse(
+            "app_home:delete-project", kwargs={"pk": self.project1.pk}
+        )
+
+        # no user logged in
+        response = self.client.get(url)
+        # redirected to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
+
+        # registered user logged in but NOT project owner
+        self.client.force_login(self.user2)
+
+        # project owner logged in
+        self.client.force_login(self.user1)
+        # count no. projects before deletion
+        project_count = Project.objects.count()
+
+        response = self.client.get(url)
+        # check that project was deleted
+        self.assertEqual(Project.objects.count(), project_count - 1)
+        self.assertNotEqual(Project.objects.first(), self.project1)
+        self.assertEqual(Project.objects.first(), self.project2)
+
+    def test_add_project_picture_get(self):
+        template = "app_home/project_picture.html"
+        url = reverse("app_home:add-project-pic", kwargs={"pk": self.project1.pk})
+
+        # non logged in user
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f"/user/login/?next={url}")
+
+        # project owner logged in
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template)
