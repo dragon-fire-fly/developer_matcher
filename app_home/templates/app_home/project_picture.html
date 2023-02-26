@@ -16,19 +16,23 @@
             <div class="card text-center">
                 <img src="{{picture.project_picture.url}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <a href="{% url 'app_home:delete-project-pic' picture.id %}">Delete</a>
+                    <a href="{% url 'app_home:delete-project-pic' picture.id %}" class="btn btn-danger">Delete</a>
 
                 </div>
             </div>
         </div>
-        {% endfor %}        
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-md-3">
         
         <form method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="method" value="add">
             {{ form }}
-            <button type="submit">Add Project Pic</button>
+            <button type="submit" class="btn btn-primary">Add Project Pic</button>
         </form>
+        <a href="{% url 'app_home:project-detail-view' project.pk %}" class="btn btn-warning">Back to Project</a>   
     </div>
 </div>
 

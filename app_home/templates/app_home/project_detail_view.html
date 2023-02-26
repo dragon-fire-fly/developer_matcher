@@ -16,7 +16,7 @@
                 </div>
             </div>
             {% else %}
-            <a href="{% url 'app_home:add-project-pic' project.pk %}">Add a picture</a>
+            <a href="{% url 'app_home:add-project-pic' project.pk %}" class="btn btn-primary offset-md-5">Add a picture</a>
             {% endif %}
             {% else %}
             <div class="circle-container">
@@ -45,7 +45,8 @@
             </p>
             {% if project.user.values.0.id == user.id %}
             <div class="row">
-                <div class="col-md-8 offset-md-3">
+                <div class="col-md-8 offset-md-2">
+                    <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary">Back to overview</a>
                     <a href="{% url 'app_home:project-edit-view' project.pk %}" class="btn btn-primary">Edit Project</a>
                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-project-modal">Delete Project</a>
                 </div>
