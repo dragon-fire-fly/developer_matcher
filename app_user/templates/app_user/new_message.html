@@ -6,6 +6,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+            {% if receiver.profile_pic.values %}
+            <div class="circle-container">
+                <div class="circle-img">
+                    <img src="{{ receiver.profile_pic.values.0.profile_picture.url }}" alt="">
+                </div>
+            </div>
+            {% endif %}
             <h1 class="text-center">Send a message to <br>{{ receiver.username }}</h1>
 
             <form action="" method="POST">
@@ -13,7 +20,7 @@
                 {{ form|crispy }}
                 <input type="hidden" name="sender" value="{{ sender.pk }}">
                 <input type="hidden" name="receiver" value="{{ receiver.pk }}">
-                <button>Send!</button>
+                <button class="btn btn-primary">Send!</button>
             </form>
         </div>
     </div>

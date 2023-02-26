@@ -16,22 +16,33 @@
         </div>
     </div>
 
-        <div class="row">
-            {% for project in projects %}
-                    <div class="col-md-3">
-                        <div class="card text-center">
-                            <a href="{% url 'app_home:project-detail-view' project.pk %}">
-                                <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top dev-img">
-                            </a>
-                            <a href="{% url 'app_home:project-detail-view' project.pk %}">{{ project.title }}</a>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-12">
+            <div class="card text-center">
+                <div class="row no-gutters">
+                    <div class="col-sm-3">
+                        <a href="{% url 'app_home:project-detail-view' project.pk %}">
+                            <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top">
+                        </a>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h2><a href="{% url 'app_home:project-detail-view' project.pk %}">{{ project.title }}</a></h2>
                             <p>{% for language in project.p_language.values %}
                                 <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                                 {% endfor %}
                             </p>
+                            <p>
+                                {{ project.description }}
+                            </p>
                         </div>
                     </div>
-            {% endfor %}
+                </div>
+            </div>
         </div>
+        {% endfor %}
+    </div>
 
     {% else %}
     <div class="row">

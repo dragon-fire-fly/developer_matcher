@@ -10,9 +10,9 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button>Update</button>
+                <button class="btn btn-primary">Update</button>
             </form>
-            <a href="{% url 'app_user:profile' %}">Cancel</a>
+            <a href="{% url 'app_user:profile' %}" class="btn btn-danger">Cancel</a>
         </div>
     </div>
 </div>
