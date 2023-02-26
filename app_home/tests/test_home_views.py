@@ -50,3 +50,31 @@ class TestUserLogin(TestCase):
         self.assertEqual(response.status_code, 200)
         ## to be updated once home page has some content.
         self.assertNotContains(response, "Please log in to continue")
+
+    def test_aboutview_get(self):
+
+        template = "app_home/about.html"
+        url = reverse("app_home:about")
+        response = self.client.get(url)
+        
+        self.assertTemplateUsed(template)
+        self.assertEqual(response.status_code, 200)
+
+    def test_developeroverview_get(self):
+        template = "app_home/developer_overview.html"
+        url = reverse("app_home:developer-overview")
+        response = self.client.get(url)
+
+        # developer overview page when not logged in
+        self.assertTemplateUsed(template)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "Please log in or register to see other developers"
+        )
+
+        # developer overview page when logged in
+        self.client.force_login(self.user1)
+        response = self.client.get(url)
+        self.assertNotContains(
+            response, "Please log in or register to see other developers"
+        )
