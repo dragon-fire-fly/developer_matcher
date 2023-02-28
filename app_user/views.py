@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User, UserProfilePicture, Project, ProgramLang, Message
 from .forms import (
     UserRegistrationForm,
@@ -23,7 +24,7 @@ class RegisterView(TemplateView):
     def post(self, request, *args, **kwargs):
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
-            user = registration_form.save(commit=False)
+            user = registration_form.save()
             # automatically log the user in following account creation
             login(request, user)
             return redirect(reverse("app_user:profile"))
@@ -51,7 +52,7 @@ class RegisterView(TemplateView):
         )
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     """
     View for user to view their own profile.
     """
@@ -79,7 +80,7 @@ def delete_profile(request):
     return redirect(reverse("app_home:index"))
 
 
-class EditProfileView(TemplateView):
+class EditProfileView(LoginRequiredMixin, TemplateView):
     """
     View to edit the logged in user's profile
     """
@@ -104,17 +105,25 @@ class EditProfileView(TemplateView):
             # redirect to main profile page
             return redirect(reverse("app_user:profile"))
         elif "profanity" in form.errors.as_text():
-            messages.error(request, "Please do not use profanities in your username!")
+            messages.error(
+                request, "Please do not use profanities in your username!"
+            )
         elif "duplicate_name" in form.errors.as_text():
-            messages.error(request, "Username already in use! Please choose another")
+            messages.error(
+                request, "Username already in use! Please choose another"
+            )
         elif not form["p_language"].value():
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         else:
-            messages.error(request, "Form could not be submitted. Please try again.")
+            messages.error(
+                request, "Form could not be submitted. Please try again."
+            )
         return redirect(reverse("app_user:edit-profile"))
 
 
-class EditProfilePicView(TemplateView):
+class EditProfilePicView(LoginRequiredMixin, TemplateView):
     """
     View to add or delete a profile picture
     """
@@ -137,8 +146,8 @@ class EditProfilePicView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
-        # as there are two post methods (add and delete), they have a hidden input field
-        # called "method" added to distinguish them
+        # as there are two post methods (add and delete), they have a hidden
+        # input field called "method" added to distinguish them
 
         # the add route
         if request.POST.get("method") == "add":
@@ -160,7 +169,7 @@ class EditProfilePicView(TemplateView):
         return redirect(reverse("app_user:edit-profile-pic"))
 
 
-class Messages(TemplateView):
+class Messages(LoginRequiredMixin, TemplateView):
     """
     View of user's received and sent messages
     """
@@ -178,7 +187,7 @@ class Messages(TemplateView):
         return render(request, "app_user/messages.html", context)
 
 
-class IndividualMsg(TemplateView):
+class IndividualMsg(LoginRequiredMixin, TemplateView):
     """
     View of a specific selected message
     """
@@ -200,13 +209,16 @@ class IndividualMsg(TemplateView):
         return render(request, "app_user/individual_msg.html", context)
 
 
-class AddMessage(TemplateView):
+class AddMessage(LoginRequiredMixin, TemplateView):
     model = Message
     template_name = "app_user:new_message.html"
 
     def get(self, request, *args, **kwargs):
         form = MessageForm(
-            initial={"user_sender": request.user, "user_receiver": kwargs["pk"]}
+            initial={
+                "user_sender": request.user,
+                "user_receiver": kwargs["pk"],
+            }
         )
         context = {
             "sender": request.user,
@@ -226,7 +238,7 @@ class AddMessage(TemplateView):
         return redirect("app_user:messages")
 
 
-class DeleteMessage(TemplateView):
+class DeleteMessage(LoginRequiredMixin, TemplateView):
     model = Message
 
     def get(self, request, *args, **kwargs):

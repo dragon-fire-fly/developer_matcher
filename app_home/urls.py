@@ -6,11 +6,23 @@ app_name = "app_home"
 urlpatterns = [
     path("", views.HomeView.as_view(), name="index"),
     path("about/", views.AboutView.as_view(), name="about"),
-    path("developers/", views.DeveloperOverview.as_view(), name="developer-overview"),
-    path("projects/", views.ProjectOverview.as_view(), name="project-overview"),
-    path("projects/create/", views.CreateProjectView.as_view(), name="create-project"),
     path(
-        "users/<int:pk>/", views.ProfileDetailView.as_view(), name="profile-detail-view"
+        "developers/",
+        views.DeveloperOverview.as_view(),
+        name="developer-overview",
+    ),
+    path(
+        "projects/", views.ProjectOverview.as_view(), name="project-overview"
+    ),
+    path(
+        "projects/create/",
+        views.CreateProjectView.as_view(),
+        name="create-project",
+    ),
+    path(
+        "users/<int:pk>/",
+        views.ProfileDetailView.as_view(),
+        name="profile-detail-view",
     ),
     path(
         "projects/<int:pk>/",

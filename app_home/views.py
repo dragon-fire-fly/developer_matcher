@@ -5,8 +5,6 @@ from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
-
 
 class HomeView(TemplateView):
     """
@@ -30,9 +28,10 @@ class AboutView(TemplateView):
     template_name = "app_home/about.html"
 
 
-class DeveloperOverview(TemplateView, LoginRequiredMixin):
+class DeveloperOverview(TemplateView):
     """
-    View for the general overview displaying all users except the logged in user.
+    View for the general overview displaying all users except the
+    logged in user.
     """
 
     model = User
@@ -45,7 +44,7 @@ class DeveloperOverview(TemplateView, LoginRequiredMixin):
         return render(request, "app_home/developer_overview.html", context)
 
 
-class ProfileDetailView(TemplateView):
+class ProfileDetailView(LoginRequiredMixin, TemplateView):
     """
     View for rendering detailed profile view for chosen user.
     """
@@ -83,7 +82,7 @@ class ProjectOverview(TemplateView):
         return render(request, "app_home/project_overview.html", context)
 
 
-class ProjectDetailView(TemplateView):
+class ProjectDetailView(LoginRequiredMixin, TemplateView):
     """
     View for rendering the detail page for a project.
     """
@@ -100,7 +99,7 @@ class ProjectDetailView(TemplateView):
         return render(request, "app_home/project_detail_view.html", context)
 
 
-class CreateProjectView(FormView):
+class CreateProjectView(LoginRequiredMixin, FormView):
     """
     View to create a project.
     """
@@ -127,7 +126,10 @@ class CreateProjectView(FormView):
                 new_project.save()
             messages.success(request, "Project successfully created!")
             return redirect(
-                reverse("app_home:project-detail-view", kwargs={"pk": new_project.pk})
+                reverse(
+                    "app_home:project-detail-view",
+                    kwargs={"pk": new_project.pk},
+                )
             )
         elif "profanity" in form.errors.as_text():
             messages.error(
@@ -138,11 +140,13 @@ class CreateProjectView(FormView):
                 request, "Project name already taken! Please choose another."
             )
         else:
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         return redirect(reverse("app_home:create-project"))
 
 
-class EditProjectView(TemplateView):
+class EditProjectView(LoginRequiredMixin, TemplateView):
     """
     View to edit a project
     """
@@ -152,6 +156,9 @@ class EditProjectView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
+        # if project.user.get() != request.user:
+        #     return redirect("app_home:project-overview")
+        # else:
         context = {"form": ProjectEditForm(instance=project)}
 
         return render(request, "app_home/edit_project.html", context)
@@ -167,26 +174,36 @@ class EditProjectView(TemplateView):
             project.save()
             messages.success(request, "Project successfully edited!")
             return redirect(
-                reverse("app_home:project-detail-view", kwargs={"pk": project.pk})
+                reverse(
+                    "app_home:project-detail-view", kwargs={"pk": project.pk}
+                )
             )
         elif "profanity" in form.errors.as_text():
             messages.error(
                 request, "Please do not use profanities in your project name!"
             )
-            return render(request, "app_home/edit_project.html", {"form": form})
+            return render(
+                request, "app_home/edit_project.html", {"form": form}
+            )
         elif "duplicate_name" in form.errors.as_text():
             messages.error(
                 request, "Project name already in use! Please choose another"
             )
-            return render(request, "app_home/edit_project.html", {"form": form})
+            return render(
+                request, "app_home/edit_project.html", {"form": form}
+            )
         elif not form["p_language"].value():
-            messages.error(request, "Please select at least one programming language")
+            messages.error(
+                request, "Please select at least one programming language"
+            )
         else:
-            messages.error(request, "Form could not be submitted. Please try again")
+            messages.error(
+                request, "Form could not be submitted. Please try again"
+            )
         return render(request, "app_home/edit_project.html", {"form": form})
 
 
-class DeleteProjectView(TemplateView):
+class DeleteProjectView(LoginRequiredMixin, TemplateView):
     """
     View to delete a project
     """
@@ -201,7 +218,7 @@ class DeleteProjectView(TemplateView):
         return redirect(reverse("app_home:project-overview"))
 
 
-class AddProjectPicture(TemplateView):
+class AddProjectPicture(LoginRequiredMixin, TemplateView):
     """
     View to add a picture to a project
     """
@@ -236,11 +253,11 @@ class AddProjectPicture(TemplateView):
             new_picture.save()
 
         return redirect(
-            reverse("app_home:project-detail-view", kwargs={"pk": project_pk})
+            reverse("app_home:add-project-pic", kwargs={"pk": project_pk})
         )
 
 
-class DeleteProjectPicture(TemplateView):
+class DeleteProjectPicture(LoginRequiredMixin, TemplateView):
     """
     View to delete pictures from projects
     """
