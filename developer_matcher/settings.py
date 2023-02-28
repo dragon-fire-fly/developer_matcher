@@ -21,6 +21,8 @@ import cloudinary
 if os.path.isfile("env.py"):
     import env
 
+development = os.environ.get("DEVELOPMENT", False)
+
 # cloudinary API config variables
 cloudinary.config(
     cloud_name=os.environ.get("cloudinary_cloud_name"),
@@ -37,20 +39,16 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if os.getenv("GITHUB_WORKFLOW"):
-    SECRET_KEY = (
-        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Chars"
-    )
-else:
-    SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", False)
+DEBUG = development
 
-ALLOWED_HOSTS = ["developer-matcher.herokuapp.com", "127.0.0.1", "localhost"]
-# host = os.environ.get("SITE_NAME")
-# if host:
-#     ALLOWED_HOSTS.append(host)
+if development:
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+else:
+    ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
+
 
 # Application definition
 
