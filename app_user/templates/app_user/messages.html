@@ -7,19 +7,37 @@
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ user.username }}'s Messages</h1>
 
-            <p>Recieved messages:</p>
-            {% for msg in received_msgs %}
-
-            <p>From: <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">{{ msg.user_sender.username }}</a>, 
-                Title: <a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a>, Received: {{ msg.sent_date }}</p>
-            {% endfor %}
-
-            <p>Sent messages:</p>
-            {% for msg in sent_msgs %}
-
-            <p>Sent to: <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a>, 
-                Title: <a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a>, Sent: {{ msg.sent_date }}</p>
-            {% endfor %}
+            <h2>Recieved messages:</h2>
+            <table class="table">
+                <tr>
+                    <th>From</th>
+                    <th>Title</th>
+                    <th>Date recieved</th>
+                </tr>
+                {% for msg in received_msgs %}
+                <tr>
+                    <td><a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">{{ msg.user_sender.username }}</a></td>
+                    <td><a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a></td>
+                    <td>{{ msg.sent_date }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <h2>Sent messages:</h2>
+            <table class="table">
+                <tr>
+                    <th>To</th>
+                    <th>Title</th>
+                    <th>Date sent</th>
+                </tr>
+                {% for msg in sent_msgs %}
+                <tr>
+                    <td><a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a></td>
+                    <td><a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a></td>
+                    <td>{{ msg.sent_date }}</td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 </div>

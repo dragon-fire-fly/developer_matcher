@@ -33,3 +33,39 @@
     height: 30px;
     width: 30px;;
 }
+
+
+/* cards */
+.card-title {
+    text-decoration: none;
+    font-size: 1.3rem;
+    line-height: 30px;
+    font-weight: 800;
+}
+
+
+
+
+/*  Media Queries */
+/* Navbar drop down auto open and caret inversion */
+/*  from https://www.youtube.com/watch?v=5hvZWpRFKmk */
+@media screen and (min-width:992px) {
+    .dropdown:hover .dropdown-menu{
+        display:block;
+        margin-top:0;
+    }
+
+    .dropdown .dropdown-menu{
+        display: none;
+    }
+    .dropdown:hover .dropdown-toggle::after{
+        border-top: 0;
+        border-bottom: .3em solid;
+    }
+}
+@media screen and (max-width:992px){
+    .dropdown-toggle.show::after{
+        border-top: 0;
+        border-bottom: .3em solid;
+    }
+}
