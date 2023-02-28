@@ -13,8 +13,8 @@
     <div class="row">
         {% for dev in users %}
             {% if dev != user %}
-                <div class="col-md-3">
-                    <div class="card text-center">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card text-center card-title">
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
                             {% if dev.profile_pic.values %}
                             <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
