@@ -58,6 +58,22 @@ class UserTestCase(TestCase):
         self.user.p_language.add(self.python)
         self.user.p_language.add(self.java)
 
+        self.project1 = Project.objects.create(
+            title="Test Project 1",
+            description="This is a test project 1",
+        )
+
+        self.project2 = Project.objects.create(
+            title="Test Project 2",
+            description="This is a test project 2",
+        )
+
+        self.project1.user.add(self.user)
+        self.project1.p_language.add(self.python)
+
+        self.project2.user.add(self.user, self.another_user)
+        self.project2.p_language.add(self.python, self.javascript)
+
     def test_user_str_method(self):
         self.assertEqual(str(self.user), "<user: testuser>")
 
@@ -83,3 +99,47 @@ class UserTestCase(TestCase):
             ],
         }
         self.assertEqual(self.user.to_json_list(), expected_output)
+
+    @mock.patch("cloudinary.uploader.upload")
+    def test_user_profile_picture_model(self, cloudinary_field_mock):
+        # mocking
+        cloudinary_field_mock.return_value = "picture.jpg"
+        # define URL & image
+        mocked_picture = SimpleUploadedFile(
+            "picture.jpg", b"file_content", content_type="image/jpeg"
+        )
+
+        profile_picture = UserProfilePicture.objects.create(
+            user=self.user,
+            profile_picture=cloudinary_field_mock.return_value,
+        )
+
+        self.assertEqual(
+            profile_picture.profile_picture, cloudinary_field_mock.return_value
+        )
+
+    def test_project_model(self):
+        self.assertEqual(str(self.project1), "<Project name: Test Project 1>")
+        self.assertEqual(str(self.project2), "<Project name: Test Project 2>")
+        self.assertEqual(self.project1.user.count(), 1)
+        self.assertEqual(self.project1.p_language.count(), 1)
+        self.assertEqual(self.project2.user.count(), 2)
+        self.assertEqual(self.project2.p_language.count(), 2)
+
+    @mock.patch("cloudinary.uploader.upload")
+    def test_project_profile_picture_model(self, cloudinary_field_mock):
+        # mocking
+        cloudinary_field_mock.return_value = "picture.jpg"
+        # define URL & image
+        mocked_picture = SimpleUploadedFile(
+            "picture.jpg", b"file_content", content_type="image/jpeg"
+        )
+
+        project_picture = ProjectPicture.objects.create(
+            project=self.project1,
+            project_picture=cloudinary_field_mock.return_value,
+        )
+
+        self.assertEqual(
+            project_picture.project_picture, cloudinary_field_mock.return_value
+        )
