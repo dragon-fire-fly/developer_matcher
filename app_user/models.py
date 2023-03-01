@@ -72,14 +72,14 @@ class User(AbstractUser):
             p_languages.append(item["language"])
             p_language_icons.append(item["language_icon"].url)
 
-        followed_by = []
-        for item in self.follows.values():
-            followed_by.append(item["follows"])
+        # followed_by = []
+        # for item in self.follows.values():
+        #     followed_by.append(item["follows"])
 
         return {
             "programming languages": p_languages,
             "p_language_icons": p_language_icons,
-            "follows": followed_by,
+            # "follows": followed_by,
         }
 
 
