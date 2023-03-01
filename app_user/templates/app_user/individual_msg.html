@@ -41,7 +41,7 @@
             {% endif %}
             <a href="{% url 'app_user:messages' %}" class="btn btn-primary">Back to messages</a>
             <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}" class="btn btn-primary">View Profile</a>
-            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-msg-modal">Delete</a>
+            <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-msg-modal">Delete</a>
         </div>
     </div>
 </div>
@@ -53,7 +53,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteMsgModal">Are you sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span id="close-modal-span" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -62,7 +62,7 @@
                 <p>This action is IRREVERSIBLE. Are you sure?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                 <a href="{% url 'app_user:delete_message' msg.pk %}" class="btn btn-danger" id="confirm-delete">Delete my message</a>
             </div>
         </div>
