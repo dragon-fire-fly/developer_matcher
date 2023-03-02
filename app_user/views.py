@@ -169,6 +169,16 @@ class EditProfilePicView(LoginRequiredMixin, TemplateView):
         return redirect(reverse("app_user:edit-profile-pic"))
 
 
+class DeleteProfilePicView(LoginRequiredMixin, TemplateView):
+    def get(self, request, *args, **kwargs):
+        pic_to_delete = get_object_or_404(UserProfilePicture, pk=kwargs["pk"])
+        if request.user == pic_to_delete.user:
+            pic_to_delete.delete()
+            messages.success(request, "Picture successfully deleted!")
+            return redirect(reverse("app_user:edit-profile-pic"))
+        return redirect("app_home:about")
+
+
 class Messages(LoginRequiredMixin, TemplateView):
     """
     View of user's received and sent messages

@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-<!-- {% load static %} -->
 {% block title %}Profile Picture{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="row">
@@ -9,20 +7,35 @@
             <h1 class="text-center">{{ user.username }}'s Profile Pictures</h1>
         </div>
     </div>
-
     <div class="row">
         {% for picture in pictures %}
         <div class="col-md-3">
             <div class="card text-center">
                 <img src="{{picture.profile_picture.url}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <!-- <form method="POST" id="{{ forloop.counter }}">
-                        {% csrf_token %}
-                        <input type="hidden" name="method" value="delete">
-                        <input type="hidden" name="pic_id" value="{{picture.id}}">
-                        <button class="btn btn-danger delete-pic-btn" data-bs-toggle="modal" data-bs-target="#delete-pic-modal">Delete</button>
-                    </form> -->
-                    <button class="btn btn-primary" data-bs-id ="{{ picture.id }}"  data-bs-toggle="modal" data-bs-target="#deletePicModal">Delete picture</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletePicModal-{{ picture.id }}">Delete picture</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal for delete picture button -->
+        <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
+        <div class="modal fade" id="deletePicModal-{{ picture.id }}" tabindex="-1" role="dialog" aria-labelledby="deletePicModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deletePicModalLabel">Are you sure?</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This action will delete your picture {{picture.id}}</p>
+                        <p>This action is IRREVERSIBLE. Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
+                    <a href="{% url 'app_user:delete-profile-pic' picture.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,28 +52,6 @@
                 <a href="{% url 'app_user:profile' %}" class="btn btn-warning">Back to Profile</a>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for delete picture button -->
-<!-- Modified from https://getbootstrap.com/docs/4.0/components/modal/ -->
-<div class="modal fade" id="deletePicModal" tabindex="-1" role="dialog" aria-labelledby="deletePicModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePicModalLabel">Are you sure?</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>This action will delete your picture</p>
-                <p>This action is IRREVERSIBLE. Are you sure?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                <a href="{% url 'app_user:delete-profile-pic' id %}" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</button>
         </div>
     </div>
 </div>

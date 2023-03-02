@@ -16,6 +16,11 @@ urlpatterns = [
         views.EditProfilePicView.as_view(),
         name="edit-profile-pic",
     ),
+    path(
+        "profile/picture/delete/<int:pk>/",
+        views.DeleteProfilePicView.as_view(),
+        name="delete-profile-pic",
+    ),
     path("messages/", views.Messages.as_view(), name="messages"),
     path(
         "messages/<int:pk>/",

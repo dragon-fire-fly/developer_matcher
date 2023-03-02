@@ -159,7 +159,10 @@ class EditProjectView(LoginRequiredMixin, TemplateView):
         # if project.user.get() != request.user:
         #     return redirect("app_home:project-overview")
         # else:
-        context = {"form": ProjectEditForm(instance=project)}
+        context = {
+            "project": project,
+            "form": ProjectEditForm(instance=project)
+            }
 
         return render(request, "app_home/edit_project.html", context)
 
@@ -267,5 +270,14 @@ class DeleteProjectPicture(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         pic_to_delete = get_object_or_404(ProjectPicture, pk=kwargs["pk"])
-        pic_to_delete.delete()
+        project = pic_to_delete.project
+        project_owner_pk = project.user.values()[0]["id"]
+        if request.user.pk == project_owner_pk:
+            pic_to_delete.delete()
+            messages.success(request, "Picture successfully deleted!")
+            return redirect(
+                reverse(
+                    "app_home:add-project-pic", kwargs={"pk": project.pk}
+                )
+            )
         return redirect(reverse("app_home:project-overview"))
