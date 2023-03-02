@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<!-- {% load static %} -->
 {% block title %}Profile Picture{% endblock %}
 
 {% block content %}
@@ -15,12 +16,13 @@
             <div class="card text-center">
                 <img src="{{picture.profile_picture.url}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <form method="POST" id="delete-pic-form">
+                    <!-- <form method="POST" id="{{ forloop.counter }}">
                         {% csrf_token %}
                         <input type="hidden" name="method" value="delete">
                         <input type="hidden" name="pic_id" value="{{picture.id}}">
                         <button class="btn btn-danger delete-pic-btn" data-bs-toggle="modal" data-bs-target="#delete-pic-modal">Delete</button>
-                    </form>
+                    </form> -->
+                    <button class="btn btn-primary" data-bs-id ="{{ picture.id }}"  data-bs-toggle="modal" data-bs-target="#deletePicModal">Delete picture</button>
                 </div>
             </div>
         </div>
@@ -43,11 +45,11 @@
 
 <!-- Modal for delete picture button -->
 <!-- Modified from https://getbootstrap.com/docs/4.0/components/modal/ -->
-<div class="modal fade" id="delete-pic-modal" tabindex="-1" role="dialog" aria-labelledby="deleteProfilePicModalLabel" aria-hidden="true">
+<div class="modal fade" id="deletePicModal" tabindex="-1" role="dialog" aria-labelledby="deletePicModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteProfilePicModal">Are you sure?</h5>
+                <h5 class="modal-title" id="deletePicModalLabel">Are you sure?</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
                 </button>
@@ -62,6 +64,25 @@
         </div>
     </div>
 </div>
+<!-- 
+<script>
+    var deleteButton = document.querySelectorAll(".delete-button");
+    deleteButton.forEach(function (deleteButton) {
+        deleteButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            var id = deleteButton.getAttribute('data-bs-id');
+            var form = document.getElementById(id);
+            console.log(id)
+            console.log(form)
+            var modal = document.querySelector('#deletePicModal').modal;
+            modal.show();
+            
+            document.getElementById("confirm-delete").onclick = function () {
+                form.submit();
+            }
+        });
+    });
+</script> -->
 
-
+<!-- <script src="{% static 'js/delete-pic-script.js' %}"></script> -->
 {% endblock %}

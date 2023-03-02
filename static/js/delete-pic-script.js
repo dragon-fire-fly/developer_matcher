@@ -1,3 +1,4 @@
+console.log("loaded")
 // Profile pic modal
 var deleteProfilePicModal = document.getElementById("deletePicModal");
 var closePicModalSpan = document.getElementById("close-pic-modal-span");
