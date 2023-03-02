@@ -60,29 +60,9 @@
             </div>
             <div class="modal-footer">
                 <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                <button type="button" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</button>
+                <a href="{% url 'app_user:delete-profile-pic' id %}" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</button>
         </div>
     </div>
 </div>
-<!-- 
-<script>
-    var deleteButton = document.querySelectorAll(".delete-button");
-    deleteButton.forEach(function (deleteButton) {
-        deleteButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            var id = deleteButton.getAttribute('data-bs-id');
-            var form = document.getElementById(id);
-            console.log(id)
-            console.log(form)
-            var modal = document.querySelector('#deletePicModal').modal;
-            modal.show();
-            
-            document.getElementById("confirm-delete").onclick = function () {
-                form.submit();
-            }
-        });
-    });
-</script> -->
 
-<!-- <script src="{% static 'js/delete-pic-script.js' %}"></script> -->
 {% endblock %}
