@@ -44,6 +44,28 @@
         {% endfor %}
     </div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if projects.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ projects.previous_page_number }}">&laquo Previous</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link disabled" href="#">&laquo Previous</a></li>
+            {% endif %}
+            {% for n in p_nums %}
+            {% if projects.number == forloop.counter %}
+            <li class="page-item"><a class="page-link active">{{ forloop.counter }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+            {% endif %}
+            {% endfor %}
+            
+            {% if projects.has_next %}
+            <li class="page-item"><a class="page-link" href="?page= {{ projects.next_page_number }}">Next &raquo</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link disabled" href="#">Next &raquo</a></li>
+            {% endif %}
+        </ul>
+    </nav>
     {% else %}
     <div class="row">
         <div class="col-md-8 offset-2">

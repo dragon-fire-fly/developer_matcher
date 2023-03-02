@@ -4,6 +4,7 @@ from app_user.models import User, Project, ProgramLang, ProjectPicture
 from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 
 class HomeView(TemplateView):
@@ -38,9 +39,15 @@ class DeveloperOverview(TemplateView):
     template_name = "app_home/developer_overview.html"
 
     def get(self, request):
-        users = User.objects.all()
-
-        context = {"users": users}
+        # set up pagination
+        paginator = Paginator(User.objects.all(), 9)
+        page_number = request.GET.get('page')
+        users = paginator.get_page(page_number)
+        p_nums = "p" * users.paginator.num_pages
+        context = {
+            "users": users,
+            "p_nums": p_nums,
+        }
         return render(request, "app_home/developer_overview.html", context)
 
 
@@ -76,9 +83,15 @@ class ProjectOverview(TemplateView):
     template_name = "app_home/project_overview.html"
 
     def get(self, request):
-        projects = Project.objects.all()
-
-        context = {"projects": projects}
+        # set up pagination
+        paginator = Paginator(Project.objects.all(), 4)
+        page_number = request.GET.get('page')
+        projects = paginator.get_page(page_number)
+        p_nums = "p" * projects.paginator.num_pages
+        context = {
+            "projects": projects,
+            "p_nums": p_nums,
+            }
         return render(request, "app_home/project_overview.html", context)
 
 
@@ -254,6 +267,7 @@ class AddProjectPicture(LoginRequiredMixin, TemplateView):
             new_picture = new_picture.save(commit=False)
             new_picture.project = project
             new_picture.save()
+            messages.success(request, "Picture successfully added!")
 
         return redirect(
             reverse("app_home:add-project-pic", kwargs={"pk": project_pk})
@@ -280,4 +294,5 @@ class DeleteProjectPicture(LoginRequiredMixin, TemplateView):
                     "app_home:add-project-pic", kwargs={"pk": project.pk}
                 )
             )
+        messages.error(request, "Picture could not be deleted!")
         return redirect(reverse("app_home:project-overview"))
