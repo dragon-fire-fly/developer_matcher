@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
 from cloudinary.models import CloudinaryField
 from django_countries.fields import CountryField
+from cloudinary import uploader
 
 
 class User(AbstractUser):
@@ -77,10 +78,21 @@ class User(AbstractUser):
         #     followed_by.append(item["follows"])
 
         return {
-            "programming languages": p_languages,
+            "p_languages": p_languages,
             "p_language_icons": p_language_icons,
             # "follows": followed_by,
         }
+
+    def delete(self, *args, **kwargs):
+        """
+        Additional function to ensure pictures are deleted
+        from cloudinary
+        """
+        # delete associated profile pics
+        for profile_picture in self.profile_picture.all():
+            profile_picture.delete()
+        # then delete itself
+        super().delete(*args, **kwargs)
 
 
 class UserProfilePicture(models.Model):
@@ -88,6 +100,15 @@ class UserProfilePicture(models.Model):
         User, related_name="profile_pic", on_delete=models.CASCADE
     )
     profile_picture = CloudinaryField("profile picture")
+
+    def delete(self, *args, **kwargs):
+        """
+        Deletes picture from cloudinary as well as just
+        the specific db entry
+        """
+        if self.profile_picture.public_id:
+            uploader.destroy(self.profile_picture.public_id)
+        super().delete(*args, **kwargs)
 
 
 class Project(models.Model):
@@ -105,12 +126,32 @@ class Project(models.Model):
     def __str__(self):
         return f"<Project name: {self.title}>"
 
+    def delete(self, *args, **kwargs):
+        """
+        Additional function to ensure pictures are deleted
+        from cloudinary
+        """
+        # delete associated profile pics
+        for project_pic in self.project_picture.all():
+            project_pic.delete()
+        # then delete itself
+        super().delete(*args, **kwargs)
+
 
 class ProjectPicture(models.Model):
     project = models.ForeignKey(
         Project, related_name="project_pic", on_delete=models.CASCADE
     )
     project_picture = CloudinaryField("project picture")
+
+    def delete(self, *args, **kwargs):
+        """
+        Deletes picture from cloudinary as well as just
+        the specific db entry
+        """
+        if self.project_picture.public_id:
+            uploader.destroy(self.project_picture.public_id)
+        super().delete(*args, **kwargs)
 
 
 class ProgramLang(models.Model):
