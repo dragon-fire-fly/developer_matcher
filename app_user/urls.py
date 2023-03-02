@@ -10,7 +10,11 @@ urlpatterns = [
     path(
         "profile/edit/", views.EditProfileView.as_view(), name="edit-profile"
     ),
-    path("profile/delete/", views.delete_profile, name="delete-profile"),
+    path(
+        "profile/delete/",
+        views.DeleteProfileView.as_view(),
+        name="delete-profile",
+    ),
     path(
         "profile/picture/",
         views.EditProfilePicView.as_view(),

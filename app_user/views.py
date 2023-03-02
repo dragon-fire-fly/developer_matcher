@@ -73,11 +73,13 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         return render(request, "app_user/user_profile.html", context)
 
 
-def delete_profile(request):
-    user = get_object_or_404(User, pk=request.user.pk)
-    user.delete()
-    messages.success(request, "Profile successfully deleted!")
-    return redirect(reverse("app_home:index"))
+class DeleteProfileView(LoginRequiredMixin, TemplateView):
+
+    def get(self, request):
+        user = get_object_or_404(User, pk=request.user.pk)
+        user.delete()
+        messages.success(request, "Profile successfully deleted!")
+        return redirect(reverse("app_home:index"))
 
 
 class EditProfileView(LoginRequiredMixin, TemplateView):
