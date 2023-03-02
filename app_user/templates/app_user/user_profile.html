@@ -61,7 +61,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-3">
             <a href="{% url 'app_user:edit-profile' %}" class="btn btn-primary">Edit Profile</a>
-            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-profile-modal">Delete Profile</a>
+            <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-profile-modal">Delete Profile</a>
         </div>
     </div>
 </div>
@@ -73,7 +73,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteProfileModal">Are you sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span id="close-modal-span" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -82,7 +82,7 @@
                 <p>This action is IRREVERSIBLE. Are you sure?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                 <a href="{% url 'app_user:delete-profile' %}" class="btn btn-danger" id="confirm-delete">Delete my account</a>
             </div>
         </div>

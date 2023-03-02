@@ -43,27 +43,27 @@
                 <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
                 {% endfor %}
             </p>
-            {% if project.user.values.0.id == user.id %}
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary">Back to overview</a>
+                    {% if project.user.values.0.id == user.id %}
                     <a href="{% url 'app_home:project-edit-view' project.pk %}" class="btn btn-primary">Edit Project</a>
-                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-project-modal">Delete Project</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-project-modal">Delete Project</button>
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
     </div>
 </div>
 
 <!-- Modal for delete button -->
-<!-- Modified from https://getbootstrap.com/docs/4.0/components/modal/ -->
+<!-- https://getbootstrap.com/docs/5.0/components/modal/ -->
 <div class="modal fade" id="delete-project-modal" tabindex="-1" role="dialog" aria-labelledby="deleteProjectModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteProjectModal">Are you sure?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span id="close-modal-span" aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -72,7 +72,7 @@
                 <p>This action is IRREVERSIBLE. Are you sure?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                 <a href="{% url 'app_home:delete-project' project.id %}" class="btn btn-danger" id="confirm-delete">Delete my project</a>
             </div>
         </div>
