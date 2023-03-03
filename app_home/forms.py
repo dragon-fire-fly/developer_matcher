@@ -1,13 +1,15 @@
 from django import forms
 from django.forms import ModelForm, ValidationError
-from app_user.models import Project, ProjectPicture, ProgramLang
+from app_user.models import Project, ProjectPicture, User
 from django.contrib import messages
 from better_profanity import profanity
 
 
 def validate_project_name(data):
-    """Checks that a project name is not already taken and does not
-    contain profanities"""
+    """
+    Checks that a project name is not already taken and does not
+    contain profanities
+    """
 
     if isinstance(data, str):
         project_name = data
@@ -33,6 +35,10 @@ def validate_project_name(data):
 
 
 class ProjectCreationForm(forms.ModelForm):
+    """
+    Form for creation of new projects
+    """
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
@@ -44,10 +50,18 @@ class ProjectCreationForm(forms.ModelForm):
         return project
 
     def clean(self):
+        """
+        Calls the validate_project_name method to check for
+        duplicates and profanities
+        """
         validate_project_name(self)
 
 
 class ProjectEditForm(forms.ModelForm):
+    """
+    Form to edit existing projects
+    """
+
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
@@ -59,11 +73,49 @@ class ProjectEditForm(forms.ModelForm):
         return project
 
     def clean(self):
+        """
+        Calls the validate_project_name method to check for
+        duplicates and profanities
+        """
         validate_project_name(self)
 
 
 class AddProjectPictureForm(forms.ModelForm):
+    """
+    Form for adding a new picture to a project
+    """
+
     class Meta:
         model = ProjectPicture
         fields = "__all__"
         exclude = ["project"]
+
+
+class UserLangSelectFilterForm(forms.ModelForm):
+    """
+    Form to obtain the programming language of interest from the list of
+    all languages
+    """
+
+    class Meta:
+        model = User
+        fields = ["p_language"]
+        labels = {"p_language": ""}
+        widgets = {
+            "p_language": forms.SelectMultiple(attrs={"style": "width: 20%;"})
+        }
+
+
+class ProjectLangSelectFilterForm(forms.ModelForm):
+    """
+    Form to obtain the programming language of interest from the list of
+    all languages
+    """
+
+    class Meta:
+        model = Project
+        fields = ["p_language"]
+        labels = {"p_language": ""}
+        widgets = {
+            "p_language": forms.SelectMultiple(attrs={"style": "width: 20%;"})
+        }
