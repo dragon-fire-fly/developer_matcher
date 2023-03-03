@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
 from app_user.models import User, Project, ProgramLang, ProjectPicture
-from .forms import ProjectCreationForm, ProjectEditForm, AddProjectPictureForm
+from .forms import (
+    ProjectCreationForm,
+    ProjectEditForm,
+    AddProjectPictureForm,
+    LangSelectFilterForm,
+)
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -38,13 +43,31 @@ class DeveloperOverview(TemplateView):
     model = User
     template_name = "app_home/developer_overview.html"
 
-    def get(self, request):
-        # set up pagination
-        paginator = Paginator(User.objects.all(), 9)
-        page_number = request.GET.get('page')
+    def get(self, request, *args, **kwargs):
+        if request.GET.get("p_language", None):
+            p_langs = ProgramLang.objects.filter(
+                pk__in=request.GET.getlist("p_language")
+            )
+
+        else:
+            p_langs = []
+        form = LangSelectFilterForm(initial={"p_language": p_langs})
+
+        all_users = User.objects.all()
+        href_filter = ""
+        for lang in p_langs:
+            all_users = all_users.filter(p_language=lang)
+            href_filter += f"&p_language={lang.pk}"
+
+        # set up pagination for users (8 per page)
+        # passing in users filtered by p_lang that are distinct
+        paginator = Paginator(all_users, 8)
+        page_number = request.GET.get("page")
         users = paginator.get_page(page_number)
         p_nums = "p" * users.paginator.num_pages
         context = {
+            "form": form,
+            "href_filter": href_filter,
             "users": users,
             "p_nums": p_nums,
         }
@@ -85,13 +108,13 @@ class ProjectOverview(TemplateView):
     def get(self, request):
         # set up pagination
         paginator = Paginator(Project.objects.all(), 4)
-        page_number = request.GET.get('page')
+        page_number = request.GET.get("page")
         projects = paginator.get_page(page_number)
         p_nums = "p" * projects.paginator.num_pages
         context = {
             "projects": projects,
             "p_nums": p_nums,
-            }
+        }
         return render(request, "app_home/project_overview.html", context)
 
 
@@ -174,8 +197,8 @@ class EditProjectView(LoginRequiredMixin, TemplateView):
         # else:
         context = {
             "project": project,
-            "form": ProjectEditForm(instance=project)
-            }
+            "form": ProjectEditForm(instance=project),
+        }
 
         return render(request, "app_home/edit_project.html", context)
 
@@ -290,9 +313,7 @@ class DeleteProjectPicture(LoginRequiredMixin, TemplateView):
             pic_to_delete.delete()
             messages.success(request, "Picture successfully deleted!")
             return redirect(
-                reverse(
-                    "app_home:add-project-pic", kwargs={"pk": project.pk}
-                )
+                reverse("app_home:add-project-pic", kwargs={"pk": project.pk})
             )
         messages.error(request, "Picture could not be deleted!")
         return redirect(reverse("app_home:project-overview"))
