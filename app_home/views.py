@@ -5,7 +5,8 @@ from .forms import (
     ProjectCreationForm,
     ProjectEditForm,
     AddProjectPictureForm,
-    LangSelectFilterForm,
+    UserLangSelectFilterForm,
+    ProjectLangSelectFilterForm
 )
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -48,10 +49,9 @@ class DeveloperOverview(TemplateView):
             p_langs = ProgramLang.objects.filter(
                 pk__in=request.GET.getlist("p_language")
             )
-
         else:
             p_langs = []
-        form = LangSelectFilterForm(initial={"p_language": p_langs})
+        form = UserLangSelectFilterForm(initial={"p_language": p_langs})
 
         all_users = User.objects.all()
         href_filter = ""
@@ -105,13 +105,29 @@ class ProjectOverview(TemplateView):
     model = Project
     template_name = "app_home/project_overview.html"
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
+        if request.GET.get("p_language", None):
+            p_langs = ProgramLang.objects.filter(
+                pk__in=request.GET.getlist("p_language")
+            )
+        else:
+            p_langs = []
+        form = ProjectLangSelectFilterForm(initial={"p_language": p_langs})
+
+        all_projects = Project.objects.all()
+        href_filter = ""
+        for lang in p_langs:
+            all_projects = all_projects.filter(p_language=lang)
+            href_filter += f"&p_language={lang.pk}"
+
         # set up pagination
-        paginator = Paginator(Project.objects.all(), 4)
+        paginator = Paginator(all_projects, 4)
         page_number = request.GET.get("page")
         projects = paginator.get_page(page_number)
         p_nums = "p" * projects.paginator.num_pages
         context = {
+            "form": form,
+            "href_filter": href_filter,
             "projects": projects,
             "p_nums": p_nums,
         }

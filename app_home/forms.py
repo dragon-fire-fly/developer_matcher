@@ -91,7 +91,7 @@ class AddProjectPictureForm(forms.ModelForm):
         exclude = ["project"]
 
 
-class LangSelectFilterForm(forms.ModelForm):
+class UserLangSelectFilterForm(forms.ModelForm):
     """
     Form to obtain the programming language of interest from the list of
     all languages
@@ -99,6 +99,21 @@ class LangSelectFilterForm(forms.ModelForm):
 
     class Meta:
         model = User
+        fields = ["p_language"]
+        labels = {"p_language": ""}
+        widgets = {
+            "p_language": forms.SelectMultiple(attrs={"style": "width: 20%;"})
+        }
+
+
+class ProjectLangSelectFilterForm(forms.ModelForm):
+    """
+    Form to obtain the programming language of interest from the list of
+    all languages
+    """
+
+    class Meta:
+        model = Project
         fields = ["p_language"]
         labels = {"p_language": ""}
         widgets = {
