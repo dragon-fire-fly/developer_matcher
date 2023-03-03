@@ -73,11 +73,13 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         return render(request, "app_user/user_profile.html", context)
 
 
-def delete_profile(request):
-    user = get_object_or_404(User, pk=request.user.pk)
-    user.delete()
-    messages.success(request, "Profile successfully deleted!")
-    return redirect(reverse("app_home:index"))
+class DeleteProfileView(LoginRequiredMixin, TemplateView):
+
+    def get(self, request):
+        user = get_object_or_404(User, pk=request.user.pk)
+        user.delete()
+        messages.success(request, "Profile successfully deleted!")
+        return redirect(reverse("app_home:index"))
 
 
 class EditProfileView(LoginRequiredMixin, TemplateView):
@@ -167,6 +169,16 @@ class EditProfilePicView(LoginRequiredMixin, TemplateView):
             picture = get_object_or_404(UserProfilePicture, pk=pic_id)
             picture.delete()
         return redirect(reverse("app_user:edit-profile-pic"))
+
+
+class DeleteProfilePicView(LoginRequiredMixin, TemplateView):
+    def get(self, request, *args, **kwargs):
+        pic_to_delete = get_object_or_404(UserProfilePicture, pk=kwargs["pk"])
+        if request.user == pic_to_delete.user:
+            pic_to_delete.delete()
+            messages.success(request, "Picture successfully deleted!")
+            return redirect(reverse("app_user:edit-profile-pic"))
+        return redirect("app_home:about")
 
 
 class Messages(LoginRequiredMixin, TemplateView):

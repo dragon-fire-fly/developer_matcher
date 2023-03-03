@@ -10,11 +10,20 @@ urlpatterns = [
     path(
         "profile/edit/", views.EditProfileView.as_view(), name="edit-profile"
     ),
-    path("profile/delete/", views.delete_profile, name="delete-profile"),
+    path(
+        "profile/delete/",
+        views.DeleteProfileView.as_view(),
+        name="delete-profile",
+    ),
     path(
         "profile/picture/",
         views.EditProfilePicView.as_view(),
         name="edit-profile-pic",
+    ),
+    path(
+        "profile/picture/delete/<int:pk>/",
+        views.DeleteProfilePicView.as_view(),
+        name="delete-profile-pic",
     ),
     path("messages/", views.Messages.as_view(), name="messages"),
     path(
