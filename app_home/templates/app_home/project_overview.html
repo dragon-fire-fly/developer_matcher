@@ -9,25 +9,22 @@
             <h1>Project Overview</h1>
         </div>
     </div>
-
-    <h3>Filter Projects by Language:</h3>
-    
-    <form method="GET">
-        {{ form|crispy }}
-        <button class="btn btn-primary">Submit</button>
-    </form>
-
-    {% if user.is_authenticated %}
     <div class="row">
-        <div class="col-md-12">
-            <a href="{% url 'app_home:create-project' %}" class="btn btn-primary">Create a New Project</a>
+        <div class="col-md-8">
+            <h3>Filter Projects by Language:</h3>
+            <form method="GET">
+            {{ form|crispy }}
+            <button class="btn btn-primary small-margin">Submit</button>
+        </form>
+        {% if user.is_authenticated %}
+        <a href="{% url 'app_home:create-project' %}" class="btn btn-primary small-margin">Create a New Project</a>
         </div>
     </div>
 
     <div class="row">
         {% for project in projects %}
         <div class="col-md-12">
-            <div class="card text-center">
+            <div class="card text-center gap-betwen-cards">
                 <div class="row no-gutters">
                     <div class="col-sm-3">
                         <a href="{% url 'app_home:project-detail-view' project.pk %}">
@@ -51,41 +48,42 @@
         </div>
         {% endfor %}
     </div>
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            {% if projects.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{ projects.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
-            {% else %}
-            <li class="page-item"><a class="page-link disabled" href="#">&laquo Previous</a></li>
-            {% endif %}
-            {% for n in p_nums %}
-            {% if projects.number == forloop.counter %}
-            <li class="page-item"><a class="page-link active">{{ forloop.counter }}</a></li>
-            {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}{{ href_filter }}">{{ forloop.counter }}</a></li>
-            {% endif %}
-            {% endfor %}
-            
-            {% if projects.has_next %}
-            <li class="page-item"><a class="page-link" href="?page= {{ projects.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
-            {% else %}
-            <li class="page-item"><a class="page-link disabled" href="#">Next &raquo</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation" class="small-margin">
+                <ul class="pagination justify-content-center">
+                    {% if projects.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ projects.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link disabled" href="#">&laquo Previous</a></li>
+                    {% endif %}
+                    {% for n in p_nums %}
+                    {% if projects.number == forloop.counter %}
+                    <li class="page-item"><a class="page-link active">{{ forloop.counter }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}{{ href_filter }}">{{ forloop.counter }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% if projects.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page= {{ projects.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link disabled" href="#">Next &raquo</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
     {% else %}
     <div class="row">
         <div class="col-md-8 offset-2">
             <p>Please log in or register to see projects</p>
             <p><a href="{% url 'app_user:register' %}">Register</a></p>
             <p><a href="/user/login/">Login</a></p>
-            
         </div>
     </div>
+    {% endif %}
 </div>
-
-{% endif %}
-
 
 {% endblock %}

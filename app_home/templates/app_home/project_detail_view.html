@@ -36,19 +36,17 @@
             {% endif %}
             <p><strong>Programming Languages:</strong> 
                 {% for language in project.p_language.values %}
-                {{ language.language }}
-                {% endfor %}
-            </p>
-            <p>{% for language in project.p_language.values %}
-                <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
+                <img src="{{ language.language_icon.url }}" alt="" class="icon-sm" title="{{ language.language }}">
                 {% endfor %}
             </p>
             <div class="row">
-                <div class="col-md-8 offset-md-2">
+                <div class="col-md-12">
                     <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary">Back to overview</a>
+                    <a href="{% url 'app_user:add_message' project.user.values.0.id %}" class="btn btn-primary"><i class="fa-regular fa-envelope"></i> Message project owner</a>
                     {% if project.user.values.0.id == user.id %}
                     <a href="{% url 'app_home:project-edit-view' project.pk %}" class="btn btn-primary">Edit Project</a>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-project-modal">Delete Project</button>
+                    
                     {% endif %}
                 </div>
             </div>
