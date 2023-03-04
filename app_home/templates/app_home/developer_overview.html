@@ -21,11 +21,11 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row gy-3">
         {% for dev in users %}
             {% if dev != user %}
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center card-title">
+                    <div class="card text-center card-title h-100 gap-betwen-cards">
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
                             {% if dev.profile_pic.values %}
                             <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
@@ -48,22 +48,22 @@
     <nav aria-label="Page navigation" class="small-margin">
         <ul class="pagination justify-content-center">
             {% if users.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
+            <li class="page-item"><a class="page-link dark-text" href="?page={{ users.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link disabled" href="#">&laquo Previous</a></li>
+            <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo Previous</a></li>
             {% endif %}
             {% for n in p_nums %}
             {% if users.number == forloop.counter %}
-            <li class="page-item"><a class="page-link active">{{ forloop.counter }}</a></li>
+            <li class="page-item"><a class="page-link dark-text active">{{ forloop.counter }}</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}{{ href_filter }}">{{ forloop.counter }}</a></li>
+            <li class="page-item"><a class="page-link dark-text" href="?page={{ forloop.counter }}{{ href_filter }}">{{ forloop.counter }}</a></li>
             {% endif %}
             {% endfor %}
             
             {% if users.has_next %}
-            <li class="page-item"><a class="page-link" href="?page= {{ users.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
+            <li class="page-item"><a class="page-link dark-text" href="?page= {{ users.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link disabled" href="#">Next &raquo</a></li>
+            <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo</a></li>
             {% endif %}
         </ul>
     </nav>

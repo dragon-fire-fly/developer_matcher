@@ -1,11 +1,34 @@
-/* Nav bar */
+/* :root {
+    --bs-primary: #2B3D41;
+    --bs-primary-rgb: 43, 61, 65;
+} */
+/* overwriting minty white text for better contrast */
+.navbar-dark .navbar-nav .nav-link {
+    color: #000
+}
+.navbar-dark .navbar-text {
+    color: #5A5A5A;
+}
+dropdown-link {
+    color: #5A5A5A;
+}
+.btn-danger {
+    background-color: #C63D17;
+}
+.btn-primary {
+    color: #000;
+}
 
+
+/* Nav bar */
 .sticky {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 40;
 }
+
+
 
 @media screen and (min-width: 1440px) {
     .nav-link-text {
@@ -20,8 +43,12 @@
     padding-top: 140px;
 }
 
+/* .navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,0.8);
+} */
+
 .logo-container {
-    background-color: #C6F1E7;
+    background-color: #96E0CE;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -70,7 +97,7 @@
 }
 
 .small-margin {
-    margin: 5px;
+    margin: 10px;
 }
 
 .circle-container {
@@ -114,15 +141,11 @@
     margin: 3px;
 }
 
-.mint-bg {
+/* .mint-bg {
+    background-color: #C6F1E7;
+    opacity: 0.6;
+} */
 
-}
-
-
-
-
-
-/* cards */
 .card-title {
     text-decoration: none;
     font-size: 1.3rem;
@@ -143,9 +166,24 @@
     height: 85px;
 }
 .fa-brands {
-    font-size: 165%;
-    color: #fff;
+    font-size: 200%;
+    color: #5a5a5a;
 }
+
+/* .dark-text {
+    color: #5A5A5A;
+    z-index: 100;
+}
+.page-link.active, .active > .page-link {
+color: #5A5A5A;
+} */
+
+.pagination {
+    --bs-pagination-color: #5A5A5A;
+    --bs-pagination-active-color: #5A5A5A;
+    --bs-pagination-disabled-color: #5A5A5A;
+}
+
 
 /*  Media Queries */
 /* Navbar drop down auto open and caret inversion */
