@@ -7,13 +7,32 @@
     z-index: 40;
 }
 
-body {
+@media screen and (min-width: 1440px) {
+    .nav-link-text {
+        font-size: 130%;
+    }
+    .navbar-text {
+        font-size: 120%;
+    }
+}
+
+.navbar-padding {
     padding-top: 140px;
 }
-@media (max-width: 760px) {
-    body {
-        padding-top: 50px;
-    }
+
+.logo-container {
+    background-color: #C6F1E7;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.main-logo {
+    width:50%;
+    height:auto;
+    flex-direction: column;
+    align-content: center;
+    margin:auto;
 }
 
 .p-lang-form {

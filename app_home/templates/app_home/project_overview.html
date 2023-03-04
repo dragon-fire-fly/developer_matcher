@@ -9,6 +9,7 @@
             <h1>Project Overview</h1>
         </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-md-8">
             <h3>Filter Projects by Language:</h3>
@@ -16,7 +17,6 @@
             {{ form|crispy }}
             <button class="btn btn-primary small-margin">Submit</button>
         </form>
-        {% if user.is_authenticated %}
         <a href="{% url 'app_home:create-project' %}" class="btn btn-primary small-margin">Create a New Project</a>
         </div>
     </div>

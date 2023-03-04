@@ -10,15 +10,17 @@
         </div>
     </div>
 
-    <h3>Filter Users by Language:</h3>
-    
-    <form method="GET">
-        {{ form|crispy }}
-        <button class="btn btn-primary small-margin">Submit</button>
-        <!-- <button><img src="{{ lang.language_icon.url }}" alt="" class="icon-sm {% if selected_p_langs_list and lang not in selected_p_langs_list%}grey{% endif %}"></button> -->
-    </form>
-
     {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Filter Users by Language:</h3>
+                <form method="GET">
+                    {{ form|crispy }}
+                    <button class="btn btn-primary small-margin">Submit</button>
+                </form>
+        </div>
+    </div>
+
     <div class="row">
         {% for dev in users %}
             {% if dev != user %}
