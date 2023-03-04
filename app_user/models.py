@@ -89,8 +89,8 @@ class User(AbstractUser):
         from cloudinary
         """
         # delete associated profile pics
-        for profile_picture in self.profile_picture.all():
-            profile_picture.delete()
+        for pic in self.profile_pic.all():
+            pic.delete()
         # then delete itself
         super().delete(*args, **kwargs)
 
@@ -99,7 +99,7 @@ class UserProfilePicture(models.Model):
     user = models.ForeignKey(
         User, related_name="profile_pic", on_delete=models.CASCADE
     )
-    profile_picture = CloudinaryField("profile picture")
+    profile_picture = CloudinaryField("profile_picture")
 
     def delete(self, *args, **kwargs):
         """

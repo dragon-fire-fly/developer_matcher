@@ -10,19 +10,15 @@
             <form action="" method="POST">
             {% csrf_token %}
             {{ registration_form|crispy }}
-            <button type="submit">Sign up</button>
-            <button class=" btn-outline-info">
-                <a href="{% provider_login_url 'google'%}?next=/">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+                <a href="{% provider_login_url 'google'%}?next=/" class="btn btn-primary">
                     <i class="fab fa-google"></i>
                     Sign Up with Google
                 </a>
-            </button>
-            <button class=" btn-outline-info">
-                <a href="{% provider_login_url 'github'%}?next=/">
+                <a href="{% provider_login_url 'github'%}?next=/" class="btn btn-primary">
                     <i class="fab fa-github"></i>
                     Sign Up with Github
                 </a>
-            </button>
             </form>
         </div>
     </div>
