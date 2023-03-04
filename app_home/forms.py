@@ -102,7 +102,7 @@ class UserLangSelectFilterForm(forms.ModelForm):
         fields = ["p_language"]
         labels = {"p_language": ""}
         widgets = {
-            "p_language": forms.SelectMultiple(attrs={"style": "width: 20%;"})
+            "p_language": forms.SelectMultiple(attrs={"class": "p-lang-form"})
         }
 
 
@@ -117,5 +117,5 @@ class ProjectLangSelectFilterForm(forms.ModelForm):
         fields = ["p_language"]
         labels = {"p_language": ""}
         widgets = {
-            "p_language": forms.SelectMultiple(attrs={"style": "width: 20%;"})
+            "p_language": forms.SelectMultiple(attrs={"class": "p-lang-form"})
         }

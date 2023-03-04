@@ -21,13 +21,13 @@ class RegisterView(TemplateView):
     model = User
     template_name = "app_user/register.html"
 
-    def post(self, request, *args, **kwargs):
-        registration_form = UserRegistrationForm(request.POST)
-        if registration_form.is_valid():
-            user = registration_form.save()
-            # automatically log the user in following account creation
-            login(request, user)
-            return redirect(reverse("app_user:profile"))
+    def get(self, request, *args, **kwargs):
+        # if the user is logged in, registration page is not available
+        if request.user.is_authenticated:
+            return redirect("/")
+
+        registration_form = UserRegistrationForm
+        # show user signup page
         return render(
             request,
             "app_user/register.html",
@@ -36,13 +36,13 @@ class RegisterView(TemplateView):
             },
         )
 
-    def get(self, request, *args, **kwargs):
-        # if the user is logged in, registration page is not available
-        if request.user.is_authenticated:
-            return redirect("/")
-
-        registration_form = UserRegistrationForm
-        # show user signup page
+    def post(self, request, *args, **kwargs):
+        registration_form = UserRegistrationForm(request.POST)
+        if registration_form.is_valid():
+            user = registration_form.save()
+            # automatically log the user in following account creation
+            login(request, user)
+            return redirect(reverse("app_user:profile"))
         return render(
             request,
             "app_user/register.html",
@@ -74,7 +74,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class DeleteProfileView(LoginRequiredMixin, TemplateView):
-
     def get(self, request):
         user = get_object_or_404(User, pk=request.user.pk)
         user.delete()

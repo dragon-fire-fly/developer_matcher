@@ -9,9 +9,9 @@
   <div class="row">
     <div class="col-md-8 mt-3 offset-md-2">
       <h3>{% trans "Sign In" %}</h3>
-      <p>{% blocktrans %}Welcome back. Please log in. If you have not created an account yet, then <a class="link"
-          href="{{ signup_url }}">sign up</a>
-        first.{% endblocktrans %}</p>
+      <p>Welcome back. Please log in. If you have not created an account yet, then <a class="link"
+          href="{% url 'app_user:register' %}">register</a>
+        first.</p>
 
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
@@ -19,19 +19,16 @@
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-          <button type="submit">{% trans "Sign In" %}</button>
-          <button class=" btn-outline-info">
-            <a href="{% provider_login_url 'google'%}?next=/">
+          <button type="submit" class="btn btn-primary small-margin">{% trans "Sign In" %}</button>
+          
+            <a href="{% provider_login_url 'google'%}?next=/" class="btn btn-primary small-margin">
               <i class="fab fa-google"></i>
               Sign In with Google
             </a>
-          </button>
-          <button class=" btn-outline-info">
-            <a href="{% provider_login_url 'github'%}?next=/">
+            <a href="{% provider_login_url 'github'%}?next=/" class="btn btn-primary small-margin">
                 <i class="fab fa-github"></i>
                 Sign In with Github
             </a>
-        </button>
       </form>
     </div>
   </div>

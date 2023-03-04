@@ -1,3 +1,48 @@
+/* Nav bar */
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 40;
+}
+
+@media screen and (min-width: 1440px) {
+    .nav-link-text {
+        font-size: 130%;
+    }
+    .navbar-text {
+        font-size: 120%;
+    }
+}
+
+.navbar-padding {
+    padding-top: 140px;
+}
+
+.logo-container {
+    background-color: #C6F1E7;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.main-logo {
+    width:50%;
+    height:auto;
+    flex-direction: column;
+    align-content: center;
+    margin:auto;
+}
+
+.p-lang-form {
+    width: 250px;
+}
+
+.small-margin {
+    margin: 5px;
+}
+
 .circle-container {
     width: 300px;
     height: 300px;
@@ -34,6 +79,13 @@
     width: 30px;;
 }
 
+.gap-betwen-cards {
+    margin: 3px;
+}
+
+
+
+
 
 /* cards */
 .card-title {
@@ -43,8 +95,22 @@
     font-weight: 800;
 }
 
+/* greyed out image */
+.grey {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
 
+/* Footer */
 
+.footer-bg{
+    background-color: #78c2ad;
+    height: 85px;
+}
+.fa-brands {
+    font-size: 165%;
+    color: #fff;
+}
 
 /*  Media Queries */
 /* Navbar drop down auto open and caret inversion */

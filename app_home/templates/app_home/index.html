@@ -2,17 +2,24 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container">
+
+<div class="row">
+    <div class="col-md-8 mt-3 offset-md-2">
+        <h1>Hello World</h1>
+    </div>
+</div>
+<div class="logo-container">
+    <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1677885641/non%20square%20imgs/pgmh11hr0raoulnwyakv.png" class="main-logo" alt="">
+</div>
+
+    {% if user.is_authenticated %}
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h1>Hello World</h1>
-            {% if user.is_authenticated %}
-            Logged in as: {{ user.username }}
+        <div class="col-md-8">
             {% else %}
             Please log in to continue
             {% endif %}
         </div>
     </div>
-</div>    
+
 
 {% endblock %}

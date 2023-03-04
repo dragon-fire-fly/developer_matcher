@@ -10,9 +10,9 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button>Edit Project</button>
+                <button class="btn btn-warning">Edit Project</button>
+                <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary">Cancel</a>
             </form>
-            <a href="{% url 'app_home:project-overview' %}">Cancel</a>
         </div>
     </div>
 </div>
