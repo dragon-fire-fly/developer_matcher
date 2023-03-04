@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p class="large-error-text">404 Error</p>
+            <h2>Oops! Looks like that page doesn't exist!</h2>
+            <h3><a href="{% url 'app_home:index' %}"> Click here to get reconnected</a></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 img-404-500-container ">
+            <img class="img-404" src="https://res.cloudinary.com/djlm3llv5/image/upload/v1677945220/non%20square%20imgs/hj9v5lng9ftakoydprqc.jpg" alt="Two people trying to reconnect a disconnected plug and socket">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

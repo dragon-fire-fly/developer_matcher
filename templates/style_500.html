@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p class="large-error-text">500 Error</p>
+            <h2>Oops! Something went wrong!</h2>
+            <h3><a href="{% url 'app_home:index' %}"> Click here to get reconnected</a></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 img-404-500-container ">
+            <img class="img-404" src="https://res.cloudinary.com/djlm3llv5/image/upload/v1677948176/non%20square%20imgs/kw8vcyj0mgytgeghyvnp.jpg" alt="A computer with an exclamation point and people trying to fix it">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -35,6 +35,36 @@
     margin:auto;
 }
 
+/* 404 error page */
+.img-404-500-container {
+    background-color: #FFF;
+    width: 100vw;
+    height: 40vh;
+    display: flex;
+    padding:0;
+}
+
+.img-404 {
+    max-width: 100%;
+    width:100%;
+    height:auto;
+    flex-direction: column;
+    align-content: center;
+    margin: auto;
+}
+
+@media screen and (min-width:1024px) {
+    .img-404-500-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        padding:0;
+    }
+}
+.large-error-text {
+    font-size: 3rem;
+}
+
 .p-lang-form {
     width: 250px;
 }
@@ -79,8 +109,13 @@
     width: 30px;;
 }
 
+/* Card styling */
 .gap-betwen-cards {
     margin: 3px;
+}
+
+.mint-bg {
+
 }
 
 
