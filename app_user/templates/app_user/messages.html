@@ -61,8 +61,10 @@
                     <td><a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a></td>
                     <td><a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a></td>
                     <td>{{ msg.sent_date }}</td>
+                    <td><a href="{% url 'app_user:edit_message' msg.id %}" class="btn btn-danger"><i class="fa-solid fa-pencil"></i></a></td>
                     <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
                 </tr>
+
                 <!-- Modal for delete message button -->
                 <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
                 <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">

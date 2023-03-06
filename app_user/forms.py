@@ -99,3 +99,10 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ["title", "message"]
+
+    def save(self, commit=True):
+        message = super(MessageForm, self).save(commit=False)
+        message.edited = True
+        if commit:
+            message.save()
+        return message

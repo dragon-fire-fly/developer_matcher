@@ -13,15 +13,15 @@
                 </div>
             </div>
             {% endif %}
-            <h1 class="text-center">Send a message to <br>{{ receiver.username }}</h1>
+            <h1 class="text-center">Edit message to <br>{{ receiver.username }}</h1>
 
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input type="hidden" name="sender" value="{{ sender.pk }}">
                 <input type="hidden" name="receiver" value="{{ receiver.pk }}">
-                <a href="{% url 'app_user:messages' %}" class="btn btn-danger">Cancel</a>
-                <button class="btn btn-primary">Send!</button>
+                <a href="{% url 'app_user:individual_msg' msg.pk %}" class="btn btn-danger">Cancel</a>
+                <button class="btn btn-primary">Edit message</button>
             </form>
         </div>
     </div>
