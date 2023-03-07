@@ -89,9 +89,16 @@ class ProfileDetailView(LoginRequiredMixin, TemplateView):
             user_to_get_projects = Project.objects.filter(user=user_to_get)
         except:
             user_to_get_projects = None
+
+        try:
+            p_langs = user_to_get.p_language.values()
+        except:
+            p_langs = None
+
         context = {
             "user": request.user,
             "user_for_profile": user_to_get,
+            "p_langs": p_langs,
             "user_projects": user_to_get_projects,
         }
         return render(request, "app_home/user_detail_view.html", context)
@@ -146,7 +153,10 @@ class ProjectDetailView(LoginRequiredMixin, TemplateView):
         project_pk = kwargs["pk"]
         project_to_get = get_object_or_404(Project, pk=project_pk)
 
-        context = {"user": request.user, "project": project_to_get}
+        context = {
+            "user": request.user,
+            "project": project_to_get
+            }
 
         return render(request, "app_home/project_detail_view.html", context)
 

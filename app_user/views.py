@@ -70,8 +70,13 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             user_projects = Project.objects.filter(user=user)
         except:
             user_projects = None
+        try:
+            p_langs = user.p_language.values()
+        except:
+            p_langs = None
         context = {
             "user": user,
+            "p_langs": p_langs,
             "user_projects": user_projects,
         }
         return render(request, "app_user/user_profile.html", context)
@@ -259,12 +264,14 @@ class EditMessage(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
-        context = {
-            "msg": message,
-            "receiver": get_object_or_404(User, pk=message.pk),
-            "form": MessageForm(instance=message),
-        }
-        return render(request, "app_user/edit_message.html", context)
+        if message.user_sender == request.user:
+            context = {
+                "msg": message,
+                "receiver": get_object_or_404(User, pk=message.pk),
+                "form": MessageForm(instance=message),
+            }
+            return render(request, "app_user/edit_message.html", context)
+        return redirect("app_user:messages")
 
     def post(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
