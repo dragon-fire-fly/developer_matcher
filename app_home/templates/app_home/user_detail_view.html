@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ user_for_profile.username }}'s Profile</h1>
-            <div class="circle-container">
-                <div class="circle-img">
+            <div class="square-container">
+                <div class="square-img">
                         {% if user_for_profile.profile_pic.values %}
                         <img src={{user_for_profile.profile_pic.values.0.profile_picture.url}} alt="">
                         {% else %}
@@ -21,28 +21,20 @@
     <div class="row">
         <div class="col-md-8 offset-md-3">
             {% for key, value in user_for_profile.to_json.items %}
-            {% if value and key != 'email' %}
+            {% if value and key != 'email' and key != 'username' %}
 
             <p><strong>{{ key.title }}:</strong> {{ value }}</p>
 
             {% endif %}
             {% endfor %}
 
-            {% for key, value in user_for_profile.to_json_list.items %}
-            {% if value %}
-            {% if key == "p_language_icons" %}
-            {% for v in value %}
-            <img src="{{v}}" alt="" class="icon">
-            {% endfor %}
-            {% else %}
-            <p><strong>{{ key.title }}:</strong> 
-                {% for v in value %}
-                {{ v }}
-                {% endfor %}
-                {% endif %}
-            </p>
+            <p><h3>Programming Languages</h3>
+            {% if p_langs %}
+            {% for lang in p_langs %}
+            <img src="{{ lang.language_icon.url }}" class="icon-sm" alt="{{lang.language}} icon" title="{{ lang.language }}">
+            {% endfor %}</p>
             {% endif %}
-            {% endfor %}
+            
 
             {% if user_projects %}
             <p>Projects: 
@@ -51,7 +43,7 @@
             {% endfor %}</p>
             {% endif %}
             
-            <a href="{% url 'app_user:add_message' user_for_profile.pk %}" class="btn btn-primary">Send message</a>
+            <a href="{% url 'app_user:add_message' user_for_profile.pk %}" class="btn btn-primary margin-above">Send message</a>
         </div>
     </div>
 </div>

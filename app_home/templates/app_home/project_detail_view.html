@@ -7,21 +7,33 @@
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ project.title }}</h1>
             {% if project.user.values.0.id == user.id %}
-            {% if project.project_pic.values.0.project_picture %}
             <div class="circle-container">
                 <div class="circle-img">
+                    {% if project.project_pic.values.0.project_picture %}
                     <a href="{% url 'app_home:add-project-pic' project.pk %}">
                         <img src={{project.project_pic.values.0.project_picture.url}} alt="">
                     </a>
+                        {% else %}
+                    <a href="{% url 'app_home:add-project-pic' project.pk %}">
+                        <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678139273/x67igozvm2kkr8srya94.jpg" alt="">
+                    </a>
                 </div>
             </div>
-            {% else %}
-            <a href="{% url 'app_home:add-project-pic' project.pk %}" class="btn btn-primary offset-md-5">Add a picture</a>
             {% endif %}
             {% else %}
+            {% if project.project_pic.values.0.project_picture %}
             <div class="circle-container">
                 <div class="circle-img">
                     <img src={{project.project_pic.values.0.project_picture.url}} alt="">
+                </div>
+            </div>
+            {% else %}
+            <div class="circle-container">
+                <div class="circle-img">
+                    <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="">
+                </div>
+            </div>
+            {% endif %}
             {% endif %}
         </div>
     </div>
@@ -40,13 +52,15 @@
             </p>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary small-margin">Back to overview</a>
-                    <a href="{% url 'app_user:add_message' project.user.values.0.id %}" class="btn btn-primary small-margin"><i class="fa-regular fa-envelope"></i> Message project owner</a>
                     {% if project.user.values.0.id == user.id %}
                     <p>
                         <a href="{% url 'app_home:project-edit-view' project.pk %}" class="btn btn-primary small-margin">Edit Project</a>
                         <button type="button" class="btn btn-danger small-margin" data-bs-toggle="modal" data-bs-target="#delete-project-modal">Delete Project</button>
                     </p>
+                    {% endif %}
+                    <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary small-margin">Back to overview</a>
+                    {% if project.user.values.0.id != user.id %}
+                    <a href="{% url 'app_user:add_message' project.user.values.0.id %}" class="btn btn-primary small-margin"><i class="fa-regular fa-envelope"></i> Message project owner</a>
                     {% endif %}
                 </div>
             </div>

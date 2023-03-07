@@ -5,10 +5,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h1 class="text-center">{{ user.username }}'s Profile</h1>
-            <div class="circle-container">
-                <div class="circle-img">
-                    <a href="{% url 'app_user:edit-profile-pic' %}" class="circle-img">
+            <h1 class="text-center">Your Profile</h1>
+            <div class="square-container">
+                <div class="square-img">
+                    <a href="{% url 'app_user:edit-profile-pic' %}" >
                         {% if user.profile_pic.values %}
                         <img src={{user.profile_pic.values.0.profile_picture.url}} alt="">
                         </a>
@@ -34,21 +34,12 @@
             {% endif %}
             {% endfor %}
 
-            {% for key, value in user.to_json_list.items %}
-            {% if value %}
-            {% if key == "p_language_icons" %}
-            {% for v in value %}
-            <img src="{{v}}" alt="" class="icon">
+            <h3>Programming Languages</h3>
+            {% if p_langs %}
+            {% for lang in p_langs %}
+            <img src="{{ lang.language_icon.url }}" class="icon-sm" alt="{{lang.language}} icon" title="{{ lang.language }}">
             {% endfor %}
-            {% else %}
-            <p><strong>{{ key.title }}:</strong> 
-                {% for v in value %}
-                {{ v }}
-                {% endfor %}
-                {% endif %}
-            </p>
             {% endif %}
-            {% endfor %}
 
             {% if user_projects %}
             <p><strong>Projects:</strong> 
@@ -60,8 +51,8 @@
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-3">
-            <a href="{% url 'app_user:edit-profile' %}" class="btn btn-primary">Edit Profile</a>
-            <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-profile-modal">Delete Profile</a>
+            <a href="{% url 'app_user:edit-profile' %}" class="btn btn-primary margin-above">Edit Profile</a>
+            <a href="#" class="btn btn-danger margin-above" data-bs-toggle="modal" data-bs-target="#delete-profile-modal">Delete Profile</a>
         </div>
     </div>
 </div>

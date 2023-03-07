@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-4">
+        <div class="col-md-12 text-center">
             <h1>Project Overview</h1>
         </div>
     </div>
@@ -28,7 +28,11 @@
                 <div class="row no-gutters">
                     <div class="col-sm-3">
                         <a href="{% url 'app_home:project-detail-view' project.pk %}">
+                            {% if project.project_pic.values.0 %}
                             <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top">
+                            {% else %}
+                            <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="" class="card-img-top">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="col-sm-7">
@@ -77,10 +81,10 @@
     
     {% else %}
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-md-12 text-center">
             <p>Please log in or register to see projects</p>
-            <p><a href="{% url 'app_user:register' %}">Register</a></p>
-            <p><a href="/user/login/">Login</a></p>
+            <p><a href="{% url 'app_user:register' %}" class="btn btn-primary">Register</a>
+            <a href="/user/login/" class="btn btn-primary">Login</a></p>
         </div>
     </div>
     {% endif %}

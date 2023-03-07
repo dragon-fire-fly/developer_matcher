@@ -6,19 +6,26 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Register</h1>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
             <form action="" method="POST">
             {% csrf_token %}
             {{ registration_form|crispy }}
-            <button type="submit" class="btn btn-primary">Sign up</button>
-                <a href="{% provider_login_url 'google'%}?next=/" class="btn btn-primary">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary small-margin-top">Sign up</button>
+                <a href="{% provider_login_url 'google'%}?next=/" class="btn btn-primary small-margin-top">
                     <i class="fab fa-google"></i>
-                    Sign Up with Google
+                    Google Signup
                 </a>
-                <a href="{% provider_login_url 'github'%}?next=/" class="btn btn-primary">
+                <a href="{% provider_login_url 'github'%}?next=/" class="btn btn-primary small-margin-top">
                     <i class="fab fa-github"></i>
-                    Sign Up with Github
+                    Github Signup
                 </a>
+            </div>
             </form>
         </div>
     </div>
