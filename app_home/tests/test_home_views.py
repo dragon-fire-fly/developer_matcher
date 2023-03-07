@@ -81,6 +81,8 @@ class TestAppHomeViews(TestCase):
         # developer overview page when logged in
         self.client.force_login(self.user1)
         response = self.client.get(url)
+        self.assertTemplateUsed(template)
+        self.assertEqual(response.status_code, 200)
         self.assertNotContains(
             response, "Please log in or register to see other developers"
         )
