@@ -250,10 +250,10 @@ class AddMessage(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         new_msg = MessageForm(request.POST)
         if new_msg.is_valid():
-            new_msg = new_msg.save(commit=False)
+            new_msg = new_msg.save("new", commit=False)
             new_msg.user_sender_id = request.POST["sender"]
             new_msg.user_receiver_id = request.POST["receiver"]
-            new_msg.save()
+            new_msg.save("new")
             messages.success(request, "Message sent!")
         return redirect("app_user:messages")
 
@@ -264,10 +264,11 @@ class EditMessage(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
+        receiver = get_object_or_404(User, pk=message.user_receiver_id)
         if message.user_sender == request.user:
             context = {
                 "msg": message,
-                "receiver": get_object_or_404(User, pk=message.pk),
+                "receiver": receiver,
                 "form": MessageForm(instance=message),
             }
             return render(request, "app_user/edit_message.html", context)
@@ -277,8 +278,8 @@ class EditMessage(LoginRequiredMixin, TemplateView):
         message = get_object_or_404(Message, pk=kwargs["pk"])
         form = MessageForm(request.POST, instance=message)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Message updated.")
+            form.save("edit")
+            messages.success(request, "Message successfully updated.")
         else:
             messages.error(
                 request, "Message could not be edited. Please try again."

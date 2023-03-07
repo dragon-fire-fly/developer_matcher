@@ -100,9 +100,10 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = ["title", "message"]
 
-    def save(self, commit=True):
+    def save(self, msgtype, commit=True):
         message = super(MessageForm, self).save(commit=False)
-        message.edited = True
+        if msgtype == "edit":
+            message.edited = True
         if commit:
             message.save()
         return message
