@@ -28,7 +28,11 @@
                 <div class="row no-gutters">
                     <div class="col-sm-3">
                         <a href="{% url 'app_home:project-detail-view' project.pk %}">
+                            {% if project.project_pic.values.0 %}
                             <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top">
+                            {% else %}
+                            <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="" class="card-img-top">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="col-sm-7">
