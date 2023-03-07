@@ -5,27 +5,30 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h1 class="text-center">{{ user.username }}'s Inbox</h1>
-            <a href="{% url 'app_user:sent-messages' %}" class="btn btn-primary small-margin">Sent Messages</a>
+            <h1 class="text-center">{{ user.username }}'s Sent Messages</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 offset-md-2 text-center">
-            <h2>Recieved messages:</h2>
+            <a href="{% url 'app_user:messages' %}" class="btn btn-primary small-margin">Received Messages</a>
+            <h2>Sent messages:</h2>
             <table class="table">
                 <tr>
-                    <th>From</th>
+                    <th>To</th>
                     <th>Title</th>
-                    <th>Date recieved</th>
+                    <th>Date sent</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 {% for msg in msgs %}
                 <tr>
-                    <td><a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">{{ msg.user_sender.username }}</a></td>
+                    <td><a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a></td>
                     <td><a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a></td>
                     <td>{{ msg.sent_date }}</td>
-                    <td><a class="btn" style="color:#C63D17" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                    <td><a href="{% url 'app_user:edit_message' msg.pk %}" class="btn"><i class="fa-solid fa-pencil"></i></a></td>
+                    <td><button class="btn" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
                 </tr>
+
                 <!-- Modal for delete message button -->
                 <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
                 <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
@@ -50,6 +53,7 @@
                 </div>
                 {% endfor %}
             </table>
+
             <!-- Pagination -->
             <nav aria-label="Page navigation" class="small-margin">
                 <ul class="pagination justify-content-center">
@@ -73,7 +77,6 @@
                     {% endif %}
                 </ul>
             </nav>
-
         </div>
     </div>
 </div>

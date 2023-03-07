@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from .models import User, UserProfilePicture, Project, ProgramLang, Message
 from .forms import (
     UserRegistrationForm,
@@ -199,12 +200,38 @@ class Messages(LoginRequiredMixin, TemplateView):
 
     def get(self, request):
         received_msgs = Message.objects.filter(user_receiver=request.user)
-        sent_msgs = Message.objects.filter(user_sender=request.user)
+        # set up pagination for messages (6 per page)
+        paginator = Paginator(received_msgs, 6)
+        page_number = request.GET.get("page")
+        messages = paginator.get_page(page_number)
+        p_nums = "p" * messages.paginator.num_pages
         context = {
-            "received_msgs": received_msgs,
-            "sent_msgs": sent_msgs,
+            "msgs": messages,
+            "p_nums": p_nums,
         }
         return render(request, "app_user/messages.html", context)
+
+
+class SentMessages(LoginRequiredMixin, TemplateView):
+    """
+    View of user's received and sent messages
+    """
+
+    model = Message
+    template_name = "app_user/sent_messages.html"
+
+    def get(self, request):
+        sent_msgs = Message.objects.filter(user_sender=request.user)
+        # set up pagination for messages (6 per page)
+        paginator = Paginator(sent_msgs, 6)
+        page_number = request.GET.get("page")
+        messages = paginator.get_page(page_number)
+        p_nums = "p" * messages.paginator.num_pages
+        context = {
+            "msgs": messages,
+            "p_nums": p_nums,
+        }
+        return render(request, "app_user/sent_msgs.html", context)
 
 
 class IndividualMsg(LoginRequiredMixin, TemplateView):
