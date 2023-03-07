@@ -37,6 +37,11 @@ urlpatterns = [
         name="add_message",
     ),
     path(
+        "messages/edit/<int:pk>/",
+        views.EditMessage.as_view(),
+        name="edit_message",
+    ),
+    path(
         "messages/delete/<int:pk>/",
         views.DeleteMessage.as_view(),
         name="delete_message",

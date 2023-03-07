@@ -42,6 +42,10 @@ class RegisterView(TemplateView):
             user = registration_form.save()
             # automatically log the user in following account creation
             login(request, user)
+            messages.success(
+                request,
+                f"Account successfully created. Welcome {user.username}!",
+            )
             return redirect(reverse("app_user:profile"))
         return render(
             request,
@@ -247,6 +251,32 @@ class AddMessage(LoginRequiredMixin, TemplateView):
             new_msg.save()
             messages.success(request, "Message sent!")
         return redirect("app_user:messages")
+
+
+class EditMessage(LoginRequiredMixin, TemplateView):
+    model = Message
+    template_name = "app_user/edit_message.html"
+
+    def get(self, request, *args, **kwargs):
+        message = get_object_or_404(Message, pk=kwargs["pk"])
+        context = {
+            "msg": message,
+            "receiver": get_object_or_404(User, pk=message.pk),
+            "form": MessageForm(instance=message),
+        }
+        return render(request, "app_user/edit_message.html", context)
+
+    def post(self, request, *args, **kwargs):
+        message = get_object_or_404(Message, pk=kwargs["pk"])
+        form = MessageForm(request.POST, instance=message)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Message updated.")
+        else:
+            messages.error(
+                request, "Message could not be edited. Please try again."
+            )
+        return redirect(reverse("app_user:messages"))
 
 
 class DeleteMessage(LoginRequiredMixin, TemplateView):

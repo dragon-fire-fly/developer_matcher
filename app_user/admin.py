@@ -57,7 +57,7 @@ class ProgrammingLanguageAdmin(admin.ModelAdmin):
 
 
 class MessageAdmin(admin.ModelAdmin):
-    fields = ["user_sender", "user_receiver", "title", "message"]
+    fields = ["user_sender", "user_receiver", "title", "message", "edited"]
     exclude = ["sent_date"]
 
 

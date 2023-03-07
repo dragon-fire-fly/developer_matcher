@@ -184,6 +184,10 @@ color: #5A5A5A;
     --bs-pagination-disabled-color: #5A5A5A;
 }
 
+.small-txt {
+    font-size: 0.8rem;
+}
+
 
 /*  Media Queries */
 /* Navbar drop down auto open and caret inversion */
