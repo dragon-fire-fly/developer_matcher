@@ -16,7 +16,7 @@
             <div class="card text-center">
                 <img src="{{picture.project_picture.url}}" alt="" class="card-img-top">
                 <div class="card-body">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletePicModal-{{ picture.id }}">Delete picture</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePicModal-{{ picture.id }}">Delete picture</button>
                 </div>
             </div>
         </div>
@@ -45,34 +45,15 @@
         {% endfor %}        
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="row">
         <div class="col-md-3">
-        
         <form method="POST"  enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="method" value="add">
             {{ form }}
-            <button type="submit" class="btn btn-primary">Add Project Pic</button>
+            <button type="submit" class="btn btn-primary margin-above">Add Project Pic</button>
+            <a href="{% url 'app_home:project-detail-view' project.pk %}" class="btn btn-warning margin-above">Back to Project</a>   
         </form>
-        <a href="{% url 'app_home:project-detail-view' project.pk %}" class="btn btn-warning">Back to Project</a>   
     </div>
 </div>
 

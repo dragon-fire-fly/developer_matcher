@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-4">
+        <div class="col-md-12 text-center">
             <h1>Developer Overview</h1>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
     <div class="row gy-3">
         {% for dev in users %}
-            {% if dev != user %}
+            {% if dev != user and dev != admin %}
                 <div class="col-md-6 col-lg-3">
                     <div class="card text-center card-title h-100 gap-betwen-cards">
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
@@ -70,11 +70,10 @@
 
     {% else %}
     <div class="row">
-        <div class="col-md-8 offset-2">
-            <p>Please log in or register to see other developers</p>
-            <p><a href="{% url 'app_user:register' %}">Register</a></p>
-            <p><a href="/user/login/">Login</a></p>
-            
+        <div class="col-md-12 text-center">
+            <p>Please log in or register to see projects</p>
+            <p><a href="{% url 'app_user:register' %}" class="btn btn-primary">Register</a>
+            <a href="/user/login/" class="btn btn-primary">Login</a></p>
         </div>
     </div>
     {% endif %}

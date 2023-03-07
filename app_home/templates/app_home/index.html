@@ -3,23 +3,27 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-        <h1>Hello World</h1>
-    </div>
-</div>
-<div class="logo-container">
-    <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1677952493/non%20square%20imgs/nsxpyjtol4oyoqn5iidi.png" class="main-logo" alt="">
-</div>
-
-    {% if user.is_authenticated %}
+<div class="container">
     <div class="row">
-        <div class="col-md-8">
-            {% else %}
-            Please log in to continue
-            {% endif %}
+        <div class="col-md-12 logo-container">
+            <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1677952586/non%20square%20imgs/yydclfgb81lrk8m2hgnt.png" class="main-logo" alt="">
         </div>
     </div>
-
+    
+    {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Welcome, {{user.username}}</h2>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="{% url 'app_user:register' %}" class="btn btn-primary">Register</a>
+            <a href="/user/login/" class="btn btn-primary">Login</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}
