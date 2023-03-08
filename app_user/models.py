@@ -173,7 +173,7 @@ class Message(models.Model):
     )
     title = models.CharField(max_length=255)
     message = models.TextField()
-    sent_date = models.DateField(auto_now_add=True, blank=False)
+    sent_date = models.DateTimeField(auto_now_add=True, blank=False)
     edited = models.BooleanField(default=False)
 
     def __str__(self) -> str:
