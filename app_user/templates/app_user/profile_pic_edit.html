@@ -4,14 +4,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h1 class="text-center">{{ user.username }}'s Profile Pictures</h1>
+            <h1 class="text-center">Your Profile Pictures</h1>
         </div>
     </div>
     <div class="row">
         {% for picture in pictures %}
         <div class="col-md-3">
-            <div class="card text-center">
-                <img src="{{picture.profile_picture.url}}" alt="" class="card-img-top">
+            <div class="card text-center gap-betwen-cards">
+                <img src="{{ picture.profile_picture.url }}" alt="Your profile image" class="card-img-top">
                 <div class="card-body">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deletePicModal-{{ picture.id }}">Delete picture</button>
                 </div>
@@ -47,10 +47,8 @@
                 {% csrf_token %}
                 <input type="hidden" name="method" value="add">
                 {{ form }}
-                <span class="btn-group">
-                <button type="submit" class="btn btn-primary">Add Profile Pic</button>
-                <a href="{% url 'app_user:profile' %}" class="btn btn-warning">Back to Profile</a>
-                </div>
+                <button type="submit" class="btn btn-primary small-margin-top">Add Profile Pic</button>
+                <a href="{% url 'app_user:profile' %}" class="btn btn-warning small-margin-top">Back to Profile</a>
             </form>
         </div>
     </div>

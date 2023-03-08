@@ -9,9 +9,9 @@
             <div class="square-container">
                 <div class="square-img">
                         {% if user_for_profile.profile_pic.values %}
-                        <img src={{user_for_profile.profile_pic.values.0.profile_picture.url}} alt="">
+                        <img src={{user_for_profile.profile_pic.values.0.profile_picture.url}} alt="{{ user_for_profile.username }}'s profile picture">
                         {% else %}
-                        <img src="http://placekitten.com/300/300" alt="">
+                        <img src="http://placekitten.com/300/300" alt="A random kitten photo as an image placeholder">
                         {% endif %}
                         </a>
                 </div>

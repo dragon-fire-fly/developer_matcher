@@ -9,7 +9,9 @@
             {% if receiver.profile_pic.values %}
             <div class="circle-container">
                 <div class="circle-img">
-                    <img src="{{ receiver.profile_pic.values.0.profile_picture.url }}" alt="">
+                    <a href="{% url 'app_home:profile-detail-view' receiver.pk %}">
+                        <img src="{{ receiver.profile_pic.values.0.profile_picture.url }}" alt="{{ receiver.username }}'s profile picture">
+                    </a>
                 </div>
             </div>
             {% endif %}

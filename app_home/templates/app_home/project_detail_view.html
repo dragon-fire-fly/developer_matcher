@@ -7,30 +7,33 @@
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">{{ project.title }}</h1>
             {% if project.user.values.0.id == user.id %}
+            <!-- if the project belongs to the logged in user -->
             <div class="circle-container">
                 <div class="circle-img">
                     {% if project.project_pic.values.0.project_picture %}
+                    <!-- link to the add pictures page -->
                     <a href="{% url 'app_home:add-project-pic' project.pk %}">
-                        <img src={{project.project_pic.values.0.project_picture.url}} alt="">
+                        <img src={{project.project_pic.values.0.project_picture.url}} alt="The image for the {{ project.title }} project">
                     </a>
                         {% else %}
                     <a href="{% url 'app_home:add-project-pic' project.pk %}">
-                        <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678139273/x67igozvm2kkr8srya94.jpg" alt="">
+                        <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678139273/x67igozvm2kkr8srya94.jpg" alt="A placeholder picture inviting the user to upload a project picture">
                     </a>
                 </div>
             </div>
             {% endif %}
             {% else %}
             {% if project.project_pic.values.0.project_picture %}
+            <!-- if the project does not belong to the logged in user -->
             <div class="circle-container">
                 <div class="circle-img">
-                    <img src={{project.project_pic.values.0.project_picture.url}} alt="">
+                    <img src={{project.project_pic.values.0.project_picture.url}} alt="The image for the {{ project.title }} project">
                 </div>
             </div>
             {% else %}
             <div class="circle-container">
                 <div class="circle-img">
-                    <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="">
+                    <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="A placeholder picture to show the project does not have any pictures associated with it">
                 </div>
             </div>
             {% endif %}
@@ -47,7 +50,7 @@
             {% endif %}
             <p><strong>Programming Languages:</strong> 
                 {% for language in project.p_language.values %}
-                <img src="{{ language.language_icon.url }}" alt="" class="icon-sm" title="{{ language.language }}">
+                <img src="{{ language.language_icon.url }}" alt="The {{ language.language }} icon" class="icon-sm" title="{{ language.language }}">
                 {% endfor %}
             </p>
             <div class="row">

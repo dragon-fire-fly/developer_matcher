@@ -14,7 +14,7 @@
         {% for picture in pictures %}
         <div class="col-md-3">
             <div class="card text-center">
-                <img src="{{picture.project_picture.url}}" alt="" class="card-img-top">
+                <img src="{{picture.project_picture.url}}" alt="An image for the {{ project.title }} project " class="card-img-top">
                 <div class="card-body">
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePicModal-{{ picture.id }}">Delete picture</button>
                 </div>
