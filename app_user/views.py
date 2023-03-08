@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, FormView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from .models import User, UserProfilePicture, Project, ProgramLang, Message
 from .forms import (
     UserRegistrationForm,
@@ -199,12 +200,38 @@ class Messages(LoginRequiredMixin, TemplateView):
 
     def get(self, request):
         received_msgs = Message.objects.filter(user_receiver=request.user)
-        sent_msgs = Message.objects.filter(user_sender=request.user)
+        # set up pagination for messages (6 per page)
+        paginator = Paginator(received_msgs, 6)
+        page_number = request.GET.get("page")
+        messages = paginator.get_page(page_number)
+        p_nums = "p" * messages.paginator.num_pages
         context = {
-            "received_msgs": received_msgs,
-            "sent_msgs": sent_msgs,
+            "msgs": messages,
+            "p_nums": p_nums,
         }
         return render(request, "app_user/messages.html", context)
+
+
+class SentMessages(LoginRequiredMixin, TemplateView):
+    """
+    View of user's received and sent messages
+    """
+
+    model = Message
+    template_name = "app_user/sent_messages.html"
+
+    def get(self, request):
+        sent_msgs = Message.objects.filter(user_sender=request.user)
+        # set up pagination for messages (6 per page)
+        paginator = Paginator(sent_msgs, 6)
+        page_number = request.GET.get("page")
+        messages = paginator.get_page(page_number)
+        p_nums = "p" * messages.paginator.num_pages
+        context = {
+            "msgs": messages,
+            "p_nums": p_nums,
+        }
+        return render(request, "app_user/sent_msgs.html", context)
 
 
 class IndividualMsg(LoginRequiredMixin, TemplateView):
@@ -250,10 +277,10 @@ class AddMessage(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         new_msg = MessageForm(request.POST)
         if new_msg.is_valid():
-            new_msg = new_msg.save(commit=False)
+            new_msg = new_msg.save("new", commit=False)
             new_msg.user_sender_id = request.POST["sender"]
             new_msg.user_receiver_id = request.POST["receiver"]
-            new_msg.save()
+            new_msg.save("new")
             messages.success(request, "Message sent!")
         return redirect("app_user:messages")
 
@@ -264,10 +291,11 @@ class EditMessage(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
+        receiver = get_object_or_404(User, pk=message.user_receiver_id)
         if message.user_sender == request.user:
             context = {
                 "msg": message,
-                "receiver": get_object_or_404(User, pk=message.pk),
+                "receiver": receiver,
                 "form": MessageForm(instance=message),
             }
             return render(request, "app_user/edit_message.html", context)
@@ -277,8 +305,8 @@ class EditMessage(LoginRequiredMixin, TemplateView):
         message = get_object_or_404(Message, pk=kwargs["pk"])
         form = MessageForm(request.POST, instance=message)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Message updated.")
+            form.save("edit")
+            messages.success(request, "Message successfully updated.")
         else:
             messages.error(
                 request, "Message could not be edited. Please try again."

@@ -26,6 +26,7 @@ urlpatterns = [
         name="delete-profile-pic",
     ),
     path("messages/", views.Messages.as_view(), name="messages"),
+    path("messages/sent/", views.SentMessages.as_view(), name="sent-messages"),
     path(
         "messages/<int:pk>/",
         views.IndividualMsg.as_view(),
