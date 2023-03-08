@@ -29,7 +29,7 @@
                     <div class="col-sm-3">
                         <a href="{% url 'app_home:project-detail-view' project.pk %}">
                             {% if project.project_pic.values.0 %}
-                            <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="" class="card-img-top">
+                            <img src="{{ project.project_pic.values.0.project_picture.url }}" alt="The image for the {{ project.title }} project" class="card-img-top">
                             {% else %}
                             <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="" class="card-img-top">
                             {% endif %}
@@ -39,7 +39,7 @@
                         <div class="card-body">
                             <h2><a href="{% url 'app_home:project-detail-view' project.pk %}" class="card-title">{{ project.title }}</a></h2>
                             <p>{% for language in project.p_language.values %}
-                                <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
+                                <img src="{{ language.language_icon.url }}" alt="The {{ language.language }} icon" class="icon-sm">
                                 {% endfor %}
                             </p>
                             <p>

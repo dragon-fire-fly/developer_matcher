@@ -10,12 +10,12 @@
                 <div class="square-img">
                     <a href="{% url 'app_user:edit-profile-pic' %}" >
                         {% if user.profile_pic.values %}
-                        <img src={{user.profile_pic.values.0.profile_picture.url}} alt="">
+                        <img src={{user.profile_pic.values.0.profile_picture.url}} alt="Your main profile image">
                         </a>
                     </div>
                 </div>
                         {% else %}
-                        <img src="http://placekitten.com/300/300" alt="">
+                        <img src="http://placekitten.com/300/300" alt="A random kitten photo placeholder as you do not have a profile picture yet">
                         </a>
                     </div>
                 </div>

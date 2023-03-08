@@ -10,9 +10,9 @@
                 <div class="circle-img">
                     <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">
                         {% if msg.user_sender.profile_pic.values %}
-                        <img src={{msg.user_sender.profile_pic.values.0.profile_picture.url}} alt="">
+                        <img src={{msg.user_sender.profile_pic.values.0.profile_picture.url}} alt="{{ msg.user_sender.username }}'s profile picture">
                         {% else %}
-                        <img src="http://placekitten.com/300/300" alt="">
+                        <img src="http://placekitten.com/300/300" alt="A random kitten picture as a placeholder image">
                         {% endif %}
                     </a>
                 </div>
@@ -29,9 +29,9 @@
                 <div class="circle-img">
                     <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">
                         {% if msg.user_receiver.profile_pic.values %}
-                        <img src={{msg.user_receiver.profile_pic.values.0.profile_picture.url}} alt="">
+                        <img src={{msg.user_receiver.profile_pic.values.0.profile_picture.url}} alt="{{ msg.user_receiver.username }}'s profile picture">
                         {% else %}
-                        <img src="http://placekitten.com/300/300" alt="">
+                        <img src="http://placekitten.com/300/300" alt="A random kitten picture as a placeholder image">
                         {% endif %}
                     </a>
                 </div>

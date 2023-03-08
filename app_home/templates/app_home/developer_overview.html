@@ -28,14 +28,14 @@
                     <div class="card text-center card-title h-100 gap-betwen-cards">
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
                             {% if dev.profile_pic.values %}
-                            <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="" class="card-img-top dev-img">
+                            <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="{{ dev.username }}'s profile picture" class="card-img-top dev-img">
                         {% else %}
-                        <img src="http://placekitten.com/300/300" alt="" class="card-img-top dev-img">
+                        <img src="http://placekitten.com/300/300" alt="a random kitten photo used as a placeholder picture" class="card-img-top dev-img">
                         {% endif %}
                         </a>
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}" class="card-title">{{ dev.username }}</a>
                         <p>{% for language in dev.p_language.values %}
-                            <img src="{{ language.language_icon.url }}" alt="" class="icon-sm">
+                            <img src="{{ language.language_icon.url }}" alt="Small icon representing the programming language {{ language.language }}" class="icon-sm">
                             {% endfor %}
                         </p>
                     </div>
