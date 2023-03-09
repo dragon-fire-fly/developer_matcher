@@ -103,7 +103,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Requirements for Allauth support
-SITE_ID = 1
+SITE_ID = 2
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -112,7 +112,7 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/user/login/"
-LOGOUT_URL = "/user/login/"
+LOGOUT_URL = "/user/logout/"
 
 # Register the auth_user_model
 AUTH_USER_MODEL = "app_user.User"
