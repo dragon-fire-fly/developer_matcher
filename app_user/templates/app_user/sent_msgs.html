@@ -9,24 +9,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-md-2 text-center">
+        <div class="col-md-12 text-center">
             <a href="{% url 'app_user:messages' %}" class="btn btn-primary small-margin">Received Messages</a>
             <h2>Sent messages:</h2>
             <table class="table">
                 <tr>
-                    <th>To</th>
-                    <th>Title</th>
-                    <th>Date sent</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th class="sm-hidden-table"></th>
+                    <th class="table-cell-text">To</th>
+                    <th class="table-cell-text">Title</th>
+                    <th class="table-cell-text">Date sent</th>
+                    <th class="sm-hidden-table">Edit</th>
+                    <th class="sm-hidden-table">Delete</th>
                 </tr>
                 {% for msg in msgs %}
                 <tr>
-                    <td><a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">{{ msg.user_receiver.username }}</a></td>
-                    <td><a href="{% url 'app_user:individual_msg' msg.pk %}">{{ msg.title }}</a></td>
-                    <td>{{ msg.sent_date }}</td>
-                    <td><a href="{% url 'app_user:edit_message' msg.pk %}" class="btn"><i class="fa-solid fa-pencil"></i></a></td>
-                    <td><button class="btn" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
+                    <td class="align-middle sm-hidden">
+                        <div class="square-container-small">
+                            <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}">
+                                <img src="{{ msg.user_receiver.profile_pic.values.0.profile_picture.url }}" alt="{{ msg.user_receiver.username }}'s profile picture" class="square-img">
+                            </a>
+                        </div>
+                    </td>
+                    <td class="align-middle"><a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}" class="table-cell-text">{{ msg.user_receiver.username }}</a></td>
+                    <td class="align-middle"><a href="{% url 'app_user:individual_msg' msg.pk %}" class="table-cell-text">{{ msg.title }}</a></td>
+                    <td class="align-middle small-text">{{ msg.sent_date }}</td>
+                    <td class="align-middle"><a href="{% url 'app_user:edit_message' msg.pk %}" class="btn sm-hidden-table"><i class="fa-solid fa-pencil"></i></a></td>
+                    <td class="align-middle"><button class="btn sm-hidden-table" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
                 </tr>
 
                 <!-- Modal for delete message button -->
