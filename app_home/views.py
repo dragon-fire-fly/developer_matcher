@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, FormView
 from app_user.models import User, Project, ProgramLang, ProjectPicture
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+import random
 from .forms import (
     ProjectCreationForm,
     ProjectEditForm,
@@ -8,10 +12,6 @@ from .forms import (
     UserLangSelectFilterForm,
     ProjectLangSelectFilterForm,
 )
-from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
-
 
 class HomeView(TemplateView):
     """
@@ -53,7 +53,7 @@ class DeveloperOverview(TemplateView):
             p_langs = []
         form = UserLangSelectFilterForm(initial={"p_language": p_langs})
 
-        all_users = User.objects.all()
+        all_users = User.objects.all().exclude(pk=request.user.pk)
         href_filter = ""
         for lang in p_langs:
             all_users = all_users.filter(p_language=lang)

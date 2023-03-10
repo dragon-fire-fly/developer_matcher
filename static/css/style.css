@@ -28,11 +28,12 @@ body {
     color: #000;
     text-decoration: none;
 }
-.btn-danger {
-    background-color: #C63D17;
-}
 .btn {
     color: #000;
+}
+.btn-danger {
+    background-color: #C63D17;
+    color: #FFF;
 }
 
 .margin-above {
