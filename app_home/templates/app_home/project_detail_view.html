@@ -62,7 +62,7 @@
                     </p>
                     {% endif %}
                     <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary small-margin">Back to overview</a>
-                    {% if project.user.values.0.id != user.id %}
+                    {% if project.user.values and project.user.values.0.id != user.id %}
                     <a href="{% url 'app_user:add_message' project.user.values.0.id %}" class="btn btn-primary small-margin"><i class="fa-regular fa-envelope"></i> Message project owner</a>
                     {% endif %}
                 </div>

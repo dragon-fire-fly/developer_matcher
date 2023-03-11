@@ -7,21 +7,22 @@
         <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Your Profile</h1>
             <div class="square-container">
-                <div class="square-img">
-                    <a href="{% url 'app_user:edit-profile-pic' %}" >
-                        {% if user.profile_pic.values %}
-                        <img src={{user.profile_pic.values.0.profile_picture.url}} alt="Your main profile image">
-                        </a>
-                    </div>
+                {% if user.profile_pic.values %}
+                <a href="{% url 'app_user:add-profile-pic' %}" class="square-img">
+                    <img src={{user.profile_pic.values.0.profile_picture.url}} alt="Your main profile image">
+                </a>
+                {% else %}
+                <a href="{% url 'app_user:add-profile-pic' %}" class="square-img">
+                    <img src="http://placekitten.com/300/300" alt="A random kitten photo placeholder as you do not have a profile picture yet">
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    You have been assigned a random kitten placeholder image. 
+                    Please click the image if you would like to upload your own picture.
+                    {% endif %}
                 </div>
-                        {% else %}
-                        <img src="http://placekitten.com/300/300" alt="A random kitten photo placeholder as you do not have a profile picture yet">
-                        </a>
-                    </div>
-                </div>
-                        You have been assigned a random kitten placeholder image. 
-                        Please click the image if you would like to upload your own picture.
-                        {% endif %}
+            </div>
         </div>
     </div>
     <div class="row">

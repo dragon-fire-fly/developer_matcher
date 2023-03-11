@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         {% for picture in pictures %}
-        <div class="col-md-3">
+        <div class="col-md-6 col-lg-3">
             <div class="card text-center gap-betwen-cards">
                 <img src="{{ picture.profile_picture.url }}" alt="Your profile image" class="card-img-top">
                 <div class="card-body">
@@ -29,7 +29,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>This action will delete your picture {{picture.id}}</p>
+                        <p>This action will delete your picture</p>
                         <p>This action is IRREVERSIBLE. Are you sure?</p>
                     </div>
                     <div class="modal-footer">
