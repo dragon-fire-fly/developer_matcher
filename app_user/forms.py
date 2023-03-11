@@ -75,6 +75,9 @@ class UserEditForm(forms.ModelForm):
             "linked_in",
             "portfolio",
         ]
+        labels = {
+            "p_language": "Programming Language(s)",
+        }
 
     # def __init__(self, *args, **kwargs):
     #     super(UserEditForm, self).__init__(*args, **kwargs)

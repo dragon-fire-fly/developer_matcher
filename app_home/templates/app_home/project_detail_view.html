@@ -25,14 +25,14 @@
             {% else %}
             {% if project.project_pic.values.0.project_picture %}
             <!-- if the project does not belong to the logged in user -->
-            <div class="circle-container">
-                <div class="circle-img">
+            <div class="square-container">
+                <div class="square-img">
                     <img src={{project.project_pic.values.0.project_picture.url}} alt="The image for the {{ project.title }} project">
                 </div>
             </div>
             {% else %}
-            <div class="circle-container">
-                <div class="circle-img">
+            <div class="square-container">
+                <div class="square-img">
                     <img src="https://res.cloudinary.com/djlm3llv5/image/upload/v1678138517/zac9ltpydeu3t6uiabnb.jpg" alt="A placeholder picture to show the project does not have any pictures associated with it">
                 </div>
             </div>
