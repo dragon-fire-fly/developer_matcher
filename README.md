@@ -179,7 +179,7 @@ Navbar(user logged in)
     The user's primary profile picture is displayed in the centre of the screen and when clicked, navigates the user to the "add profile picture" page. If the user does not yet have a profile picture, a placeholder picture will be displayed, with text explaining that this is a placeholder piture and may be changed by clicking the photo and uploading a picture.
     This placeholder picture is a randomly generated photo of a kitten, from [Place Kitten](https://placekitten.com/).
 
-![User Profile Page](documentation/features/profile_page.png)
+![User Profile Page](documentation/features/profile-page.png)
 ![Placeholder picture](documentation/features/kitten-placeholder.png)
 
 - **Edit User Profile Page(logged in user)**
@@ -188,6 +188,40 @@ Navbar(user logged in)
 
 ![screenshot](documentation/features/edit-profile-page.png)
 
+- **Delete User Account**
+
+    - TODO: ADD !!!
+
+![screenshot](documentation/features)
+
+- **Profile Picture Overview**
+
+    - When the user clicks on the picture on their User account (see 3 features up), they are taken the the profile picture overview page. From here they may upload new profile pictures or delete existing ones. The first uploaded picture becomes the profile picture displayed on their public profile and the thumbnail picture in the nav bar. Pictures are uploaded to [Cloudinary](https://cloudinary.com/) where they are stored and retreived and upon deletion, they are also deleted from Cloudinary.
+
+![Profile Picture Overview page](documentation/features/profile-pic-overview.png)
+
+
+- **Profile Picture CRUD**
+
+    - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, red (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion.
+
+![CRUD functions for profile pictures](documentation/features/CRUD-profile-pic.png)
+
+
+- **Project CRUD**
+
+    - Projects have full "CRUD" functionality. A user can create (upload) a new project, red (view) an existing project, edit their own projects and delete their own project. The create-view-edit-delete cycle is shown below.
+
+    !!! TODO need to add deleted to crud cycle !!! 
+
+![screenshot](documentation/features)
+
+- **Create New Project**
+
+    - The create new project form is shown here on multiple screen sizes to demonstrate the responsiveness of the project creation form. Users can select at least one programming language (relabeled from "P language" to "Programming language(s)" since these screenshots were taken)
+
+![screenshot](documentation/features/create-project.png)
+
 - **Feature**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
@@ -199,14 +233,6 @@ Navbar(user logged in)
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/features)
-
-
-- **Feature**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/features)
-
 
 - **Feature**
 
