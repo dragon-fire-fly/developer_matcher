@@ -134,21 +134,52 @@ IMPORTANT: Remember to always include a screenshot of each individual feature!
 
 - **Navbar**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - The navbar makes navigation around the site easy and intuitive for the user. On the left hand side, the 'Developer Connect' logo is displayed and links back to the home page. The other three links bring the user to the Developer Overview, Project Overview and About pages. On the right hand side, if the user is not yet logged in, they are invited to do so with 'sign in' and 'sign up' links and a message saying "Get connected now!".
+    If the user is already registered and logged in, 
+Navbar (user not logged in)
+![Navbar](documentation/features/navbar-not-logged-in.png)
+Navbar(user logged in)
+![Navbar](documentation/features/navbar-logged-in.png)
 
-![screenshot](documentation/feature01.png)
+- **Homepage**
 
-- **Feature #2**
+    - The homepage displays the "Developer Connect" logo and either "sign in" and "sign up" buttons, if no user is logged in, or hello ((username)) if a user is logged in
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+![Hompage](documentation//features/home-page.png)
 
-![screenshot](documentation/feature02.png)
+- **Registration page**
 
-- **Feature #3**
+    - The registration page allows new users to register to the site. A form is provided which asks for desired username, e-mail address and a password, repeated twice. The constraints for password choice are displayed on the registration page. Users are informed if their chosen username is unavailable or unacceptable (see validation below).
+
+![Registration page](documentation/features/register-page.png)
+
+- **Login page**
+
+    - The login page allows users who have registered on the site previously to log in with their credentials. There is also the option for a google or github log in.
+
+![Login page](documentation/features/sign-in-page.png)
+
+
+- **Developer Overview Page**
+
+    - The Developer Overview page displays all the users registered on the site, excluding the currently logged in user. 8 users are displayed per page (see pagination below for more details)
+
+![Developer Overview Page](documentation/features/developer-overview-page.png)
+
+
+- **Project Overview Page**
+
+    - The Project Overview page displays all the projects made by users on the site (including any created by the logged in user). 4 projects are displayed per page (see pagination below for more details)
+
+![Project Overview Page](documentation/features/project-overview-page.png)
+
+- **User Profile Page (logged in user)**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/feature03.png)
+
+
 
 ⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
 
