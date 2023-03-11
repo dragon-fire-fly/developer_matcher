@@ -203,18 +203,25 @@ Navbar(user logged in)
 
 - **Profile Picture CRUD**
 
-    - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, red (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion.
+    - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![CRUD functions for profile pictures](documentation/features/CRUD-profile-pic.png)
+![CRUD functions for profile pictures](documentation/features/crud-profile-pic.png)
 
 
 - **Project CRUD**
 
-    - Projects have full "CRUD" functionality. A user can create (upload) a new project, red (view) an existing project, edit their own projects and delete their own project. The create-view-edit-delete cycle is shown below.
+    - Projects have full "CRUD" functionality. A user can create (upload) a new project, read (view) an existing project, edit their own projects and delete their own projects. The create-view-edit-delete cycle is shown below.
+    In the create phase, the user completes a project creation form stating the title and programming languages required for the project. They may also optionally include a project description. If successfully created, the user receives a success message and is redirected to the detail page for the newly created project.
+    As shown in the "project read" section, the project now appears on the project overview page for all logged in users, has an individual project page with the details and is listed under "projects" for the user that created it.
+    The project may be updated only by the user that created it (or an admin in the admin panel) and all of the fields may be edited.
+    The project may be deleted at any time by the user that created it (or an admin in the admin panel). Before deletion, the user receives a pop-up modal to confirm they want to delete their project. If "Delete my project" is selected, the user receives a "project successfully deleted message at the top of the screen. When a project is deleted, all associated pictures are also deleted (including from Cloudinary).
+    If a user is deleted, the project remains on the project page but no longer has a user associated with it.
 
-    !!! TODO need to add deleted to crud cycle !!! 
+![CRUD functionality of projects](documentation/features/crud-project.png)
 
-![screenshot](documentation/features)
+    - The buttons available vary depending on who owns the project. If the logged in user is the project owner, they can edit and delete the project, as well as adding or changing the photo (by clicking on it). If the logged in user does not own the project, they will have the option to message the project owner directly, or to visit the project owner's profile by clicking their name. They cannot edit or delete the project.
+
+![Different project views](documentation/features/project-views.png)
 
 - **Create New Project**
 
@@ -222,11 +229,11 @@ Navbar(user logged in)
 
 ![screenshot](documentation/features/create-project.png)
 
-- **Feature**
+- **Project Picture CRUD**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Project pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a project picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![screenshot](documentation/features)
+![screenshot](documentation/features/crud-project-pic.png)
 
 - **Feature**
 
