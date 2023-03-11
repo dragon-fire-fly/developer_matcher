@@ -122,8 +122,8 @@ class Project(models.Model):
         from cloudinary
         """
         # delete associated profile pics
-        for project_pic in self.project_picture.all():
-            project_pic.delete()
+        for pic in self.project_pic.all():
+            pic.delete()
         # then delete itself
         super().delete(*args, **kwargs)
 
@@ -132,7 +132,7 @@ class ProjectPicture(models.Model):
     project = models.ForeignKey(
         Project, related_name="project_pic", on_delete=models.CASCADE
     )
-    project_picture = CloudinaryField("project picture")
+    project_picture = CloudinaryField("project_picture")
 
     def delete(self, *args, **kwargs):
         """

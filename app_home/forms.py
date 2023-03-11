@@ -42,6 +42,9 @@ class ProjectCreationForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
+        labels = {
+            "p_language": "Programming Language(s)",
+        }
 
     def save(self, commit=True):
         project = super(ProjectCreationForm, self).save(commit=False)
@@ -65,6 +68,9 @@ class ProjectEditForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["p_language", "title", "description"]
+        labels = {
+            "p_language": "Programming Language(s)",
+        }
 
     def save(self, commit=True):
         project = super(ProjectEditForm, self).save(commit=False)
