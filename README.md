@@ -203,18 +203,25 @@ Navbar(user logged in)
 
 - **Profile Picture CRUD**
 
-    - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, red (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion.
+    - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![CRUD functions for profile pictures](documentation/features/CRUD-profile-pic.png)
+![CRUD functions for profile pictures](documentation/features/crud-profile-pic.png)
 
 
 - **Project CRUD**
 
-    - Projects have full "CRUD" functionality. A user can create (upload) a new project, red (view) an existing project, edit their own projects and delete their own project. The create-view-edit-delete cycle is shown below.
+    - Projects have full "CRUD" functionality. A user can create (upload) a new project, read (view) an existing project, edit their own projects and delete their own projects. The create-view-edit-delete cycle is shown below.
+    In the create phase, the user completes a project creation form stating the title and programming languages required for the project. They may also optionally include a project description. If successfully created, the user receives a success message and is redirected to the detail page for the newly created project.
+    As shown in the "project read" section, the project now appears on the project overview page for all logged in users, has an individual project page with the details and is listed under "projects" for the user that created it.
+    The project may be updated only by the user that created it (or an admin in the admin panel) and all of the fields may be edited.
+    The project may be deleted at any time by the user that created it (or an admin in the admin panel). Before deletion, the user receives a pop-up modal to confirm they want to delete their project. If "Delete my project" is selected, the user receives a "project successfully deleted message at the top of the screen. When a project is deleted, all associated pictures are also deleted (including from Cloudinary).
+    If a user is deleted, the project remains on the project page but no longer has a user associated with it.
 
-    !!! TODO need to add deleted to crud cycle !!! 
+![CRUD functionality of projects](documentation/features/crud-project.png)
 
-![screenshot](documentation/features)
+- The buttons available vary depending on who owns the project. If the logged in user is the project owner, they can edit and delete the project, as well as adding or changing the photo (by clicking on it). If the logged in user does not own the project, they will have the option to message the project owner directly, or to visit the project owner's profile by clicking their name. They cannot edit or delete the project.
+
+![Different project views](documentation/features/project-views.png)
 
 - **Create New Project**
 
@@ -222,23 +229,54 @@ Navbar(user logged in)
 
 ![screenshot](documentation/features/create-project.png)
 
-- **Feature**
+- **Project Picture CRUD**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Project pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a project picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![screenshot](documentation/features)
-
-- **Feature**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/features)
+![screenshot](documentation/features/crud-project-pic.png)
 
 - **Feature**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/features)
+
+- **Feature**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features)
+
+- **Django Messages**
+
+    - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
+![screenshot](documentation/features/django-messages.png)
+The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
+![screenshot](documentation/features/django-messages-types.png)
+
+- **Filtering**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features/filter-panels.png)
+
+![screenshot](documentation/features/filter-example.png)
+
+- **Pagination**
+
+    - Django's Paginator class is utilised to provide pagination for the Developer Overview and Project Overview pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
+
+![screenshot](documentation/features/pagination.png)
+
+Pagination works alone but can also be combined with the filtering mentioned above. The site is set up to recieve arguments in the url for filtering, pagination, or both. The screenshot below demonstrates some of the different combinations possible.
+The base url for the developer page is `https://developer-connect.herokuapp.com/developers/` and queries can be made using `.../developers/?` followed by the query. This can be either `p_language=(num)` or `page=(num)`.
+
+![screenshot](documentation/features/urls-filter-paginate.png)
+
+
+
+
+
 
 
 
