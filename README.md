@@ -219,7 +219,7 @@ Navbar(user logged in)
 
 ![CRUD functionality of projects](documentation/features/crud-project.png)
 
-    - The buttons available vary depending on who owns the project. If the logged in user is the project owner, they can edit and delete the project, as well as adding or changing the photo (by clicking on it). If the logged in user does not own the project, they will have the option to message the project owner directly, or to visit the project owner's profile by clicking their name. They cannot edit or delete the project.
+- The buttons available vary depending on who owns the project. If the logged in user is the project owner, they can edit and delete the project, as well as adding or changing the photo (by clicking on it). If the logged in user does not own the project, they will have the option to message the project owner directly, or to visit the project owner's profile by clicking their name. They cannot edit or delete the project.
 
 ![Different project views](documentation/features/project-views.png)
 
@@ -246,6 +246,37 @@ Navbar(user logged in)
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/features)
+
+- **Django Messages**
+
+    - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
+![screenshot](documentation/features/django-messages.png)
+The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
+![screenshot](documentation/features/django-messages-types.png)
+
+- **Filtering**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features/filter-panels.png)
+
+![screenshot](documentation/features/filter-example.png)
+
+- **Pagination**
+
+    - Django's Paginator class is utilised to provide pagination for the Developer Overview and Project Overview pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
+
+![screenshot](documentation/features/pagination.png)
+
+Pagination works alone but can also be combined with the filtering mentioned above. The site is set up to recieve arguments in the url for filtering, pagination, or both. The screenshot below demonstrates some of the different combinations possible.
+The base url for the developer page is `https://developer-connect.herokuapp.com/developers/` and queries can be made using `.../developers/?` followed by the query. This can be either `p_language=(num)` or `page=(num)`.
+
+![screenshot](documentation/features/urls-filter-paginate.png)
+
+
+
+
+
 
 
 
