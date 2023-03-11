@@ -56,7 +56,7 @@ class DeveloperOverview(TemplateView):
         all_users = User.objects.all().exclude(pk=request.user.pk)
         href_filter = ""
         for lang in p_langs:
-            all_users = all_users.filter(p_language=lang)
+            all_users = all_users.filter(p_language=lang).order_by("id")
             href_filter += f"&p_language={lang.pk}"
 
         # set up pagination for users (8 per page)
@@ -124,7 +124,7 @@ class ProjectOverview(TemplateView):
         all_projects = Project.objects.all()
         href_filter = ""
         for lang in p_langs:
-            all_projects = all_projects.filter(p_language=lang)
+            all_projects = all_projects.filter(p_language=lang).order_by("id")
             href_filter += f"&p_language={lang.pk}"
 
         # set up pagination
@@ -279,7 +279,7 @@ class DeleteProjectView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
         project.delete()
-        messages.success(request, "Profile successfully deleted!")
+        messages.success(request, "Project successfully deleted!")
         return redirect(reverse("app_home:project-overview"))
 
 
