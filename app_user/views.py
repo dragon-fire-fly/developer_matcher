@@ -48,6 +48,18 @@ class RegisterView(TemplateView):
                 f"Account successfully created. Welcome {user.username}!",
             )
             return redirect(reverse("app_user:profile"))
+        elif "profanity" in registration_form.errors.as_text():
+            messages.error(
+                request, "Please do not use profanities in your username!"
+            )
+        elif "duplicate_name" in registration_form.errors.as_text():
+            messages.error(
+                request, "Username already in use! Please choose another"
+            )
+        else:
+            messages.error(
+                request, "Form could not be submitted. Please try again."
+            )
         return render(
             request,
             "app_user/register.html",
@@ -165,6 +177,12 @@ class AddProfilePicView(LoginRequiredMixin, TemplateView):
             new_picture.user = user
             new_picture.save()
             messages.success(request, "Picture successfully added!")
+            return redirect(reverse("app_user:add-profile-pic"))
+        else:
+            messages.error(
+                request,
+                "Picture could not be uploaded. Please try again."
+                )
         return redirect(reverse("app_user:add-profile-pic"))
 
 

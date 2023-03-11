@@ -47,13 +47,13 @@
 
     <div class="row">
         <div class="col-md-3">
-        <form method="POST"  enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="method" value="add">
-            {{ form }}
-            <button type="submit" class="btn btn-primary margin-above">Add Project Pic</button>
-            <a href="{% url 'app_home:project-detail-view' project.pk %}" class="btn btn-warning margin-above">Back to Project</a>   
-        </form>
+            <form method="POST"  enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary margin-above">Add Project Pic</button>
+                <a href="{% url 'app_home:project-detail-view' project.pk %}" class="btn btn-warning margin-above">Back to Project</a>   
+            </form>
+        </div>
     </div>
 </div>
 

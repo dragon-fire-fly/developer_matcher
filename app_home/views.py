@@ -278,8 +278,11 @@ class DeleteProjectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
-        project.delete()
-        messages.success(request, "Project successfully deleted!")
+        if project:
+            project.delete()
+            messages.success(request, "Project successfully deleted!")
+        else:
+            messages.error(request, "Project could not be deleted. Please try again.")
         return redirect(reverse("app_home:project-overview"))
 
 

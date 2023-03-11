@@ -43,7 +43,8 @@
             {% endfor %}</p>
             {% endif %}
             
-            <a href="{% url 'app_user:add_message' user_for_profile.pk %}" class="btn btn-primary margin-above">Send message</a>
+            <a href="{% url 'app_home:developer-overview' %}" class="btn btn-primary margin-above">Back to overview</a>
+            <a href="{% url 'app_user:add_message' user_for_profile.pk %}" class="btn btn-primary margin-above"><i class="fa-regular fa-envelope"></i> Send message</a>
         </div>
     </div>
 </div>

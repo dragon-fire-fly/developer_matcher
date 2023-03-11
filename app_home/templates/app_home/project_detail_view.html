@@ -8,8 +8,8 @@
             <h1 class="text-center">{{ project.title }}</h1>
             {% if project.user.values.0.id == user.id %}
             <!-- if the project belongs to the logged in user -->
-            <div class="circle-container">
-                <div class="circle-img">
+            <div class="square-container">
+                <div class="square-img">
                     {% if project.project_pic.values.0.project_picture %}
                     <!-- link to the add pictures page -->
                     <a href="{% url 'app_home:add-project-pic' project.pk %}">
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-md-3">
+        <div class="col-md-8 offset-md-2 text-center">
             <p>{{ project.description }}</p>
             {% if project.user.values.0.id %}
             <p><strong>Project Owner: </strong><a href="{% url 'app_home:profile-detail-view' project.user.values.0.id %}">{{ project.user.values.0.username }}</a></p>
