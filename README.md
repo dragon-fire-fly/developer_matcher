@@ -175,9 +175,44 @@ Navbar(user logged in)
 
 - **User Profile Page (logged in user)**
 
+    - The User Profile page shows the profile for the currently logged in user and may be accessed through the dropdown menu on the right hand side of the nav bar (under the user's picture). The profile page shows all detaila of the user, including their e-mail address. 
+    The user's primary profile picture is displayed in the centre of the screen and when clicked, navigates the user to the "add profile picture" page. If the user does not yet have a profile picture, a placeholder picture will be displayed, with text explaining that this is a placeholder piture and may be changed by clicking the photo and uploading a picture.
+    This placeholder picture is a randomly generated photo of a kitten, from [Place Kitten](https://placekitten.com/).
+
+![User Profile Page](documentation/features/profile_page.png)
+![Placeholder picture](documentation/features/kitten-placeholder.png)
+
+- **Edit User Profile Page(logged in user)**
+
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
-![screenshot](documentation/feature03.png)
+![screenshot](documentation/features/edit-profile-page.png)
+
+- **Feature**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features)
+
+- **Feature**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features)
+
+
+- **Feature**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features)
+
+
+- **Feature**
+
+    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+
+![screenshot](documentation/features)
 
 
 
