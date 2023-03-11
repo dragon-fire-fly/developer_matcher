@@ -43,11 +43,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-    # Users that a user follows. Don't have to follow anyone and don't need to
-    # be followed back by the same user.
-    follows = models.ManyToManyField(
-        "self", related_name="followed_by", symmetrical=False, blank=True
-    )
 
     def __str__(self):
         return f"<user: {self.username}>"
@@ -73,14 +68,9 @@ class User(AbstractUser):
             p_languages.append(item["language"])
             p_language_icons.append(item["language_icon"].url)
 
-        # followed_by = []
-        # for item in self.follows.values():
-        #     followed_by.append(item["follows"])
-
         return {
             "p_languages": p_languages,
             "p_language_icons": p_language_icons,
-            # "follows": followed_by,
         }
 
     def delete(self, *args, **kwargs):

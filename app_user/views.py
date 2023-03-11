@@ -134,7 +134,7 @@ class EditProfileView(LoginRequiredMixin, TemplateView):
         return redirect(reverse("app_user:edit-profile"))
 
 
-class EditProfilePicView(LoginRequiredMixin, TemplateView):
+class AddProfilePicView(LoginRequiredMixin, TemplateView):
     """
     View to add or delete a profile picture
     """
@@ -157,27 +157,15 @@ class EditProfilePicView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=request.user.pk)
-        # as there are two post methods (add and delete), they have a hidden
-        # input field called "method" added to distinguish them
-
-        # the add route
-        if request.POST.get("method") == "add":
-            new_picture = AddProfilePictureForm(
-                request.POST, request.FILES, initial={"user": user}
-            )
-            if new_picture.is_valid():
-                new_picture = new_picture.save(commit=False)
-                new_picture.user = user
-                new_picture.save()
-            return redirect(reverse("app_user:edit-profile-pic"))
-
-        # the delete route
-        elif request.POST.get("method") == "delete":
-            # retrieve the id from the post request in the template
-            pic_id = int(request.POST["pic_id"])
-            picture = get_object_or_404(UserProfilePicture, pk=pic_id)
-            picture.delete()
-        return redirect(reverse("app_user:edit-profile-pic"))
+        new_picture = AddProfilePictureForm(
+            request.POST, request.FILES, initial={"user": user}
+        )
+        if new_picture.is_valid():
+            new_picture = new_picture.save(commit=False)
+            new_picture.user = user
+            new_picture.save()
+            messages.success(request, "Picture successfully added!")
+        return redirect(reverse("app_user:add-profile-pic"))
 
 
 class DeleteProfilePicView(LoginRequiredMixin, TemplateView):
@@ -186,7 +174,7 @@ class DeleteProfilePicView(LoginRequiredMixin, TemplateView):
         if request.user == pic_to_delete.user:
             pic_to_delete.delete()
             messages.success(request, "Picture successfully deleted!")
-            return redirect(reverse("app_user:edit-profile-pic"))
+            return redirect(reverse("app_user:add-profile-pic"))
         return redirect("app_home:about")
 
 
