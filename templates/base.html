@@ -14,7 +14,7 @@
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1677940277/static-files/ci8h981ifegl49g7seca.css">
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1678458084/static-files/atcadczh4ijjptrarail.css">
+    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1678570049/static-files/ds96k0wjpfjtjiifimmz.css">
     
     <title>{% block title %} Developer Connect {% endblock %}</title>
 </head>
@@ -35,8 +35,9 @@
                         <li class="nav-item me-2"><a class="nav-link nav-link-text" href="{% url 'app_home:project-overview' %}">Project Search</a></li>
                         <li class="nav-item me-2"><a class="nav-link nav-link-text" href="{% url 'app_home:about' %}">About</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-link" href="{% url 'account_logout' %}">Log out</a></li>
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:profile' %}">My Profile</a></li>
+                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:messages' %}">My Messages</a></li>
+                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-link" href="{% url 'account_logout' %}">Log out</a></li>
                         {% else %}
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:register' %}">Register</a></li>
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a></li>

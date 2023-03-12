@@ -227,84 +227,122 @@ Navbar(user logged in)
 
     - The create new project form is shown here on multiple screen sizes to demonstrate the responsiveness of the project creation form. Users can select at least one programming language (relabeled from "P language" to "Programming language(s)" since these screenshots were taken)
 
-![screenshot](documentation/features/create-project.png)
+![Create new project form](documentation/features/create-project.png)
 
 - **Project Picture CRUD**
 
     - Project pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a project picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![screenshot](documentation/features/crud-project-pic.png)
+![CRUD functionality for project pictures](documentation/features/crud-project-pic.png)
 
-- **Feature**
+- **Messages Inbox and Sent Messages**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Each registered user has a messages inbox and a sent messages mail box. These can be accessed by hovering over the user's profile picture in the navigation bar and selecting "My messages". This brings the user to the received messages "inbox" page. To access the "outbox", the user clicks the "Sent messages" button at the top. Inversely, to get back to the inbox from the sent messages page, the user clicks the "Received messages" button, or accesses again through the navigation bar.
 
-![screenshot](documentation/features)
+    The layout of the message lists varies depending on the screen size of the device used. For smaller devices, only the key information is displayed - username of the sender/recevier, title of the message and the sent/received date and time. If users use a device with a screen width of 768px or above, they can also see a thumbnail of the sender/receiver's profile picture and they have the option to delete (and edit, if the sender) from this list view. If using a screen size of below 768px, users must go into the individual message if they wish to edit or delete the message.
+    Users of all screen sizes may access the user profile of the sender/receiver by clicking their username and may access the individual message by clicking the message title.
 
-- **Feature**
+![Message inbox](documentation/features/message-inbox.png)
+![Message outbox](documentation/features/messages-sent.png)
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+- **Messages CRUD**
 
-![screenshot](documentation/features)
+    - The messaging feature has full "CRUD" functionality. Users can create new messages, view both sent and received messages, edit messages they sent and delete messages they sent or received. 
+    Once edited, the message displays a small "edited" text at the end of the message. Only the sender may edit a particular message, but either party may delete a message. In this case, the message is deleted from the database and is no longer visible to either the sender or the receiver.
+
+![CRUD functionality of messages](documentation/features/crud-messages.png)
+
+- **Send new message**
+
+    - The send new message form is fully responsive and shows the profile picture of the message receiver as well as their username. 
+
+![Send new message form](documentation/features/send-new-msg.png)
+- The new message form can be accessed from three locations. 
+    1. The user profile of the selected user
+    2. The project page - the project owner can be messaged directly from here
+    3. If a message has been received from another user, this user may be messaged back by clicking "Reply".
+
+    Pressing cancel will take the user to the message inbox, regardless of which page the user came from.
+![Options for sending a message](documentation/features/send-msg-options.png)
+
+- **Edit message**
+
+    - Once a message has been sent, it may be edited by the user who sent it. Only the sender may edit the message. Once edited, a small "edited" will appear at the end of the message to indicate that changes were made from the original message. Pressing cancel will take the user back to the message. Pressing edit message will take the user back to their inbox and will display a "Message successfully updated" message.
+    If using a screen size of 768px or above, users may edit messages directly from the sent messages list. Otherwise, users from all screen sizes may edit messages from the individual message page.
+
+![Edit message form](documentation/features/edit-msg.png)
+
+- **Delete message**
+
+    - Messages may be deleted by either the sender or the receiver. If one party deletes the message, it will be deleted from the database and will therefore no longer be accessible for either party. Before deletion occurs, the user is prompted with a pop-up modal to confirm if they really want to delete the message. It also warns that the message will be deleted for both the sender and the receiver.
+    If using a screen size of 768px or above, users may delete messages directly from the inbox or sent messages list. Otherwise, users from all screen sizes may delete messages from the individual message page.
+
+![Delete message and modal](documentation/features/delete-msg.png)
+
+- **Individual messages**
+
+    - From the inbox/ sent messages page, individual messages may be accessed by clicking on the title. The contents of this individual page varies slightly depending on whether it is a sent or received message. In both cases, an image of the user is displayed at the top with eiter the text "Your message to ((username))" or "Message from ((username))". Both message types then display the title and message with the option to go back to messages, view the user's profile or delete the message. If it is a sent message, the option to "Edit message" is present. If it is a received message, the option to "Reply" is present.
+
+Individual sent message page
+![Individual sent message page](documentation/features/individual-msg-sent.png)
+Individual received message page
+![Individual received message page](documentation/features/individual-msg-received.png)
 
 - **Django Messages**
 
     - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
-![screenshot](documentation/features/django-messages.png)
+![Django messages](documentation/features/django-messages.png)
 The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
-![screenshot](documentation/features/django-messages-types.png)
+![Types of django messages](documentation/features/django-messages-types.png)
 
 - **Filtering**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
-![screenshot](documentation/features/filter-panels.png)
+![The filtering panels](documentation/features/filter-panels.png)
 
-![screenshot](documentation/features/filter-example.png)
+![An example of filtering](documentation/features/filter-example.png)
 
 - **Pagination**
 
-    - Django's Paginator class is utilised to provide pagination for the Developer Overview and Project Overview pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
+    - Django's Paginator class is utilised to provide pagination for the Developer Overview, Project Overview and messages pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
 
-![screenshot](documentation/features/pagination.png)
+![Pagination feature](documentation/features/pagination.png)
 
 Pagination works alone but can also be combined with the filtering mentioned above. The site is set up to recieve arguments in the url for filtering, pagination, or both. The screenshot below demonstrates some of the different combinations possible.
 The base url for the developer page is `https://developer-connect.herokuapp.com/developers/` and queries can be made using `.../developers/?` followed by the query. This can be either `p_language=(num)` or `page=(num)`.
 
-![screenshot](documentation/features/urls-filter-paginate.png)
+![The urls for filtered and/or paginated pages](documentation/features/urls-filter-paginate.png)
 
 
-
-
-
-
-
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Repeat as necessary for as many features as your site contains.
-
-Hint: the more, the merrier!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ### Future Features
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+There are many features which could be added to the project at a later date but were not deemed important for this iteration of the project implementation. Some ideas for future features include:
 
-Do you have additional ideas that you'd like to include on your project in the future?
-Fantastic! List them here!
-It's always great to have plans for future improvements!
-Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years.
+- A notification system for messages
+    - This would allow users to see when they have recevied a new message instead of having to manually check their inbox. This would be extremely helpful for the overall user experience of the site and is the highest priority future feature.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+- The ability to add other users to the project 
+    - This would mean that all the users associated with a particular project would be listed under the project and not just the project owner. This would help with networking and getting involved in projects more easily.
 
-- Cool new feature #1
-    - Any additional notes about this feature.
-- Cool new feature #2
-    - Any additional notes about this feature.
-- Cool new feature #3
-    - Any additional notes about this feature.
+- The ability to favourite users and projects to be able to quickly find them again in the future
+    - Having a "Favourites" page for projects and users would streamline the site, particularly if there became a large number of users on the site. If there are 100+ users, for example, it may be difficult to find a particular user just by browsing through pages or past messages.
+
+- Search and sort functionality for Developer and Project Overview pages and messages
+    - Similar to the "favourites" page above, having search and sort functionality would help with finding specific users or re-finding a user you were interested in before. This would be an extension of the "filtering" feature currently implemented in the project.
+
+- Addition of other skills users could select in addition to programming languages - such as frameworks, dadabases and stacks.
+    - This would help find specific users or projects more easily if, for example, a project requires Django expertise with postgreSQL, or any other combination of frameworks, databases, etc.
+
+- A password reset function
+    - This would help returning users if they have forgotten their password or wish to reset it for any reason (e.g. a data breach on another site)
+
+- Email notification system for sign up, unauthorised accessed, password reset, new message etc.
+    - This would help improve the user experience by providing extra security and adding a professional touch. It could also improve engagement with the site, for example receiving an email when they receive a message or having a reminder email after a period of inactivity.
+
+- An administrator area where administrators can have an overview of users, projects etc. and make amendments without needing to go into the admin panel
+    - This could streamline the administration of the site and improve the user experience for administrator users.
 
 ## Tools & Technologies Used
 
@@ -319,86 +357,102 @@ Feel free to delete any unused items below as necessary.
 
 - [HTML](https://en.wikipedia.org/wiki/HTML) used for the main site content.
 - [CSS](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
-- [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site.
-- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp) and/or [CSS Grid](https://www.w3schools.com/css/css_grid.asp) used for an enhanced responsive layout.
+<!-- - [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site. -->
+- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp)
 - [Bootstrap](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
-- [Materialize](https://materializecss.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
-- [JavaScript](https://www.javascript.com) used for user interaction on the site.
+- [Bootswatch](https://bootswatch.com/) used as an extension to Bootstrap to provide pleasant aesthetics for the site.
+<!-- - [JavaScript](https://www.javascript.com) used for user interaction on the site. -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
-- [GitHub Pages](https://pages.github.com) used for hosting the deployed front-end site.
 - [Gitpod](https://gitpod.io) used as a cloud-based IDE for development.
 - [Markdown Builder by Tim Nelson](https://traveltimn.github.io/markdown-builder) used to help generate the Markdown files.
-- [Flask](https://flask.palletsprojects.com) used as the Python framework for the site.
 - [Django](https://www.djangoproject.com) used as the Python framework for the site.
-- [MongoDB](https://www.mongodb.com) used as the non-relational database management with Flask.
-- [SQLAlchemy](https://www.sqlalchemy.org) used as the relational database management with Flask.
 - [PostgreSQL](https://www.postgresql.org) used as the relational database management.
 - [ElephantSQL](https://www.elephantsql.com) used as the Postgres database.
 - [Heroku](https://www.heroku.com) used for hosting the deployed back-end site.
 - [Cloudinary](https://cloudinary.com) used for online static file storage.
-- [Stripe](https://stripe.com) used for online secure payments of ecommerce products/services.
-- [AWS S3](https://aws.amazon.com/s3) used for online static file storage.
+- [Visual Studio Code](https://code.visualstudio.com/) used as a local IDE for development.
+- [Black](https://pypi.org/project/black/) used as a PEP8 compliant Python code formatter
+- [DBeaver](https://dbeaver.io/) used to produce ERDs and help plan the database models
+- [Balsamiq](https://balsamiq.com/) used to produce wireframes
 
 ## Database Design
+An Entity Relationship Diagram (ERD) was created using [DBeaver](https://dbeaver.io/) in order to visualize the database architecture before creating Django models.
 
-Entity Relationship Diagrams (ERD) help to visualize database architecture before creating models.
-Understanding the relationships between different tables can save time later in the project.
+The ERD is shown below. There are 6 models which interact with eachother in a relational manner. 
+The six models are:
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+1. User
+2. User profile picture
+3. Project
+4. Project profile picture
+5. Programming language
+6. Messages
 
-Using your defined models (one example below), create an ERD with the relationships identified.
+The relationships are either one-to-many or many-to-many in nature, as discussed below.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+![Entity relationship diagram](documentation/design/ERD.png)
+
+The following models have a one-to-many relationship:
+- One user can have many profile pictures but each profile picture only has one user
+- One project can have many pictures but each picture only has one project
+- One user can write (or receive) many messages but each message only has one sender and one receiver.
+
+The remaining relationships are many to many:
+- One user can have many programming languages and each programming language can have many users associated with it
+- One project can have many programming languages and each programming language can have many projects associated with it
+- One user can have many projects and each project can (theoretically) have many users associated with it*
+
+These three models form a "square" on the ERD as they require intermediate tables to store the many-to-many relationship details. On the ERD these intermediate tables are labelled as "user-project", "project-p-language" and ""user-to-p-language" and they store the id of the two relevant tables. For example, in the "user-to-p-language" table, the id of a user1 could be associated with programming languages 1 and 2, but at the same time programming language 1 could be associated with many other users. This table provides an interface between the user table and the programming language table so that these relationships may be stored and related information may be accessed from both ends.
+
+*This backwards relationship has not yet been implemented, but it is on the list of future features that each project may have many users associated with it.
+
+An example of a model used in the project is shown below:
 
 ```python
-class Product(models.Model):
-    category = models.ForeignKey(
-        "Category", null=True, blank=True, on_delete=models.SET_NULL)
-    sku = models.CharField(max_length=254, null=True, blank=True)
-    name = models.CharField(max_length=254)
-    description = models.TextField()
-    has_sizes = models.BooleanField(default=False, null=True, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    rating = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True)
-    image_url = models.URLField(max_length=1024, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+class Project(models.Model):
+    user = models.ManyToManyField(User, blank=True)
+    p_language = models.ManyToManyField("ProgramLang")
+    title = models.CharField(
+        help_text="What is the title for your project?",
+        max_length=100,
+        unique=True,
+    )
+    description = models.TextField(
+        help_text="Enter your project description here", blank=True, null=True
+    )
 
     def __str__(self):
-        return self.name
+        return f"<Project name: {self.title}>"
+
+    def delete(self, *args, **kwargs):
+        """
+        Additional function to ensure pictures are deleted
+        from cloudinary
+        """
+        # delete associated profile pics
+        for pic in self.project_pic.all():
+            pic.delete()
+        # then delete itself
+        super().delete(*args, **kwargs)
 ```
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+This `Project` model inherits from Django's inbuilt `Model` class and utilises two many-to-many relationships. One between itself and the `User` class (which may be blank, incase an associated user account is deleted), and one between itself and the `ProgramLang` class (which may not be blank). The model then has a `title` CharField with a maximum length of 100 characters (limited as this is displayed on a bootstrap card) which must be unique. An optional `description` TextField may be as long as a user desires and may be left blank.
 
-A couple recommendations for building free ERDs:
-- [Draw.io](https://draw.io)
-- [Lucidchart](https://www.lucidchart.com/pages/ER-diagram-symbols-and-meaning)
+The `__str__` method returns `<Project name: ((project title))>` so that the project may be easily identified in the admin panel.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+A `delete` method extends the default delete method to call the delete method for each picture associated with the project, which in turn deletes the pictures from Cloudinary (this Cloudinary delete method can be seen at `app_user/models.py` lines 137-144).
 
-![screenshot](documentation/erd.png)
+This `Project` model is represented as a table below as an example:
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+| **id** (unique) | Type | Notes |
+| --- | --- | --- |
+| user | ManyToManyField | MTM to **User** model |
+| p_language | ManyToManyField | MTM to **ProgramLang** model |
+| title | CharField | Max length 100 chars |
+| description | TextField | |
 
-Using Markdown formatting to represent an example ERD table using the Product model above:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- Table: **Product**
-
-    | **PK** | **id** (unique) | Type | Notes |
-    | --- | --- | --- | --- |
-    | **FK** | category | ForeignKey | FK to **Category** model |
-    | | sku | CharField | |
-    | | name | CharField | |
-    | | description | TextField | |
-    | | has_sizes | BooleanField | |
-    | | price | DecimalField | |
-    | | rating | DecimalField | |
-    | | image_url | URLField | |
-    | | image | ImageField | |
 
 ## Agile Development Process
 
