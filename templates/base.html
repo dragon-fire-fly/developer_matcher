@@ -35,8 +35,9 @@
                         <li class="nav-item me-2"><a class="nav-link nav-link-text" href="{% url 'app_home:project-overview' %}">Project Search</a></li>
                         <li class="nav-item me-2"><a class="nav-link nav-link-text" href="{% url 'app_home:about' %}">About</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-link" href="{% url 'account_logout' %}">Log out</a></li>
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:profile' %}">My Profile</a></li>
+                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:messages' %}">My Messages</a></li>
+                        <li class="nav-item me-2 d-block d-sm-none"><a class="nav-link" href="{% url 'account_logout' %}">Log out</a></li>
                         {% else %}
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'app_user:register' %}">Register</a></li>
                         <li class="nav-item me-2 d-block d-sm-none"><a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a></li>
