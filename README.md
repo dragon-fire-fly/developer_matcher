@@ -316,36 +316,33 @@ The base url for the developer page is `https://developer-connect.herokuapp.com/
 
 
 
-
-
-
-
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Repeat as necessary for as many features as your site contains.
-
-Hint: the more, the merrier!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 ### Future Features
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+There are many features which could be added to the project at a later date but were not deemed important for this iteration of the project implementation. Some ideas for future features include:
 
-Do you have additional ideas that you'd like to include on your project in the future?
-Fantastic! List them here!
-It's always great to have plans for future improvements!
-Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years.
+- A notification system for messages
+    - This would allow users to see when they have recevied a new message instead of having to manually check their inbox. This would be extremely helpful for the overall user experience of the site and is the highest priority future feature.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+- The ability to add other users to the project 
+    - This would mean that all the users associated with a particular project would be listed under the project and not just the project owner. This would help with networking and getting involved in projects more easily.
 
-- Cool new feature #1
-    - Any additional notes about this feature.
-- Cool new feature #2
-    - Any additional notes about this feature.
-- Cool new feature #3
-    - Any additional notes about this feature.
+- The ability to favourite users and projects to be able to quickly find them again in the future
+    - Having a "Favourites" page for projects and users would streamline the site, particularly if there became a large number of users on the site. If there are 100+ users, for example, it may be difficult to find a particular user just by browsing through pages or past messages.
+
+- Search and sort functionality for Developer and Project Overview pages and messages
+    - Similar to the "favourites" page above, having search and sort functionality would help with finding specific users or re-finding a user you were interested in before. This would be an extension of the "filtering" feature currently implemented in the project.
+
+- Addition of other skills users could select in addition to programming languages - such as frameworks, dadabases and stacks.
+    - This would help find specific users or projects more easily if, for example, a project requires Django expertise with postgreSQL, or any other combination of frameworks, databases, etc.
+
+- A password reset function
+    - This would help returning users if they have forgotten their password or wish to reset it for any reason (e.g. a data breach on another site)
+
+- Email notification system for sign up, unauthorised accessed, password reset, new message etc.
+    - This would help improve the user experience by providing extra security and adding a professional touch. It could also improve engagement with the site, for example receiving an email when they receive a message or having a reminder email after a period of inactivity.
+
+- An administrator area where administrators can have an overview of users, projects etc. and make amendments without needing to go into the admin panel
+    - This could streamline the administration of the site and improve the user experience for administrator users.
 
 ## Tools & Technologies Used
 
@@ -360,29 +357,29 @@ Feel free to delete any unused items below as necessary.
 
 - [HTML](https://en.wikipedia.org/wiki/HTML) used for the main site content.
 - [CSS](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
-- [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site.
-- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp) and/or [CSS Grid](https://www.w3schools.com/css/css_grid.asp) used for an enhanced responsive layout.
+<!-- - [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site. -->
+- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp)
 - [Bootstrap](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
-- [Materialize](https://materializecss.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
-- [JavaScript](https://www.javascript.com) used for user interaction on the site.
+- [Bootswatch](https://bootswatch.com/) used as an extension to Bootstrap to provide pleasant aesthetics for the site.
+<!-- - [JavaScript](https://www.javascript.com) used for user interaction on the site. -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
-- [GitHub Pages](https://pages.github.com) used for hosting the deployed front-end site.
 - [Gitpod](https://gitpod.io) used as a cloud-based IDE for development.
 - [Markdown Builder by Tim Nelson](https://traveltimn.github.io/markdown-builder) used to help generate the Markdown files.
-- [Flask](https://flask.palletsprojects.com) used as the Python framework for the site.
 - [Django](https://www.djangoproject.com) used as the Python framework for the site.
-- [MongoDB](https://www.mongodb.com) used as the non-relational database management with Flask.
-- [SQLAlchemy](https://www.sqlalchemy.org) used as the relational database management with Flask.
 - [PostgreSQL](https://www.postgresql.org) used as the relational database management.
 - [ElephantSQL](https://www.elephantsql.com) used as the Postgres database.
 - [Heroku](https://www.heroku.com) used for hosting the deployed back-end site.
 - [Cloudinary](https://cloudinary.com) used for online static file storage.
-- [Stripe](https://stripe.com) used for online secure payments of ecommerce products/services.
-- [AWS S3](https://aws.amazon.com/s3) used for online static file storage.
+- [Visual Studio Code](https://code.visualstudio.com/) used as a local IDE for development.
+- [Black](https://pypi.org/project/black/) used as a PEP8 compliant Python code formatter
+- [DBeaver](https://dbeaver.io/) used to produce ERDs and helpplan the database models
+- [Balsamiq](https://balsamiq.com/) used to produce wireframes
 
 ## Database Design
+
+
 
 Entity Relationship Diagrams (ERD) help to visualize database architecture before creating models.
 Understanding the relationships between different tables can save time later in the project.
