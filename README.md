@@ -227,25 +227,66 @@ Navbar(user logged in)
 
     - The create new project form is shown here on multiple screen sizes to demonstrate the responsiveness of the project creation form. Users can select at least one programming language (relabeled from "P language" to "Programming language(s)" since these screenshots were taken)
 
-![screenshot](documentation/features/create-project.png)
+![Create new project form](documentation/features/create-project.png)
 
 - **Project Picture CRUD**
 
     - Project pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a project picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
-![screenshot](documentation/features/crud-project-pic.png)
+![CRUD functionality for project pictures](documentation/features/crud-project-pic.png)
 
-- **Feature**
+- **Messages Inbox and Sent Messages**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Each registered user has a messages inbox and a sent messages mail box. These can be accessed by hovering over the user's profile picture in the navigation bar and selecting "My messages". This brings the user to the received messages "inbox" page. To access the "outbox", the user clicks the "Sent messages" button at the top. Inversely, to get back to the inbox from the sent messages page, the user clicks the "Received messages" button, or accesses again through the navigation bar.
 
-![screenshot](documentation/features)
+    The layout of the message lists varies depending on the screen size of the device used. For smaller devices, only the key information is displayed - username of the sender/recevier, title of the message and the sent/received date and time. If users use a device with a screen width of 768px or above, they can also see a thumbnail of the sender/receiver's profile picture and they have the option to delete (and edit, if the sender) from this list view. If using a screen size of below 768px, users must go into the individual message if they wish to edit or delete the message.
+    Users of all screen sizes may access the user profile of the sender/receiver by clicking their username and may access the individual message by clicking the message title.
 
-- **Feature**
+![Message inbox](documentation/features/message-inbox.png)
+![Message outbox](documentation/features/messages-sent.png)
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+- **Messages CRUD**
 
-![screenshot](documentation/features)
+    - The messaging feature has full "CRUD" functionality. Users can create new messages, view both sent and received messages, edit messages they sent and delete messages they sent or received. 
+    Once edited, the message displays a small "edited" text at the end of the message. Only the sender may edit a particular message, but either party may delete a message. In this case, the message is deleted from the database and is no longer visible to either the sender or the receiver.
+
+![CRUD functionality of messages](documentation/features/crud-messages.png)
+
+- **Send new message**
+
+    - The send new message form is fully responsive and shows the profile picture of the message receiver as well as their username. 
+
+![Send new message form](documentation/features/send-new-msg.png)
+- The new message form can be accessed from three locations. 
+    1. The user profile of the selected user
+    2. The project page - the project owner can be messaged directly from here
+    3. If a message has been received from another user, this user may be messaged back by clicking "Reply".
+
+    Pressing cancel will take the user to the message inbox, regardless of which page the user came from.
+![Options for sending a message](documentation/features/send-msg-options.png)
+
+- **Edit message**
+
+    - Once a message has been sent, it may be edited by the user who sent it. Only the sender may edit the message. Once edited, a small "edited" will appear at the end of the message to indicate that changes were made from the original message. Pressing cancel will take the user back to the message. Pressing edit message will take the user back to their inbox and will display a "Message successfully updated" message.
+    If using a screen size of 768px or above, users may edit messages directly from the sent messages list. Otherwise, users from all screen sizes may edit messages from the individual message page.
+
+![Edit message form](documentation/features/edit-msg.png)
+
+- **Delete message**
+
+    - Messages may be deleted by either the sender or the receiver. If one party deletes the message, it will be deleted from the database and will therefore no longer be accessible for either party. Before deletion occurs, the user is prompted with a pop-up modal to confirm if they really want to delete the message. It also warns that the message will be deleted for both the sender and the receiver.
+    If using a screen size of 768px or above, users may delete messages directly from the inbox or sent messages list. Otherwise, users from all screen sizes may delete messages from the individual message page.
+
+![Delete message and modal](documentation/features/delete-msg.png)
+
+- **Individual messages**
+
+    - From the inbox/ sent messages page, individual messages may be accessed by clicking on the title. The contents of this individual page varies slightly depending on whether it is a sent or received message. In both cases, an image of the user is displayed at the top with eiter the text "Your message to ((username))" or "Message from ((username))". Both message types then display the title and message with the option to go back to messages, view the user's profile or delete the message. If it is a sent message, the option to "Edit message" is present. If it is a received message, the option to "Reply" is present.
+
+Individual sent message page
+![Individual sent message page](documentation/features/individual-msg-sent.png)
+Individual received message page
+![Individual received message page](documentation/features/individual-msg-received.png)
 
 - **Django Messages**
 
@@ -264,7 +305,7 @@ The following image shows screenshots of the messages in action. All CRUD functi
 
 - **Pagination**
 
-    - Django's Paginator class is utilised to provide pagination for the Developer Overview and Project Overview pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
+    - Django's Paginator class is utilised to provide pagination for the Developer Overview, Project Overview and messages pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
 
 ![screenshot](documentation/features/pagination.png)
 
