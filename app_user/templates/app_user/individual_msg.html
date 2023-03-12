@@ -22,7 +22,7 @@
             <p><strong>Message:</strong> {{ msg.message }}
                 {% if msg.edited %} <em class="small-txt">  edited</em> {% endif %}</p></p>
             <p><strong>Received:</strong> {{ msg.sent_date }}</p>
-            <a href="{% url 'app_user:add_message' msg.user_sender.pk %}" class="btn btn-primary small-margin-top">Reply</a>
+            <a href="{% url 'app_user:add_message' msg.user_sender.pk %}" class="btn btn-primary small-margin-top"><i class="fa-regular fa-envelope"></i> Reply</a>
             <br>
             {% else %}
             <div class="circle-container">
@@ -45,7 +45,11 @@
             <br>
             {% endif %}
             <a href="{% url 'app_user:messages' %}" class="btn btn-primary small-margin-top">Back to messages</a>
+            {% if msg_type == "received" %}
+            <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="btn btn-primary small-margin-top">View Profile</a>
+            {% else %}
             <a href="{% url 'app_home:profile-detail-view' msg.user_receiver.pk %}" class="btn btn-primary small-margin-top">View Profile</a>
+            {% endif %}
             <a href="#" class="btn btn-danger small-margin-top" data-bs-toggle="modal" data-bs-target="#delete-msg-modal">Delete</a>
         </div>
     </div>
