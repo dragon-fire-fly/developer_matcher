@@ -60,19 +60,6 @@ class User(AbstractUser):
             "portfolio url": self.portfolio,
         }
 
-    def to_json_list(self) -> dict:
-        """Function to represent the model as json lists"""
-        p_languages = []
-        p_language_icons = []
-        for item in self.p_language.values():
-            p_languages.append(item["language"])
-            p_language_icons.append(item["language_icon"].url)
-
-        return {
-            "p_languages": p_languages,
-            "p_language_icons": p_language_icons,
-        }
-
     def delete(self, *args, **kwargs):
         """
         Additional function to ensure pictures are deleted

@@ -41,9 +41,6 @@ class UserTestCase(TestCase):
             portfolio="https://anotheruser.github.io",
         )
 
-        self.user.follows.add(self.another_user)
-        self.another_user.follows.add(self.user)
-
         self.python = ProgramLang.objects.create(
             language="Python", language_icon=""
         )
@@ -89,16 +86,6 @@ class UserTestCase(TestCase):
             "portfolio url": "https://testuser.github.io",
         }
         self.assertEqual(self.user.to_json(), expected_output)
-
-    def test_user_to_json_list_method(self):
-        expected_output = {
-            "programming languages": ["Python", "Java"],
-            "p_language_icons": [
-                "http://res.cloudinary.com/djlm3llv5/image/upload/p_language_icon",
-                "http://res.cloudinary.com/djlm3llv5/image/upload/p_language_icon",
-            ],
-        }
-        self.assertEqual(self.user.to_json_list(), expected_output)
 
     @mock.patch("cloudinary.uploader.upload")
     def test_user_profile_picture_model(self, cloudinary_field_mock):
