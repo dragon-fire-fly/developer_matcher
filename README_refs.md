@@ -177,3 +177,7 @@ https://www.istockphoto.com/de/search/2/image?mediatype=illustration&phrase=miss
 
 gallery:
 https://www.pexels.com/photo/abstract-wallpaper-2860804/
+poker:
+https://www.pexels.com/photo/a-person-holding-gaming-cards-6664195/
+face detection:
+https://pixabay.com/illustrations/face-detection-scan-to-scan-4760281/

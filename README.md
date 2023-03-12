@@ -291,28 +291,28 @@ Individual received message page
 - **Django Messages**
 
     - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
-![screenshot](documentation/features/django-messages.png)
+![Django messages](documentation/features/django-messages.png)
 The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
-![screenshot](documentation/features/django-messages-types.png)
+![Types of django messages](documentation/features/django-messages-types.png)
 
 - **Filtering**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
-![screenshot](documentation/features/filter-panels.png)
+![The filtering panels](documentation/features/filter-panels.png)
 
-![screenshot](documentation/features/filter-example.png)
+![An example of filtering](documentation/features/filter-example.png)
 
 - **Pagination**
 
     - Django's Paginator class is utilised to provide pagination for the Developer Overview, Project Overview and messages pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
 
-![screenshot](documentation/features/pagination.png)
+![Pagination feature](documentation/features/pagination.png)
 
 Pagination works alone but can also be combined with the filtering mentioned above. The site is set up to recieve arguments in the url for filtering, pagination, or both. The screenshot below demonstrates some of the different combinations possible.
 The base url for the developer page is `https://developer-connect.herokuapp.com/developers/` and queries can be made using `.../developers/?` followed by the query. This can be either `p_language=(num)` or `page=(num)`.
 
-![screenshot](documentation/features/urls-filter-paginate.png)
+![The urls for filtered and/or paginated pages](documentation/features/urls-filter-paginate.png)
 
 
 
@@ -374,69 +374,85 @@ Feel free to delete any unused items below as necessary.
 - [Cloudinary](https://cloudinary.com) used for online static file storage.
 - [Visual Studio Code](https://code.visualstudio.com/) used as a local IDE for development.
 - [Black](https://pypi.org/project/black/) used as a PEP8 compliant Python code formatter
-- [DBeaver](https://dbeaver.io/) used to produce ERDs and helpplan the database models
+- [DBeaver](https://dbeaver.io/) used to produce ERDs and help plan the database models
 - [Balsamiq](https://balsamiq.com/) used to produce wireframes
 
 ## Database Design
+An Entity Relationship Diagram (ERD) was created using [DBeaver](https://dbeaver.io/) in order to visualize the database architecture before creating Django models.
 
+The ERD is shown below. There are 6 models which interact with eachother in a relational manner. 
+The six models are:
 
+1. User
+2. User profile picture
+3. Project
+4. Project profile picture
+5. Programming language
+6. Messages
 
-Entity Relationship Diagrams (ERD) help to visualize database architecture before creating models.
-Understanding the relationships between different tables can save time later in the project.
+The relationships are either one-to-many or many-to-many in nature, as discussed below.
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+![Entity relationship diagram](documentation/design/ERD.png)
 
-Using your defined models (one example below), create an ERD with the relationships identified.
+The following models have a one-to-many relationship:
+- One user can have many profile pictures but each profile picture only has one user
+- One project can have many pictures but each picture only has one project
+- One user can write (or receive) many messages but each message only has one sender and one receiver.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+The remaining relationships are many to many:
+- One user can have many programming languages and each programming language can have many users associated with it
+- One project can have many programming languages and each programming language can have many projects associated with it
+- One user can have many projects and each project can (theoretically) have many users associated with it*
+
+These three models form a "square" on the ERD as they require intermediate tables to store the many-to-many relationship details. On the ERD these intermediate tables are labelled as "user-project", "project-p-language" and ""user-to-p-language" and they store the id of the two relevant tables. For example, in the "user-to-p-language" table, the id of a user1 could be associated with programming languages 1 and 2, but at the same time programming language 1 could be associated with many other users. This table provides an interface between the user table and the programming language table so that these relationships may be stored and related information may be accessed from both ends.
+
+*This backwards relationship has not yet been implemented, but it is on the list of future features that each project may have many users associated with it.
+
+An example of a model used in the project is shown below:
 
 ```python
-class Product(models.Model):
-    category = models.ForeignKey(
-        "Category", null=True, blank=True, on_delete=models.SET_NULL)
-    sku = models.CharField(max_length=254, null=True, blank=True)
-    name = models.CharField(max_length=254)
-    description = models.TextField()
-    has_sizes = models.BooleanField(default=False, null=True, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    rating = models.DecimalField(
-        max_digits=6, decimal_places=2, null=True, blank=True)
-    image_url = models.URLField(max_length=1024, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+class Project(models.Model):
+    user = models.ManyToManyField(User, blank=True)
+    p_language = models.ManyToManyField("ProgramLang")
+    title = models.CharField(
+        help_text="What is the title for your project?",
+        max_length=100,
+        unique=True,
+    )
+    description = models.TextField(
+        help_text="Enter your project description here", blank=True, null=True
+    )
 
     def __str__(self):
-        return self.name
+        return f"<Project name: {self.title}>"
+
+    def delete(self, *args, **kwargs):
+        """
+        Additional function to ensure pictures are deleted
+        from cloudinary
+        """
+        # delete associated profile pics
+        for pic in self.project_pic.all():
+            pic.delete()
+        # then delete itself
+        super().delete(*args, **kwargs)
 ```
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+This `Project` model inherits from Django's inbuilt `Model` class and utilises two many-to-many relationships. One between itself and the `User` class (which may be blank, incase an associated user account is deleted), and one between itself and the `ProgramLang` class (which may not be blank). The model then has a `title` CharField with a maximum length of 100 characters (limited as this is displayed on a bootstrap card) which must be unique. An optional `description` TextField may be as long as a user desires and may be left blank.
 
-A couple recommendations for building free ERDs:
-- [Draw.io](https://draw.io)
-- [Lucidchart](https://www.lucidchart.com/pages/ER-diagram-symbols-and-meaning)
+The `__str__` method returns `<Project name: ((project title))>` so that the project may be easily identified in the admin panel.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+A `delete` method extends the default delete method to call the delete method for each picture associated with the project, which in turn deletes the pictures from Cloudinary (this Cloudinary delete method can be seen at `app_user/models.py` lines 137-144).
 
-![screenshot](documentation/erd.png)
+This `Project` model is represented as a table below as an example:
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+| **id** (unique) | Type | Notes |
+| --- | --- | --- |
+| user | ManyToManyField | MTM to **User** model |
+| p_language | ManyToManyField | MTM to **ProgramLang** model |
+| title | CharField | Max length 100 chars |
+| description | TextField | |
 
-Using Markdown formatting to represent an example ERD table using the Product model above:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- Table: **Product**
-
-    | **PK** | **id** (unique) | Type | Notes |
-    | --- | --- | --- | --- |
-    | **FK** | category | ForeignKey | FK to **Category** model |
-    | | sku | CharField | |
-    | | name | CharField | |
-    | | description | TextField | |
-    | | has_sizes | BooleanField | |
-    | | price | DecimalField | |
-    | | rating | DecimalField | |
-    | | image_url | URLField | |
-    | | image | ImageField | |
 
 ## Agile Development Process
 
