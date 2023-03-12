@@ -180,9 +180,8 @@ class AddProfilePicView(LoginRequiredMixin, TemplateView):
             return redirect(reverse("app_user:add-profile-pic"))
         else:
             messages.error(
-                request,
-                "Picture could not be uploaded. Please try again."
-                )
+                request, "Picture could not be uploaded. Please try again."
+            )
         return redirect(reverse("app_user:add-profile-pic"))
 
 

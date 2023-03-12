@@ -13,6 +13,7 @@ from .forms import (
     ProjectLangSelectFilterForm,
 )
 
+
 class HomeView(TemplateView):
     """
     View for the home page.
@@ -153,10 +154,7 @@ class ProjectDetailView(LoginRequiredMixin, TemplateView):
         project_pk = kwargs["pk"]
         project_to_get = get_object_or_404(Project, pk=project_pk)
 
-        context = {
-            "user": request.user,
-            "project": project_to_get
-            }
+        context = {"user": request.user, "project": project_to_get}
 
         return render(request, "app_home/project_detail_view.html", context)
 
@@ -282,7 +280,9 @@ class DeleteProjectView(LoginRequiredMixin, TemplateView):
             project.delete()
             messages.success(request, "Project successfully deleted!")
         else:
-            messages.error(request, "Project could not be deleted. Please try again.")
+            messages.error(
+                request, "Project could not be deleted. Please try again."
+            )
         return redirect(reverse("app_home:project-overview"))
 
 
