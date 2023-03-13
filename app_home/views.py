@@ -88,12 +88,12 @@ class ProfileDetailView(LoginRequiredMixin, TemplateView):
         user_to_get = get_object_or_404(User, pk=profile_pk)
         try:
             user_to_get_projects = Project.objects.filter(user=user_to_get)
-        except:
+        except Exception:
             user_to_get_projects = None
 
         try:
             p_langs = user_to_get.p_language.values()
-        except:
+        except Exception:
             p_langs = None
 
         context = {

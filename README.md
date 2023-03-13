@@ -7,9 +7,7 @@ The live site can be found at [developer-connect.herokuapp.com](https://develope
 The objective of Developer Connect is to link software developers up with eachother so that they can form teams and work on projects. Furthermore, a project posting board allows the opportunity for people with app, website or software ideas to build a team with the appropriate skills and technological experience to bring their idea(s) to life. The platform also provides a way for developers to connect with one another and for potential employers to find their next ideal candidate.
 
 ### Am I Responsive mockup 
-TODO: add mockup image at following path:
-![screenshot](documentation/mockup.png)
-
+![Am-i-responsive mockup](documentation/am_i_responsive_mockup/amiresponsive.png)
 
 ## UX
 
@@ -96,6 +94,8 @@ The User Stories are listed below and are linked to the respective issue on Gith
 | 12  | Project interaction  | [As a **registered site user** I can **perform a search for projects based on a variety of parameters** so that **I can more easily find the type of project I am looking for**](https://github.com/dragon-fire-fly/developer_connect/issues/12)  | Could-do  | Partially  |
 | 11  | Project interaction  | [As a **registered site user** I can **star and add comments to projects** so that **I can interact with projects, share my ideas and contact the project owner**](https://github.com/dragon-fire-fly/developer_connect/issues/11)  | Could-do  | No  |
 
+
+More information about the Agile process can be found in the [Agile Development Process](#agile-development-process) section.
 
 ## Wireframes
 
@@ -461,36 +461,32 @@ This `Project` model is represented as a table below as an example:
 [GitHub Projects](https://github.com/dragon-fire-fly/developer_matcher/projects) served as an Agile tool for this project.
 It isn't a specialized tool, but with the right tags and project creation/issue assignments, it can be made to work.
 
-Through it, user stories, issues, and milestone tasks were planned, then tracked on a weekly basis using the basic Kanban board.
+Through it, user stories, issues, and milestone tasks were planned, then tracked on a weekly basis using the basic Kanban board. An overview of the Kanban board is shown below. Newly created issues began in the "Backlog" column and were moved through the "Ready to Begin", "In Progress" and "Testing" columns before being maked as closed and moved to the "Done" column.
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Consider adding a basic screenshot of your Projects Board.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-![screenshot](documentation/gh-projects.png)
+![GitHub Project Board](documentation/github_issues/github-project-board.png)
 
 ### GitHub Issues
 
 [GitHub Issues](https://github.com/dragon-fire-fly/developer_matcher/issues) served as an another Agile tool.
-There, I used my own **User Story Template** to manage user stories.
 
-It also helped with milestone iterations on a weekly basis.
+There, I used my own **User Story Template** to manage user stories and **Bug Report Template** to report bugs as they were discovered.3.
+For each User Story, at least three **Acceptance Criteria** were recorded to indicate the criteria that must be fulfilled in order for the User story to be completed and at least three **Tasks** which must be performed in order to fulfil said criteria.
+![User Story Template](documentation/github_issues/user-story-template.png)
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+The Bug Report Template is based off the Bug report template provided by Github with some minor modifications to add the tag "bug" and automatically assign it to a user.
+![Bug Report Template](documentation/github_issues/bug-report-template.png)
 
-Consider adding a screenshot of your Open and Closed Issues.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Below, the open and closed issues can be seen. These helped with milestone iterations on a weekly basis. The list below includes all issues including **User Stories** and **Bugs**.
 
 - [Open Issues](https://github.com/dragon-fire-fly/developer_matcher/issues)
 
-    ![screenshot](documentation/gh-issues-open.png)
+    ![Open issues screenshot](documentation/github_issues/open-issues.png)
 
 - [Closed Issues](https://github.com/dragon-fire-fly/developer_matcher/issues?q=is%3Aissue+is%3Aclosed)
 
-    ![screenshot](documentation/gh-issues-closed.png)
+    ![Closed Issues Screenshot](documentation/github_issues/closed-issues.png)
+    ![Closed Issues Screenshot page 2](documentation/github_issues/closed-issues-2.png)
 
 ### MoSCoW Prioritization
 
@@ -502,20 +498,14 @@ Using this approach, I was able to apply the MoSCow prioritization and labels to
 - **Could Have**: has small impact if left out (*20% of stories*)
 - **Won't Have**: not a priority for this iteration
 
+These labels were added to the default ones provided by Github and can be seen in the screenshot below:
+![Github Labels](documentation/github_issues/github-labels.png)
+
 ## Testing
 
 For all testing, please refer to the [TESTING.md](TESTING.md) file.
 
 ## Deployment
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-**IMPORTANT:**
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-- ⚠️ DO NOT update the environment variables to your own! These should NOT be included in this file; just demo values! ⚠️
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 The live deployed application can be found deployed on [Heroku](https://developer-connect.herokuapp.com).
 
@@ -646,48 +636,30 @@ You can fork this repository by using the following steps:
 2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
 3. Once clicked, you should now have a copy of the original repository in your own GitHub account!
 
-### Local VS Deployment
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ## Credits
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-In this section you need to reference where you got your content, media, and extra help from.
-It is common practice to use code from other repositories and tutorials,
-however, it is important to be very specific about these sources to avoid plagiarism.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 ### Content
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to provide attribution links to any borrowed code snippets, elements, or resources.
-A few examples have been provided below to give you some ideas.
-
-Ideally, you should provide an actual link to every resource used, not just a generic link to the main site!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder by Tim Nelson](https://traveltimn.github.io/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
-| [Chris Beams](https://chris.beams.io/posts/git-commit) | version control | "How to Write a Git Commit Message" |
-| [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | entire site | responsive HTML/CSS/JS navbar |
-| [W3Schools](https://www.w3schools.com/howto/howto_css_modals.asp) | contact page | interactive pop-up (modal) |
-| [W3Schools](https://www.w3schools.com/css/css3_variables.asp) | entire site | how to use CSS :root variables |
-| [Flexbox Froggy](https://flexboxfroggy.com/) | entire site | modern responsive layouts |
-| [Grid Garden](https://cssgridgarden.com) | entire site | modern responsive layouts |
-| [StackOverflow](https://stackoverflow.com/a/2450976) | quiz page | Fisher-Yates/Knuth shuffle in JS |
-| [YouTube](https://www.youtube.com/watch?v=YL1F4dCUlLc) | leaderboard | using `localStorage()` in JS for high scores |
-| [YouTube](https://www.youtube.com/watch?v=u51Zjlnui4Y) | PP3 terminal | tutorial for adding color to the Python terminal |
-| [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string |
+| [Pylessions user registration](https://pylessons.com/user-registration) | models and forms | user registration |
+| [Generic views](https://docs.djangoproject.com/en/4.1/ref/class-based-views/generic-editing/) | views | generic views |
+| [Uploading Images](https://docs.djangoproject.com/en/4.1/topics/http/file-uploads/) | image upload (projects and profile forms) | uploading images in django |
+| [Profanity checking](https://pypi.org/project/better-profanity/) | user and project creation and edit forms | profanity checking |
+| [LoginRequiredMixin](https://docs.djangoproject.com/en/4.1/topics/auth/default/) | entire site | authentication of user |
+| [Bootstrap Pagination](https://getbootstrap.com/docs/5.0/components/pagination) | templates and views | Pagination for Django |
+| [Codemy Pagination Youtube](https://www.youtube.com/watch?v=wY_BNsxCEi4) | templates and views | Pagination for Django|
+| [Django unittesting](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing) | entire site | unittesting for Django |
+| [Learn Django AllAuth](https://learndjango.com/tutorials/django-allauth-tutorial) | entire site | authentication with AllAuth |
+| [Pylessons AllAuth](https://pylessons.com/django-google-oauth) | entire site | authentication with AllAuth |
+| [Crispy Forms](https://simpleisbetterthancomplex.com/tutorial/2018/08/13/how-to-use-bootstrap-4-forms-with-django.html) | forms, templates | improving form styling with crispy forms |
+| [Cloudinary image upload API](https://cloudinary.com/documentation/image_upload_api_reference) | image uploads | uploading images throught the cloudinary API |
+| [Bootstrap Navbar](https://getbootstrap.com/docs/5.0/components/modal/) | entire site | implementing bootstrap navbar |
+| [Bootstrap Cards](https://getbootstrap.com/docs/4.0/components/card/#card-columns) | templates | displaying cards in developer and project overview pages |
+| [Horizontal bootstrap cards](https://www.tutlane.com/example/bootstrap/bootstrap-horizontal-card-example) | templates | making project overview cards display horizontally |
+| [Logo creation](https://www.shopify.com/tools/logo-maker/) | entire site, home page | creation of a logo and favicon for the site |
+| [Cat sample images](https://beta.dreamstudio.ai/dream) | developer profiles | AI for creating unique images for samples user profiles |
 | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
 
 ### Media
@@ -708,15 +680,14 @@ by sending yourself the following command: `!freemedia`.
 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
-| [Pexels](https://www.pexels.com) | entire site | image | favicon on all pages |
-| [Lorem Picsum](https://picsum.photos) | home page | image | hero image background |
-| [Unsplash](https://unsplash.com) | product page | image | sample of fake products |
-| [Pixabay](https://pixabay.com) | gallery page | image | group of photos for gallery |
-| [Wallhere](https://wallhere.com) | footer | image | background wallpaper image in the footer |
-| [This Person Does Not Exist](https://thispersondoesnotexist.com) | testimonials | image | headshots of fake testimonial images |
-| [Audio Micro](https://www.audiomicro.com/free-sound-effects) | game page | audio | free audio files to generate the game sounds |
-| [Videvo](https://www.videvo.net/) | home page | video | background video on the hero section |
-| [TinyPNG](https://tinypng.com) | entire site | image | tool for image compression |
+| [404 image](https://www.freepik.com/free-vector/two-people-connecting-plug-socket-man-woman-pulling-cords-with-outlet-plug-flat-illustration_12291325.htm#query=cartoon%20connected%20plug&position=2&from_view=search&track=robertav1)| entire site | image | 404 page image |
+| [500 image](https://www.freepik.com/free-vector/tiny-people-examining-operating-system-error-warning-web-page-isolated-flat-illustration_11235921.htm#&position=49&from_view=author) | entire site | image | 500 page image |
+| [Coffee image](https://www.pexels.com/photo/close-up-photography-of-cup-of-coffee-851555/) | project page | image | image for online coffee shop sample project |
+| [No img/ upload img](https://pixabay.com) | project page | image | placeholder image for projects without a user uploaded image |
+| [Gallery image](https://www.pexels.com/photo/abstract-wallpaper-2860804/) | project page | image | image for online gallery sample project  |
+| [Poker image](https://www.pexels.com/photo/a-person-holding-gaming-cards-6664195/) | project page | image | image for online poker sample project |
+| [Face detection image](https://pixabay.com/illustrations/face-detection-scan-to-scan-4760281/) | project page | image | image for face detection sample project |
+| [Cat sample images](https://beta.dreamstudio.ai/dream) | developer page | image | Most of the images for the sample user accounts were created using dreamstudio |
 
 ### Acknowledgements
 
@@ -727,8 +698,7 @@ A few examples have been provided below to give you some ideas.
 
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
-- I would like to thank my Code Institute mentor, [John/Jane Doe](https://github.com/username) for their support throughout the development of this project.
+- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for their support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
-- I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome.
-- I would like to thank my spouse/partner (John/Jane), for believing in me, and allowing me to make this transition into software development.
-- I would like to thank my employer, for supporting me in my career development change towards becoming a software developer.
+- I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome, particularly the class of May 2022.
+- I would like to thank my husband (Christian Schmidt), for believing in me, and allowing me to make this transition into software development.
