@@ -46,6 +46,7 @@ class TestAppHomeViews(TestCase):
 
         self.assertTemplateUsed(template)
         self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Welcome")
 
         # response when logged in
         self.client.force_login(self.user1)
@@ -83,7 +84,7 @@ class TestAppHomeViews(TestCase):
         self.assertTemplateUsed(template)
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(
-            response, "Please log in or register to see other developers"
+            response, "Please log in or register to see the Developer Overview"
         )
 
     def test_profile_detail_view_success(self):
