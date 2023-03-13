@@ -198,7 +198,7 @@ a {
 }
 
 .square-container-small {
-    display: hidden;
+    display: none;
 }
 .sm-hidden {
     display:none;
@@ -282,11 +282,6 @@ a {
 
 .p-lang-form{
     color: #000;
-}
-/* greyed out image */
-.grey {
-    opacity: 0.4;
-    filter: alpha(opacity=40);
 }
 
 /* Footer */
