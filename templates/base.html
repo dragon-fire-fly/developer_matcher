@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="https://res.cloudinary.com/djlm3llv5/image/upload/v1677952722/non%20square%20imgs/uh7zvudottb9s7jzsyzr.png"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="https://res.cloudinary.com/djlm3llv5/image/upload/v1677952722/non%20square%20imgs/uh7zvudottb9s7jzsyzr.png" alt="Developer connect favicon"/>
     <!-- DEVELOPMENT CSS -->
-    <!-- <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap_minty.css' %}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap_minty.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"> -->
     <!-- PRODUCTION CSS -->
     <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1677940277/static-files/ci8h981ifegl49g7seca.css">
+    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1678722262/static-files/f0enxww2f2ed5vj1pobg.css" alt="Your profile picture">
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1678570049/static-files/ds96k0wjpfjtjiifimmz.css">
+    <link rel="stylesheet" type="text/css" href="https://res.cloudinary.com/djlm3llv5/raw/upload/v1678722306/static-files/fifiwwnoqicw4eth9zrq.css" alt="Kitten placeholder picture">
     
     <title>{% block title %} Developer Connect {% endblock %}</title>
 </head>
@@ -50,9 +49,9 @@
                     <div class="dropdown" style="margin-right: 2em;">
                         <a href="#" data-bs-toggle="dropdown" class="btn dropdown-toggle" style="text-decoration: none;">
                             {% if user.profile_pic.values %}
-                            <img style="width: 100px; border-radius: 50%;" src="{{ user.profile_pic.values.0.profile_picture.url }}"><b class="caret"></b>
+                            <img style="width: 100px; border-radius: 50%;" src="{{ user.profile_pic.values.0.profile_picture.url }}" alt="Your profile picture"><b class="caret"></b>
                             {% else %}
-                            <img style="width: 100px; border-radius: 50%;" src="http://placekitten.com/60/60">
+                            <img style="width: 100px; border-radius: 50%;" src="http://placekitten.com/60/60" alt="A placeholder kitten image">
                             <span class="caret"></span>
                             {% endif %} 
                         </a>

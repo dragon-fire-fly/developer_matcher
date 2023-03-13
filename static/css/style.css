@@ -38,6 +38,24 @@ h3 {
     background-color: #C63D17;
     color: #FFF;
 }
+.form-control {
+    color: #000;
+}
+.table-cell-text {
+    color: #000;
+}
+td {
+    color: #000;
+}
+
+a {
+    color: #006400;
+}
+
+.white-text {
+    color: #FFF;
+}
+
 
 .margin-above {
     margin-top: 30px;
@@ -255,12 +273,16 @@ h3 {
 } */
 
 .card-title {
+    color: #006400;
     text-decoration: none;
     font-size: 1.3rem;
     line-height: 30px;
     font-weight: 800;
 }
 
+.p-lang-form{
+    color: #000;
+}
 /* greyed out image */
 .grey {
     opacity: 0.4;
@@ -287,12 +309,13 @@ color: #5A5A5A;
 } */
 
 .pagination {
-    --bs-pagination-color: #5A5A5A;
-    --bs-pagination-active-color: #5A5A5A;
-    --bs-pagination-disabled-color: #5A5A5A;
+    --bs-pagination-color: #000;
+    --bs-pagination-active-color: #000;
+    --bs-pagination-disabled-color: #000;
 }
 
 .small-txt {
+    color: #000;
     font-size: 0.8rem;
 }
 

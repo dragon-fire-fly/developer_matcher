@@ -28,11 +28,11 @@
             {% endif %}
             {% endfor %}
 
-            <p><h3>Programming Languages</h3>
             {% if p_langs %}
+            <p><strong>Programming Languages:</strong></p>
             {% for lang in p_langs %}
             <img src="{{ lang.language_icon.url }}" class="icon-sm" alt="{{lang.language}} icon" title="{{ lang.language }}">
-            {% endfor %}</p>
+            {% endfor %}
             {% endif %}
             
 
