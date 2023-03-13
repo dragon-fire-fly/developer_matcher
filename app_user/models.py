@@ -53,7 +53,7 @@ class User(AbstractUser):
             "username": self.username,
             "full name": self.get_full_name(),
             "email": self.email,
-            "location": self.location,
+            "location": self.location.name,
             "github username": self.github_username,
             "github url": self.github_url,
             "linked in url": self.linked_in,
