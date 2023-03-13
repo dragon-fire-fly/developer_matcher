@@ -69,6 +69,8 @@ In this project, User Stories are broken down from three "Epics". Epics are larg
 2. User interaction  
 3. Project interaction
 
+![Epics](documentation/github_issues/github-epics.png)
+
 Github actions was used to record epics and user stories and a [User Story template](https://github.com/dragon-fire-fly/developer_matcher/blob/main/.github/ISSUE_TEMPLATE/user-story.md) was created and used for the purpose of recording the user stories and for breaking them down into "acceptance criteria" - the conditions which must be met in order for the User Story to be considered "finished" - and "tasks" - the actual work that needs to be done in order to meet these acceptance criteria.
 
 The User Stories are listed below and are linked to the respective issue on Github actions:
@@ -346,22 +348,12 @@ There are many features which could be added to the project at a later date but 
 
 ## Tools & Technologies Used
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-In this section, you should explain the various tools and technologies used to develop the project.
-Make sure to put a link (where applicable) to the source, and explain what each was used for.
-Some examples have been provided, but this is just a sample only, your project might've used others.
-Feel free to delete any unused items below as necessary.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 - [HTML](https://en.wikipedia.org/wiki/HTML) used for the main site content.
 - [CSS](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
 <!-- - [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site. -->
 - [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp)
 - [Bootstrap](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
 - [Bootswatch](https://bootswatch.com/) used as an extension to Bootstrap to provide pleasant aesthetics for the site.
-<!-- - [JavaScript](https://www.javascript.com) used for user interaction on the site. -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
@@ -500,6 +492,40 @@ Using this approach, I was able to apply the MoSCow prioritization and labels to
 
 These labels were added to the default ones provided by Github and can be seen in the screenshot below:
 ![Github Labels](documentation/github_issues/github-labels.png)
+
+### Branches
+
+Branches were utilised within GitHub to help seperate areas of focus and to enable more information to be given about a series of commits and how they relate to the GitHub issues mentioned earlier.
+
+Branching may be performed in in Visual Studio Code or GitPod using the following CLI commands:
+
+| CLI command | Notes |
+| --- | --- |
+| `git branch` | list current branches |
+| `git checkout <branchname>` | switch to specified branch |
+| `git checkout -b <branchname>` | create new branch (if it doesn't exist) and switch to it |
+| `git branch -d <branchname>` | delete specified branch |
+| `git push origin <branchname>` | pushes the specified branch to GitHub |
+
+
+### Pull requests 
+
+Once ready to merge from the created branch back to the main branch, a pull request may be made on GitHub.
+
+Below are some screenshots of the pull request and merging process:   
+![Pull request and merge](documentation/github_issues/github-merge-process.png)
+
+Normally, a reviewer would be assigned to check the pull request before merging it to the main branch, however I was the only one working on this project and therefore this was not possible.
+
+[Pull requests](https://github.com/dragon-fire-fly/developer_matcher/pulls) from different branches are accessed here.
+![Closed pull requests](documentation/github_issues/github-prs-1.png)
+![Open pull requests](documentation/github_issues/github-prs-2.png)
+
+
+Below is an example pull request. Pull requests contain the details of the commits contained within them and in most cases they have been linked to the issues and milestones that they relate to with a description.
+
+![Example pull request](documentation/github_issues/example-pr.png)
+
 
 ## Testing
 
