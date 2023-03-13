@@ -41,6 +41,44 @@ For app_user app:
     - Test that existing user cannot log in with incorrect credentials
     - Test that user is redirected to home 
 
+For app_user app:
+views.py
+
+| Function Tested  | Function Type  |  Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|
+| User Registration  | get   | Starting number of users is 0  | self.assertEqual(User.objects.count(), 0)  | pass  |
+|   |    | registration page loads successfully  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |    | correct template is used for registration  | self.assertTemplateUsed(response, "app_user/register.html")  | pass  |
+|   | post   | redirection following registration  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |    | user redirected correctly to user profile after signing up  | self.assertRedirects(response, "/user/profile/")  | pass  |
+|   |    | user was added to the database  | self.assertEqual(User.objects.count(), 1)  | pass  |
+|   |    | user logged in and authenticated after signup  | self.assertTrue(newly_created_user.is_authenticated)  | pass  |
+|   |    | signup date is correctly added  | self.assertTrue(newly_created_user.date_joined, datetime.now())  | pass  |
+|   |    | no new user was created if incorrect credentials supplied  | self.assertEqual(User.objects.count(), 0)  | pass  |
+|   |    | browser rerenders the form for submission again  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |    | browser rerenders the form for submission again  | self.assertTemplateUsed(response, "app_user/register.html")  | pass  |
+| User login  | get  |  login form successfully loaded  |  self.assertEqual(response.status_code, 200) | pass  |
+|   |   |  login template used  | self.assertTemplateUsed(response, "account/login.html")  | pass  |
+|   |   | user is authenticated following login  | self.assertTrue(test_user.is_authenticated)  | pass  |
+
+
+
+models.py
+
+| Model Tested  | Function Type  |  Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|
+| user model  |    | `__str__` method  | self.assertEqual(str(self.user), "<user: testuser>")  | pass  |
+|   |    | `to_json` method  | self.assertEqual(self.user.to_json(), expected_output)  | pass  |
+|   |    | user profile picture uploaded  | self.assertEqual(profile_picture.profile_picture, cloudinary_field_mock.return_value)  | pass  |
+| project model  |    | `__str__` method project 1 | self.assertEqual(str(self.project1), "<Project name: Test Project 1>")  | pass  |
+|   |    | `__str__` method project 2  | self.assertEqual(str(self.project2), "<Project name: Test Project 2>")  | pass  |
+|   |    | project 1 user count = 1  | self.assertEqual(self.project1.user.count(), 1)  | pass  |
+|   |    | project 1 p language count = 1  | self.assertEqual(self.project1.p_language.count(), 1)  | pass  |
+|   |    | project 2 user count = 2  | self.assertEqual(self.project2.user.count(), 2)  | pass  |
+|   |    | project 2 p language count = 2  | self.assertEqual(self.project2.p_language.count(), 2)  | pass  |
+|   |    | project picture upload  | self.assertEqual(project_picture.project_picture, cloudinary_field_mock.return_value)  | pass  |
+
+
 For app_home app:
 views.py    
 Home and about views
@@ -60,10 +98,10 @@ View other users
 |---|---|---|---|---|---|
 | Developer Overview page  | get  | not logged in  | correct template used |  self.assertTemplateUsed(template)  | pass  |
 |   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
-|   |   |   | Response contains... |  self.assertContains(response, "Please log in or register to see other developers")  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, "Please log in or register to see the Developer Overview")  | pass  |
 |   |   | logged in user  | correct template used |  self.assertTemplateUsed(template)  | pass  |
 |   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
-|   |   |   | Response doesn't contain... |  self.assertNotContains(response, "Please log in or register to see other developers")  | pass  |
+|   |   |   | Response doesn't contain... |  self.assertNotContains(response, "Please log in or register to see the Developer Overview")  | pass  |
 | Profile detail view (successful)  | get  | not logged in  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
 |   |   |   |  redirection url |  self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
 |   |   | logged in user  | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
@@ -147,14 +185,14 @@ Add project picture
 |   | post (with mock)  | project owner  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
 |   |   |   | # pics increased by 1  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)  | pass  |
 
-Delete project picture
+<!-- Delete project picture
 
 | Function Tested | Function Type | Status | Testing for.. | Assert Statement | Pass |
 |---|---|---|---|---|---|
 | Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)  | pass  |
 |   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)  | pass  |
 |   |   |   |   |   | pass  |
-|   |   |   |   |   | pass  |
+|   |   |   |   |   | pass  | -->
 
 1. function tested assert statement type pass?
 
