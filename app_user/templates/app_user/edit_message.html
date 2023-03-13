@@ -17,7 +17,7 @@
             {% endif %}
             <h1 class="text-center">Edit message to <br>{{ receiver.username }}</h1>
 
-            <form action="" method="POST">
+            <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input type="hidden" name="sender" value="{{ sender.pk }}">
