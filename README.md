@@ -186,15 +186,15 @@ Navbar(user logged in)
 
 - **Edit User Profile Page(logged in user)**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Users can edit their profile by clicking "Edit" on their profile page. Only the logged in user may edit their profile. The user is taken to an edit form which is pre-filled with their existing data. If the user clicks "update", the data is updated, the user receives a notification message and they are redirected back to their profile page.
 
-![screenshot](documentation/features/edit-profile-page.png)
+![Edit profile page](documentation/features/edit-profile-page.png)
 
 - **Delete User Account**
 
-    - TODO: ADD !!!
+    - Users are able to delete their own account by clicking "delete" on their user profile. Only the logged in user may delete their account. Before account deletion occurs, the user is prompted with a confirmation modal to ensure they really want to delete their account and haven't clicked delete by mistake.
 
-![screenshot](documentation/features)
+![Delete user account](documentation/features/delete-user-profile.png)
 
 - **Profile Picture Overview**
 
