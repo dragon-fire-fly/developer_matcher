@@ -439,86 +439,33 @@ This can be used for both "fixed" and "unresolved" issues.
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ## Bugs
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-It's very important to document any bugs you've discovered while developing the project.
-Make sure to include any necessary steps you've implemented to fix the bug(s) as well.
-
-For JavaScript and Python applications, it's best to screenshot the errors to include them as well.
-
-**PRO TIP**: screenshots of bugs are extremely helpful, and go a long way!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- JS Uncaught ReferenceError: `foobar` is undefined/not defined
-
-    ![screenshot](documentation/bug01.png)
-
-    - To fix this, I _____________________.
-
-- JS `'let'` or `'const'` or `'template literal syntax'` or `'arrow function syntax (=>)'` is available in ES6 (use `'esversion: 11'`) or Mozilla JS extensions (use moz).
-
-    ![screenshot](documentation/bug02.png)
-
-    - To fix this, I _____________________.
-
-- Python `'ModuleNotFoundError'` when trying to import module from imported package
-
-    ![screenshot](documentation/bug03.png)
-
-    - To fix this, I _____________________.
-
-- Django `TemplateDoesNotExist` at /appname/path appname/template_name.html
-
-    ![screenshot](documentation/bug04.png)
-
-    - To fix this, I _____________________.
-
-- Python `E501 line too long` (93 > 79 characters)
-
-    ![screenshot](documentation/bug04.png)
-
-    - To fix this, I _____________________.
-
 ### GitHub **Issues**
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-An improved way to manage bugs is to use the built-in **Issues** tracker on your GitHub repository.
-To access your Issues, click on the "Issues" tab at the top of your repository.
-Alternatively, use this link: https://github.com/dragon-fire-fly/developer_matcher/issues
-
-If using the Issues tracker for your bug management, you can simplify the documentation process.
-Issues allow you to directly paste screenshots into the issue without having to first save the screenshot locally,
-then uploading into your project.
-
-You can add labels to your issues (`bug`), assign yourself as the owner, and add comments/updates as you progress with fixing the issue(s).
-
-Once you've sorted the issue, you should then "Close" it.
-
-When showcasing your bug tracking for assessment, you can use the following format:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Bugs were tracked from the start of the project using **GitHub Issues**
+A custom [**Bug Report Template**](https://github.com/dragon-fire-fly/developer_matcher/issues/new?assignees=dragon-fire-fly&labels=bug&template=bug_report.md&title=%5BBUG%5D) was created for the purpose of concisely and accurately tracking bugs at the time they were discovered.
 
 **Fixed Bugs**
+Closed bug issues may be found on [GitHub Issues](https://github.com/dragon-fire-fly/developer_matcher/issues?q=is%3Aissue+is%3Aclosed+BUG) and are also listed in the table below.
 
-All previously closed/fixed bugs can be tracked [here](https://github.com/dragon-fire-fly/developer_matcher/issues?q=is%3Aissue+is%3Aclosed).
+| Issue no.  | Bug name  | Milestone  | Fixed |
+|---|---|---|---|
+| 13  | [SetUp - SystemCheckError](https://github.com/dragon-fire-fly/developer_matcher/issues/13)  | Account Management  | Yes  |
+| 14  | [InconsistentMigrationHistory Error](https://github.com/dragon-fire-fly/developer_matcher/issues/14)  | Account Management  | Yes  |
+| 15  | [IntegrityError](https://github.com/dragon-fire-fly/developer_matcher/issues/15)  | Account Management  | Yes  |
+| 16  | [Sign up form not valid](https://github.com/dragon-fire-fly/developer_matcher/issues/16)  | Account Management  | Yes  |
+| 17  | [Checkboxes not displaying correctly](https://github.com/dragon-fire-fly/developer_matcher/issues/17)  | Account Management  | Yes  |
+| 37  | [Projects cannot be viewed if the project owner no longer exists](https://github.com/dragon-fire-fly/developer_matcher/issues/37)  | Project Interation  | Yes  |
+| 38  | [The first photo is always deleted when a user tries to delete a photo](https://github.com/dragon-fire-fly/developer_matcher/issues/38)  | User Interation  | Yes  |
+| 45  | [Checkboxes are not rendered pre-checked](https://github.com/dragon-fire-fly/developer_matcher/issues/45)  | User Interation  | Yes  |
+| 63  | [Registration page not loading](https://github.com/dragon-fire-fly/developer_matcher/issues/63)  | Account Management  | Yes  |
+| 64  | [Delete user profile not working](https://github.com/dragon-fire-fly/developer_matcher/issues/64)  | Account Management  | Yes  |
+| 71  | [Wrong user being shown when editing message](https://github.com/dragon-fire-fly/developer_matcher/issues/71)  | User Interation  | Yes  |
+| 72  | ['edited' status being added to new messages](https://github.com/dragon-fire-fly/developer_matcher/issues/72)  | User Interation  | Yes  |
+| 74  | [Developer overview page pagination problem](https://github.com/dragon-fire-fly/developer_matcher/issues/74)  | User Interation  | Yes  |
 
-| Bug | Status |
-| --- | --- |
-| [JS Uncaught ReferenceError: `foobar` is undefined/not defined](https://github.com/dragon-fire-fly/developer_matcher/issues/1) | Closed |
-| [Python `'ModuleNotFoundError'` when trying to import module from imported package](https://github.com/dragon-fire-fly/developer_matcher/issues/2) | Closed |
-| [Django `TemplateDoesNotExist` at /appname/path appname/template_name.html](https://github.com/dragon-fire-fly/developer_matcher/issues/3) | Closed |
 
 **Open Issues**
 
 Any remaining open issues can be tracked [here](https://github.com/dragon-fire-fly/developer_matcher/issues).
-
-| Bug | Status |
-| --- | --- |
-| [JS `'let'` or `'const'` or `'template literal syntax'` or `'arrow function syntax (=>)'` is available in ES6 (use `'esversion: 11'`) or Mozilla JS extensions (use moz).](https://github.com/dragon-fire-fly/developer_matcher/issues/4) | Open |
-| [Python `E501 line too long` (93 > 79 characters)](https://github.com/dragon-fire-fly/developer_matcher/issues/5) | Open |
 
 ## Unfixed Bugs
 
