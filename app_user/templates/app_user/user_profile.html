@@ -29,19 +29,15 @@
         <div class="col-md-8 offset-md-3">
             {% for key, value in user.to_json.items %}
             {% if value %}
-
             <p><strong>{{ key.title }}:</strong> {{ value }}</p>
-
             {% endif %}
             {% endfor %}
-
             {% if p_langs %}
             <p><strong>Programming Languages:</strong></p>
             {% for lang in p_langs %}
             <img src="{{ lang.language_icon.url }}" class="icon-sm" alt="{{lang.language}} icon" title="{{ lang.language }}">
             {% endfor %}
             {% endif %}
-
             {% if user_projects %}
             <p><strong>Projects:</strong> 
             {% for project in user_projects %}
@@ -56,30 +52,28 @@
             <a href="#" class="btn btn-danger margin-above" data-bs-toggle="modal" data-bs-target="#delete-profile-modal">Delete Profile</a>
         </div>
     </div>
-</div>
-
-<!-- Modal for delete button -->
-<!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
-<div class="modal fade" id="delete-profile-modal" tabindex="-1" role="dialog" aria-labelledby="deleteProfileModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteProfileModal">Are you sure?</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span id="close-modal-span" aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>This action will delete your account and all of your data, photos and projects.</p>
-                <p>This action is IRREVERSIBLE. Are you sure?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'app_user:delete-profile' %}" class="btn btn-danger" id="confirm-delete">Delete my account</a>
+    
+    <!-- Modal for delete button -->
+    <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
+    <div class="modal fade" id="delete-profile-modal" tabindex="-1" role="dialog" aria-labelledby="deleteProfileModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProfileModal">Are you sure?</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span id="close-modal-span" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This action will delete your account and all of your data, photos and projects.</p>
+                    <p>This action is IRREVERSIBLE. Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'app_user:delete-profile' %}" class="btn btn-danger" id="confirm-delete">Delete my account</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
 {% endblock %}
