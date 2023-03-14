@@ -244,16 +244,29 @@ Sample Lighthouse testing documentation:
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
+All scores came back with a score of at least 50, in many cases much higher than this. Most of the reasons for lower scores were due to the presence of user uploaded large image files that are not properly scaled or next-gen fomet (e.g. WebP). The pictures used for sample user accounts and projects were not updated as this would not be representative of genuine user uploaded pictures and thus would artificially skew the lighthouse scores. In the future, an image uploader could be used to convert user uploaded pictures to WebP format automatically before storage in the database.
+Another reason for the longer laoding time is the use of "Minty" from Bootswatch. This means that a lot of unused CSS must be loaded by the browser, lengthening loading times. By removing this Bootswatch theme and sticking to a simpler custom CSS file with use of the Bootstrap CDN delivery option. 
+Overall, the lighthouse scores were deemed high enough for the minimum viable product.
 
-| Page | Size | Screenshot | Notes |
-| --- | --- | --- | --- |
-| Home | Mobile | ![screenshot](documentation/lighthouse-home-mobile.png) | Some minor warnings |
-| Home | Desktop | ![screenshot](documentation/lighthouse-home-desktop.png) | Few warnings |
-| About | Mobile | ![screenshot](documentation/lighthouse-about-mobile.png) | Some minor warnings |
-| About | Desktop | ![screenshot](documentation/lighthouse-about-desktop.png) | Few warnings |
-| Developer Overview | Mobile | ![screenshot](documentation/lighthouse-gallery-mobile.png) | Slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present |
-| Project Overview | Desktop | ![screenshot](documentation/lighthouse-gallery-desktop.png) |Slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present |
-| x | x | x | repeat for any other tested pages/sizes |
+| Page | Screenshot | Notes |
+| --- | --- | --- |
+| Home  | ![Home page](documentation/testing/lighthouse/home.png) | Some minor warnings |
+| Login | ![Login](documentation/testing/lighthouse/login.png) | Few warnings |
+| Register | ![Register](documentation/testing/lighthouse/register.png) | Some minor warnings |
+| About | ![About Page](documentation) | Few warnings |
+| Developer Overview | ![Developer overview](documentation/testing/lighthouse/developers.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| User profile | ![User profile](documentation/testing/lighthouse/profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Edit profile | ![Edit profile](documentation/testing/lighthouse/edit-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Profile pictures page | ![Profile pictures page](documentation/testing/lighthouse/profile-pics.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Other user profile | ![Other user profile](documentation/testing/lighthouse/other-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Project Overview | ![Project overview](documentation/testing/lighthouse/projects.png) |Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Individual project | ![Individual project](documentation/testing/lighthouse/individual-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| New project | ![New project](documentation/testing/lighthouse/new-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Edit project | ![Edit project](documentation/testing/lighthouse/edit-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Project pictures | ![Project pictures](documentation/testing/lighthouse/project-pic.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Messages | ![Messages](documentation/testing/lighthouse/messages.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| New message | ![New message](documentation/testing/lighthouse/new-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Edit message | ![Edit message](documentation/testing/lighthouse/edit-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 
 ## Defensive Programming
 
