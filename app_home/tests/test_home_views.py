@@ -433,37 +433,3 @@ class TestAppHomeViews(TestCase):
         # number of project pictures is increased by 1
         self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)
 
-    # @mock.patch("cloudinary.uploader.upload")
-    # def test_delete_project_picture_post(self, mock_uploader_upload):
-    #     # logging in project owner
-    #     self.client.force_login(self.user1)
-
-    #     # setup - add a mocked picture
-    #     template = "app_home/project_picture.html"
-    #     url = reverse(
-    #         "app_home:add-project-pic", kwargs={"pk": self.project1.pk}
-    #     )
-
-    #     # number of pics before upload
-    #     no_pics = len(self.project1.project_pic.all())
-    #     # mocking
-    #     mock_uploader_upload = "picture.jpg"
-    #     # define URL & image
-    #     mocked_picture = SimpleUploadedFile(
-    #         "picture.jpg", b"file_content", content_type="image/jpeg"
-    #     )
-    #     # add the mocked picture to the project
-    #     response = self.client.post(url, {"project_picture": mocked_picture})
-
-    #     # check that mocked picture is set
-    #     self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)
-    #     picture_object = self.project1.project_pic.get(project=self.project1.pk)
-
-    #     # now delete the mocked picture
-    #     template = "app_home/project_picture.html"
-    #     url = reverse(
-    #         "app_home:delete-project-pic", kwargs={"pk": picture_object.pk}
-    #     )
-    #     response = self.client.get(url)
-    #     # test that the picture is deleted
-    #     self.assertEqual(len(self.project1.project_pic.all()), no_pics)

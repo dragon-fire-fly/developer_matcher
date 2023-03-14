@@ -199,17 +199,20 @@ All screenshots in the main [README.md](README.md) file were taken on Chrome as 
 
 | Browser | Screenshot | Notes |
 | --- | --- | --- |
+| Firefox | ![Home](documentation/testing/browser-compatibility/firefox-home.png) | Works as expected |
 | Firefox | ![developer overview](documentation/testing/browser-compatibility/firefox-developers.png) | Works as expected |
 | Firefox | ![project overview](documentation/testing/browser-compatibility/firefox-projects.png) | Works as expected |
 | Firefox | ![user profile](documentation/testing/browser-compatibility/firefox-profile.png) | Works as expected |
 | Firefox | ![edit form](documentation/testing/browser-compatibility/firefox-form.png) | Works as expected |
-| Firefox | ![messages box](documentation/testing/browser-compatibility/firefox-messages.png) | Works as expected |
-| Edge | ![screenshot](documentation/browser-edge.png) | Works as expected |
-| Safari | ![screenshot](documentation/browser-safari.png) | Minor CSS differences |
-| Brave | ![screenshot](documentation/browser-brave.png) | Works as expected |
-| Opera | ![screenshot](documentation/browser-opera.png) | Minor differences |
-| Internet Explorer | ![screenshot](documentation/browser-iex.png) | Does not work as expected |
-| x | x | repeat for any other tested browsers |
+| Firefox | ![Inbox](documentation/testing/browser-compatibility/firefox-messages.png) | Works as expected |
+| Safari | ![Home](documentation/testing/browser-compatibility/safari_home.png) | Works as expected |
+| Safari | ![Developer overview](documentation/testing/browser-compatibility/safari_developer_overview.png) | Works as expected |
+| Safari | ![Project overview](documentation/testing/browser-compatibility/safari_project_overview.png) | Works as expected |
+| Safari | ![Individual project](documentation/testing/browser-compatibility/safari_individual-project.png) | Works as expected |
+| Safari | ![User profile](documentation/testing/browser-compatibility/safari_your_profile.png) | Works as expected |
+| Safari | ![Other user profile](documentation/testing/browser-compatibility/safari_other_user_profile.png) | Works as expected |
+| Safari | ![Inbox](documentation/testing/browser-compatibility/safari_inbox.png) | Works as expected |
+| Safari | ![New message](documentation/testing/browser-compatibility/safari_new_msg.png) | Works as expected |
 
 ## Responsiveness
 
@@ -376,67 +379,217 @@ I have conducted a series of automated tests on my application.
 I fully acknowledge and understand that, in a real-world scenario, an extensive set of additional tests would be more comprehensive.
 
 ### Python (Unit Testing)
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Adjust the code below (file names, etc.) to match your own project files/folders.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 I have used Django's built-in unit testing framework to test the application functionality.
 
 In order to run the tests, I ran the following command in the terminal each time:
 
 `python3 manage.py test name-of-app `
 
-To create the coverage report, I would then run the following commands:
+![Unittests](documentation/testing/python/unittests.png)
 
-`coverage run --source=name-of-app manage.py test`
+The unittests run for the project are listed below, seperated by Django app and file (models or views)
 
-`coverage report`
+For **app_user** app:
+**views.py**
 
-To see the HTML version of the reports, and find out whether some pieces of code were missing, I ran the following commands:
+| Function Tested  | Function Type  |  Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|
+| User Registration  | get   | Starting number of users is 0  | self.assertEqual(User.objects.count(), 0)  | pass  |
+|   |    | registration page loads successfully  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |    | correct template is used for registration  | self.assertTemplateUsed(response, "app_user/register.html")  | pass  |
+|   | post   | redirection following registration  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |    | user redirected correctly to user profile after signing up  | self.assertRedirects(response, "/user/profile/")  | pass  |
+|   |    | user was added to the database  | self.assertEqual(User.objects.count(), 1)  | pass  |
+|   |    | user logged in and authenticated after signup  | self.assertTrue(newly_created_user.is_authenticated)  | pass  |
+|   |    | signup date is correctly added  | self.assertTrue(newly_created_user.date_joined, datetime.now())  | pass  |
+|   |    | no new user was created if incorrect credentials supplied  | self.assertEqual(User.objects.count(), 0)  | pass  |
+|   |    | browser rerenders the form for submission again  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |    | browser rerenders the form for submission again  | self.assertTemplateUsed(response, "app_user/register.html")  | pass  |
+| User login  | get  |  login form successfully loaded  |  self.assertEqual(response.status_code, 200) | pass  |
+|   |   |  login template used  | self.assertTemplateUsed(response, "account/login.html")  | pass  |
+|   |   | user is authenticated following login  | self.assertTrue(test_user.is_authenticated)  | pass  |
 
-`coverage html`
+**models.py**
+| Model Tested  | Function Type  |  Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|
+| user model  |    | `__str__` method  | self.assertEqual(str(self.user), "<user: testuser>")  | pass  |
+|   |    | `to_json` method  | self.assertEqual(self.user.to_json(), expected_output)  | pass  |
+|   |    | user profile picture uploaded  | self.assertEqual(profile_picture.profile_picture, cloudinary_field_mock.return_value)  | pass  |
+| project model  |    | `__str__` method project 1 | self.assertEqual(str(self.project1), "<Project name: Test Project 1>")  | pass  |
+|   |    | `__str__` method project 2  | self.assertEqual(str(self.project2), "<Project name: Test Project 2>")  | pass  |
+|   |    | project 1 user count = 1  | self.assertEqual(self.project1.user.count(), 1)  | pass  |
+|   |    | project 1 p language count = 1  | self.assertEqual(self.project1.p_language.count(), 1)  | pass  |
+|   |    | project 2 user count = 2  | self.assertEqual(self.project2.user.count(), 2)  | pass  |
+|   |    | project 2 p language count = 2  | self.assertEqual(self.project2.p_language.count(), 2)  | pass  |
+|   |    | project picture upload  | self.assertEqual(project_picture.project_picture, cloudinary_field_mock.return_value)  | pass  |
 
-`python3 -m http.server`
 
-Below are the results from the various apps on my application that I've tested:
+For **app_home** app:
+**views.py**
+Home and about views
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| Home view  | get  | not logged in  | correct template used| self.assertTemplateUsed(template)  | pass  |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, "Please log in to continue")  | pass  |
+|   |   | logged in user  | correct template used |  self.assertTemplateUsed(template)  | pass  |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | Response doesn't contain... |  self.assertNotContains(response, "Please log in to continue")  | pass  |
+| About view  | get  | any  | correct template used |  self.assertTemplateUsed(template)  | pass  |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
 
-| App | File | Coverage | Screenshot |
-| --- | --- | --- | --- |
-| Bag | test_forms.py | 99% | ![screenshot](documentation/py-test-bag-forms.png) |
-| Bag | test_models.py | 89% | ![screenshot](documentation/py-test-bag-models.png) |
-| Bag | test_urls.py | 100% | ![screenshot](documentation/py-test-bag-urls.png) |
-| Bag | test_views.py | 71% | ![screenshot](documentation/py-test-bag-views.png) |
-| Checkout | test_forms.py | 99% | ![screenshot](documentation/py-test-checkout-forms.png) |
-| Checkout | test_models.py | 89% | ![screenshot](documentation/py-test-checkout-models.png) |
-| Checkout | test_urls.py | 100% | ![screenshot](documentation/py-test-checkout-urls.png) |
-| Checkout | test_views.py | 71% | ![screenshot](documentation/py-test-checkout-views.png) |
-| Home | test_forms.py | 99% | ![screenshot](documentation/py-test-home-forms.png) |
-| Home | test_models.py | 89% | ![screenshot](documentation/py-test-home-models.png) |
-| Home | test_urls.py | 100% | ![screenshot](documentation/py-test-home-urls.png) |
-| Home | test_views.py | 71% | ![screenshot](documentation/py-test-home-views.png) |
-| Products | test_forms.py | 99% | ![screenshot](documentation/py-test-products-forms.png) |
-| Products | test_models.py | 89% | ![screenshot](documentation/py-test-products-models.png) |
-| Products | test_urls.py | 100% | ![screenshot](documentation/py-test-products-urls.png) |
-| Products | test_views.py | 71% | ![screenshot](documentation/py-test-products-views.png) |
-| Profiles | test_forms.py | 99% | ![screenshot](documentation/py-test-profiles-forms.png) |
-| Profiles | test_models.py | 89% | ![screenshot](documentation/py-test-profiles-models.png) |
-| Profiles | test_urls.py | 100% | ![screenshot](documentation/py-test-profiles-urls.png) |
-| Profiles | test_views.py | 71% | ![screenshot](documentation/py-test-profiles-views.png) |
-| x | x | x | repeat for all remaining tested apps/files |
+
+View other users
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| Developer Overview page  | get  | not logged in  | correct template used |  self.assertTemplateUsed(template)  | pass  |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, "Please log in or register to see the Developer Overview")  | pass  |
+|   |   | logged in user  | correct template used |  self.assertTemplateUsed(template)  | pass  |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | Response doesn't contain... |  self.assertNotContains(response, "Please log in or register to see the Developer Overview")  | pass  |
+| Profile detail view (successful)  | get  | not logged in  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   |  redirection url |  self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | logged in user  | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used |  self.assertTemplateUsed(response, template)  | pass  |
+|   |   |   | check response contains user1 |  self.assertEqual(response.context["user"], self.user1)  | pass  |
+|   |   |   | check response contains user2 |  self.assertEqual(response.context["user_for_profile"], self.user2)  | pass  |
+| Profile detail view (profile does not exist)  | get  | logged in  | status code 404 (not found) |  self.assertEqual(response.status_code, 404)  | pass  |
+
+View projects
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| View project overview  | get  | not logged in  | correct template used |  self.assertTemplateUsed(template)  |   |
+|   |   |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  |   |
+|   |   |   | Response contains... |  self.assertContains(response, "Please log in or register to see projects")  | pass  |
+|   |   | logged in user  | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used |  self.assertTemplateUsed(response, template)  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, self.project1.title)  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, self.project2.title)  | pass  |
+| View project overview (no projects)  | get  |   | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used |  self.assertTemplateUsed(response, template)  | pass  |
+|   |   |   | Response doesn't contain... |  self.assertNotContains(response, self.project1.title)  | pass  |
+|   |   |   | Response doesn't contain... |  self.assertNotContains(response, self.project2.title)  | pass  |
+| View project details  | get  | not logged in  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | redirection url |  self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | user logged in  | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used |  self.assertTemplateUsed(response, template)  | pass  |
+|   |   |   | Response contains... |  self.assertContains(response, self.project1.title)  | pass  |
+| View project details (project does not exist)  | get  | logged in user  | status code 404 (not found) |  self.assertEqual(response.status_code, 404)  | pass  |
+
+Create a new project
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| Create project  | get (get form)  | not logged in  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | redirection url |  self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | logged in user  | status code 200 (success) |  self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used |  self.assertTemplateUsed(response, template)  | pass  |
+| Create project  | post (valid)  | logged in user  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | project count increased by 1 |  self.assertEqual(Project.objects.count(), project_count + 1)  | pass  |
+|   |   |   | new project title = "ProjectTitle3" |  self.assertEqual(Project.objects.last().title, "ProjectTitle3")  | pass  |
+|   |   |   | new project contains lang 1 and 2|  self.assertCountEqual(Project.objects.last().p_language.all(),[self.language1, self.language2],)  | pass  |
+|   |   |   | new project belongs to user 1|  self.assertEqual(Project.objects.last().user.last(), self.user1)  | pass  |
+| Create project  | post (invalid)  | logged in user  | status code 302 (redirect) |  self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | project count has not increased |  self.assertEqual(Project.objects.count(), project_count)  | pass  |
+
+
+Edit a project
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| Edit project  | get (form) | not logged in  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | redirection url  | self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | logged in (project owner)  | status code 200 (success)  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used  | self.assertTemplateUsed(response, template)  | pass  |
+| Edit project  | post (valid)  | project owner  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | # projects has not changed  | self.assertEqual(Project.objects.count(), project_count)  | pass  |
+|   |   |   | title is updated  | self.assertEqual(Project.objects.get(pk=self.project1.pk).title, "CHANGED TITLE!")  | pass  |
+|   |   |   | description is updated  | self.assertEqual(Project.objects.get(pk=self.project1.pk).description,"CHANGED Project description3",)  | pass  |
+|   |   |   | correct languages are saved  | self.assertCountEqual(Project.objects.get(pk=self.project1.pk).p_language.all(),[self.language1, self.language2],)  | pass  |
+| Edit project  | post (invalid)  | project owner  | status code 200 (success)  | self.assertEqual(response.status_code, 200)  | pass  |
+|   |   |   | correct template used  | self.assertTemplateUsed(response, template)  | pass  |
+|   |   |   | # projects has not changed  | self.assertEqual(Project.objects.count(), project_count)  | pass  |
+|   |   |   | title is unchanged  | self.assertEqual(Project.objects.get(pk=self.project2.pk).title, self.project2.title)  | pass  |
+|   |   |   | description is unchanged  | self.assertEqual(Project.objects.get(pk=self.project2.pk).description,self.project2.description)  | pass  |
+|   |   |   |  p langs are unchanged  | self.assertCountEqual(Project.objects.get(pk=self.project2.pk).p_language.all(),self.project2.p_language.all())  | pass  |
+
+Delete a project
+| Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
+|---|---|---|---|---|---|
+| Delete project  | get | not logged in   | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | redirection url  | self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | project owner  |  # projects has decreased by 1  | self.assertEqual(Project.objects.count(), project_count - 1)  | pass  |
+|   |   |   | project 1 is no longer first in project list  | self.assertNotEqual(Project.objects.first(), self.project1)  | pass  |
+|   |   |   | project 2 is now first in project list  | self.assertEqual(Project.objects.first(), self.project2)  | pass  |
+
+
+Add project picture
+
+| Function Tested | Function Type | Status | Testing for.. | Assert Statement | Pass |
+|---|---|---|---|---|---|
+| Add project picture  | get  | not logged in  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | redirection url  |  self.assertRedirects(response, f"/user/login/?next={url}") | pass  |
+|   |   | project owner logged in  |   | self.assertEqual(response.status_code, 200)  | pass  |
+|   |   | status code 200 (success)  | correct template used  | self.assertTemplateUsed(response, template)  | pass  |
+|   | post (with mock)  | project owner  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
+|   |   |   | # pics increased by 1  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)  | pass  |
 
 #### Unit Test Issues
+The following unittest was implemented for testing the deletion of a project picture.
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
 
-Use this section to list any known issues you ran into while writing your unit tests.
-Remember to include screenshots (where possible), and a solution to the issue (if known).
+```python
+    @mock.patch("cloudinary.uploader.upload")
+    def test_delete_project_picture_post(self, mock_uploader_upload):
+        # logging in project owner
+        self.client.force_login(self.user1)
 
-This can be used for both "fixed" and "unresolved" issues.
+        # setup - add a mocked picture
+        template = "app_home/project_picture.html"
+        url = reverse(
+            "app_home:add-project-pic", kwargs={"pk": self.project1.pk}
+        )
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+        # number of pics before upload
+        no_pics = len(self.project1.project_pic.all())
+        # mocking
+        mock_uploader_upload = "picture.jpg"
+        # define URL & image
+        mocked_picture = SimpleUploadedFile(
+            "picture.jpg", b"file_content", content_type="image/jpeg"
+        )
+        # add the mocked picture to the project
+        response = self.client.post(url, {"project_picture": mocked_picture})
+
+        # check that mocked picture is set
+        self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)
+        picture_object = self.project1.project_pic.get(project=self.project1.pk)
+
+        # now delete the mocked picture
+        template = "app_home/project_picture.html"
+        url = reverse(
+            "app_home:delete-project-pic", kwargs={"pk": picture_object.pk}
+        )
+        response = self.client.get(url)
+        # test that the picture is deleted
+        self.assertEqual(len(self.project1.project_pic.all()), no_pics)
+
+```
+
+Throughout development, this test was working, however, at some later point it was returning the error `IndexError: list index out of range` in reference to the `picture_object = self.project1.project_pic.get(project=self.project1.pk)` variable assignment.
+
+![Index out of range](documentation/testing/python/unittests-with-fail.png)
+
+It is unclear why this error should be thrown, and when investigating using a breakpoint, the `self.project1.project_pic.get(project=self.project1.pk)` variable is correctly accessible.
+
+![Testing with breakpoint](documentation/testing/python/test_with_breakpoint.png)
+
+ Delete project picture
+
+| Function Tested | Function Type | Status | Testing for.. | Assert Statement  |
+|---|---|---|---|---|
+| Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)    |
+|   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)    |
+
 
 ## Bugs
 ### GitHub **Issues**
