@@ -14,7 +14,7 @@
             <h2>Recieved messages:</h2>
             <table class="table">
                 <tr>
-                    <th class="sm-hidden-table white-text">Picture</th>
+                    <th class="sm-hidden-table table-cell-text">Thumbnail</th>
                     <th class="table-cell-text">From</th>
                     <th class="table-cell-text">Title</th>
                     <th class="table-cell-text">Date recieved</th>
@@ -24,9 +24,9 @@
                 <tr>
                     <td class="align-middle sm-hidden">
                         <div class="square-container-small">
-                            <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}">
+                            <!-- <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="square-img"> -->
                                 <img src="{{ msg.user_sender.profile_pic.values.0.profile_picture.url }}" alt="{{ msg.user_sender.username }}'s profile picture" class="square-img">
-                            </a>
+                            <!-- </a> -->
                         </div>
                     </td>
                     <td class="align-middle"><a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="table-cell-text">{{ msg.user_sender.username }}</a></td>
@@ -62,9 +62,9 @@
             <nav aria-label="Page navigation" class="small-margin">
                 <ul class="pagination justify-content-center">
                     {% if msgs.has_previous %}
-                    <li class="page-item"><a class="page-link dark-text" href="?page={{ msgs.previous_page_number }}">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link dark-text" href="?page={{ msgs.previous_page_number }}">&laquo; Previous</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo; Previous</a></li>
                     {% endif %}
                     {% for n in p_nums %}
                     {% if msgs.number == forloop.counter %}
@@ -75,9 +75,9 @@
                     {% endfor %}
                     
                     {% if msgs.has_next %}
-                    <li class="page-item"><a class="page-link dark-text" href="?page= {{ msgs.next_page_number }}">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link dark-text" href="?page= {{ msgs.next_page_number }}">Next &raquo;</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo;</a></li>
                     {% endif %}
                 </ul>
             </nav>

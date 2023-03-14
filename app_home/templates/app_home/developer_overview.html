@@ -48,9 +48,9 @@
     <nav aria-label="Page navigation" class="small-margin">
         <ul class="pagination justify-content-center">
             {% if users.has_previous %}
-            <li class="page-item"><a class="page-link dark-text" href="?page={{ users.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
+            <li class="page-item"><a class="page-link dark-text" href="?page={{ users.previous_page_number }}{{ href_filter }}">&laquo; Previous</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo Previous</a></li>
+            <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo; Previous</a></li>
             {% endif %}
             {% for n in p_nums %}
             {% if users.number == forloop.counter %}
@@ -61,9 +61,9 @@
             {% endfor %}
             
             {% if users.has_next %}
-            <li class="page-item"><a class="page-link dark-text" href="?page= {{ users.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
+            <li class="page-item"><a class="page-link dark-text" href="?page={{ users.next_page_number }}{{ href_filter }}">Next &raquo;</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo</a></li>
+            <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>

@@ -14,7 +14,7 @@
             <h2>Sent messages:</h2>
             <table class="table">
                 <tr>
-                    <th class="sm-hidden-table white-text"></th>
+                    <th class="sm-hidden-table table-cell-text">Thumbnail</th>
                     <th class="table-cell-text">To</th>
                     <th class="table-cell-text">Title</th>
                     <th class="table-cell-text">Date sent</th>
@@ -35,30 +35,29 @@
                     <td class="align-middle small-text">{{ msg.sent_date }}</td>
                     <td class="align-middle"><a href="{% url 'app_user:edit_message' msg.pk %}" class="btn sm-hidden-table"><i class="fa-solid fa-pencil"></i></a></td>
                     <td class="align-middle"><button class="btn sm-hidden-table" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
-                </tr>
-
-                <!-- Modal for delete message button -->
-                <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
-                <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteMsgModalLabel">Are you sure?</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>This action will delete the message for both you and the other user!</p>
-                                <p>This action is IRREVERSIBLE. Are you sure?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                            <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete Message</a>
+                    <!-- Modal for delete message button -->
+                    <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
+                    <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteMsgModalLabel">Are you sure?</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>This action will delete the message for both you and the other user!</p>
+                                    <p>This action is IRREVERSIBLE. Are you sure?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
+                                <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete Message</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </tr>
                 {% endfor %}
             </table>
 
@@ -66,9 +65,9 @@
             <nav aria-label="Page navigation" class="small-margin">
                 <ul class="pagination justify-content-center">
                     {% if msgs.has_previous %}
-                    <li class="page-item"><a class="page-link dark-text" href="?page={{ msgs.previous_page_number }}">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link dark-text" href="?page={{ msgs.previous_page_number }}">&laquo; Previous</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link dark-text disabled" href="#">&laquo; Previous</a></li>
                     {% endif %}
                     {% for n in p_nums %}
                     {% if msgs.number == forloop.counter %}
@@ -79,9 +78,9 @@
                     {% endfor %}
                     
                     {% if msgs.has_next %}
-                    <li class="page-item"><a class="page-link dark-text" href="?page= {{ msgs.next_page_number }}">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link dark-text" href="?page={{ msgs.next_page_number }}">Next &raquo;</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link dark-text disabled" href="#">Next &raquo;</a></li>
                     {% endif %}
                 </ul>
             </nav>

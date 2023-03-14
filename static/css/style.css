@@ -14,6 +14,7 @@
 
 body {
     color: #000;
+    padding: 0;
 }
 h3 {
     color: #000;
@@ -84,9 +85,9 @@ a {
     padding-top: 140px;
 }
 
-/* .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255,255,255,0.8);
-} */
+.nav-x {
+    overflow-x: hidden;
+}
 
 .logo-container {
     /* background-color: #96E0CE; */
@@ -198,14 +199,14 @@ a {
 }
 
 .square-container-small {
-    display: none;
+    visibility: hidden;
 }
 .sm-hidden {
-    display:none;
+    visibility: hidden;
 }
 
 .sm-hidden-table {
-    display:none;
+    visibility: hidden;
 }
 @media screen and (min-width:768px){
     .square-container {
@@ -213,10 +214,10 @@ a {
         height: 400px;
     }
     .sm-hidden {
-        display:contents;
+        visibility: visible;
     }
     .sm-hidden-table{
-        display:table-cell;
+        visibility: visible;
     }
 }
 
@@ -230,9 +231,10 @@ a {
         margin: 0 auto;
     }
     .square-container-small {
-    width: 80px;
-    height: 80px;
-    margin: 5px auto;
+        visibility: visible;
+        width: 80px;
+        height: 80px;
+        margin: 5px auto;
     }
 }
 
