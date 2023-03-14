@@ -22,13 +22,13 @@
         </div>
         <!-- Modal for delete picture button -->
         <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
-        <div class="modal fade" id="deletePicModal-{{ picture.id }}" tabindex="-1" role="dialog" aria-labelledby="deletePicModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deletePicModal-{{ picture.id }}" tabindex="-1" role="dialog" aria-labelledby="deletePicModalLabel-{{ picture.id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deletePicModalLabel">Are you sure?</h5>
+                        <h5 class="modal-title" id="deletePicModalLabel-{{ picture.id }}">Are you sure?</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
+                            <span id="close-pic-modal-span-{{ picture.id }}" aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                    <a href="{% url 'app_home:delete-project-pic' picture.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete my Picture</a>
+                    <a href="{% url 'app_home:delete-project-pic' picture.id %}" class="btn btn-danger" id="confirm-pic-delete-{{ picture.id }}">Delete my Picture</a>
                     </div>
                 </div>
             </div>

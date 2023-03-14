@@ -20,7 +20,7 @@
             <h1 class="text-center">Message from {{ msg.user_sender.username }}</h1>
             <p><strong>Title:</strong> {{ msg.title }}</p>
             <p><strong>Message:</strong> {{ msg.message }}
-                {% if msg.edited %} <em class="small-txt">  edited</em> {% endif %}</p></p>
+                {% if msg.edited %} <em class="small-txt">  edited</em> {% endif %}</p>
             <p><strong>Received:</strong> {{ msg.sent_date }}</p>
             <a href="{% url 'app_user:add_message' msg.user_sender.pk %}" class="btn btn-primary small-margin-top"><i class="fa-regular fa-envelope"></i> Reply</a>
             <br>

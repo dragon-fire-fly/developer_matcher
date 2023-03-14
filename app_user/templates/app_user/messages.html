@@ -24,38 +24,39 @@
                 <tr>
                     <td class="align-middle sm-hidden">
                         <div class="square-container-small">
-                            <!-- <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="square-img"> -->
+                            <a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="square-img">
                                 <img src="{{ msg.user_sender.profile_pic.values.0.profile_picture.url }}" alt="{{ msg.user_sender.username }}'s profile picture" class="square-img">
-                            <!-- </a> -->
+                            </a>
                         </div>
                     </td>
                     <td class="align-middle"><a href="{% url 'app_home:profile-detail-view' msg.user_sender.pk %}" class="table-cell-text">{{ msg.user_sender.username }}</a></td>
                     <td class="align-middle"><a href="{% url 'app_user:individual_msg' msg.pk %}" class="table-cell-text">{{ msg.title }}</a></td>
                     <td class="align-middle small-text">{{ msg.sent_date }}</td>
-                    <td class="align-middle"><a class="btn sm-hidden" style="color:#C63D17" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></a></td>
-                </tr>
-                <!-- Modal for delete message button -->
-                <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
-                <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteMsgModalLabel">Are you sure?</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>This action will delete the message for both you and the other user!</p>
-                                <p>This action is IRREVERSIBLE. Are you sure?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                            <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete Message</a>
+                    <td class="align-middle"><a class="btn sm-hidden" style="color:#C63D17" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></a>
+                        <!-- Modal for delete message button -->
+                        <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
+                        <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteMsgModalLabel-{{ msg.id }}">Are you sure?</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span id="close-pic-modal-span-{{ msg.id }}" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>This action will delete the message for both you and the other user!</p>
+                                        <p>This action is IRREVERSIBLE. Are you sure?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
+                                        <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete-{{ msg.id }}">Delete Message</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </td>
+                </tr>
                 {% endfor %}
             </table>
             <!-- Pagination -->
