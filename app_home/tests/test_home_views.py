@@ -432,4 +432,3 @@ class TestAppHomeViews(TestCase):
         self.assertEqual(response.status_code, 302)
         # number of project pictures is increased by 1
         self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)
-
