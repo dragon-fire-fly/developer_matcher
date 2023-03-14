@@ -34,29 +34,30 @@
                     <td class="align-middle"><a href="{% url 'app_user:individual_msg' msg.pk %}" class="table-cell-text">{{ msg.title }}</a></td>
                     <td class="align-middle small-text">{{ msg.sent_date }}</td>
                     <td class="align-middle"><a href="{% url 'app_user:edit_message' msg.pk %}" class="btn sm-hidden-table"><i class="fa-solid fa-pencil"></i></a></td>
-                    <td class="align-middle"><button class="btn sm-hidden-table" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button></td>
-                    <!-- Modal for delete message button -->
-                    <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
-                    <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteMsgModalLabel">Are you sure?</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                        <span id="close-pic-modal-span" aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>This action will delete the message for both you and the other user!</p>
-                                    <p>This action is IRREVERSIBLE. Are you sure?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
-                                <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete">Delete Message</a>
+                    <td class="align-middle"><button class="btn sm-hidden-table" style="color: #C63D17;" data-bs-toggle="modal" data-bs-target="#deleteMsgModal-{{ msg.id }}"><i class="fa-solid fa-trash-can"></i></button>
+                        <!-- Modal for delete message button -->
+                        <!-- Modified from https://getbootstrap.com/docs/5.0/components/modal/ -->
+                        <div class="modal fade" id="deleteMsgModal-{{ msg.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteMsgModalLabel-{{ msg.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteMsgModalLabel-{{ msg.id }}">Are you sure?</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span id="close-pic-modal-span-{{ msg.id }}" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>This action will delete the message for both you and the other user!</p>
+                                        <p>This action is IRREVERSIBLE. Are you sure?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" class="btn btn-primary" data-bs-dismiss="modal">Cancel</a>
+                                    <a href="{% url 'app_user:delete_message' msg.id %}" class="btn btn-danger" id="confirm-pic-delete-{{ msg.id }}">Delete Message</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
