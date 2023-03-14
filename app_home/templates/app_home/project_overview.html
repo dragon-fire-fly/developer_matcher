@@ -57,9 +57,9 @@
             <nav aria-label="Page navigation" class="small-margin">
                 <ul class="pagination justify-content-center">
                     {% if projects.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ projects.previous_page_number }}{{ href_filter }}">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ projects.previous_page_number }}{{ href_filter }}">&laquo; Previous</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link disabled" href="#">&laquo Previous</a></li>
+                    <li class="page-item"><a class="page-link disabled" href="#">&laquo; Previous</a></li>
                     {% endif %}
                     {% for n in p_nums %}
                     {% if projects.number == forloop.counter %}
@@ -70,9 +70,9 @@
                     {% endfor %}
                     
                     {% if projects.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page= {{ projects.next_page_number }}{{ href_filter }}">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ projects.next_page_number }}{{ href_filter }}">Next &raquo;</a></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link disabled" href="#">Next &raquo</a></li>
+                    <li class="page-item"><a class="page-link disabled" href="#">Next &raquo;</a></li>
                     {% endif %}
                 </ul>
             </nav>
