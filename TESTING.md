@@ -228,24 +228,6 @@ One example is provided below:
 ![Developer overview page](documentation/features/developer-overview-page.png)
 
 ## Lighthouse Audit
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to discuss testing the live/deployed site's Lighthouse Audit reports.
-Avoid testing the local version (especially if developing in Gitpod), as this can have knock-on effects of performance.
-
-If you don't have Lighthouse in your Developer Tools,
-it can be added as an [extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk).
-
-Don't just test the home page (unless it's a single-page application).
-Make sure to test the Lighthouse Audit results for all of your pages.
-
-**IMPORTANT**: You must provide screenshots of the results, to "prove" that you've actually tested them.
-
-Sample Lighthouse testing documentation:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
 All scores came back with a score of at least 50, in many cases much higher than this. Most of the reasons for lower scores were due to the presence of user uploaded large image files that are not properly scaled or next-gen fomet (e.g. WebP). The pictures used for sample user accounts and projects were not updated as this would not be representative of genuine user uploaded pictures and thus would artificially skew the lighthouse scores. In the future, an image uploader could be used to convert user uploaded pictures to WebP format automatically before storage in the database.
 Another reason for the longer laoding time is the use of "Minty" from Bootswatch. This means that a lot of unused CSS must be loaded by the browser, lengthening loading times. By removing this Bootswatch theme and sticking to a simpler custom CSS file with use of the Bootstrap CDN delivery option. 
@@ -270,6 +252,21 @@ Overall, the lighthouse scores were deemed high enough for the minimum viable pr
 | Messages | ![Messages](documentation/testing/lighthouse/messages.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | New message | ![New message](documentation/testing/lighthouse/new-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | Edit message | ![Edit message](documentation/testing/lighthouse/edit-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+
+## Accessibility
+Accessibility of websites is extremely important so that users from all backgrounds can enjoy a website. Good website accessibility includes easy to read text (with a good contrast between text and background) as well as appropriately labelling elements so they may be read by screen reader technology.
+
+### Eightshapes
+Contrast between the colours used in this project were assessed using an [eight-shapes contrast grid](https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23FFFFFF%2C%20White%0D%0A%23000%0D%0A%235A5A5A%0D%0A%2378C2AD%0D%0A%23F3969A%0D%0A%23C63D17%0D%0A%23FFCE67%0D%0A%23006400&es-color-form__tile-size=compact&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp). This gives a rating to show whether two colours are suitable to use together in terms of accessibility. If the rating is less than 4.5 (AA rating), the colour combination should not be used to display text on background (unless the text is very large). A combination with a rating of less than 3 (AA18 rating) should never be used.  
+
+![Eight shapes grid](documentation/testing/accessibility/eight-shapes-grid.png)  
+Following this assessment, many of the colour combinations on the site were changed to improve the contrast and make the site more accessible. In most cases, this resulted in white text being changed to dark grey or black. Some examples are shown below:  
+![Improved contrast](documentation/testing/accessibility/improved-contrast.png)
+
+
+### WAVE Accessibility Testing
+
+
 
 ## Defensive Programming
 
@@ -349,28 +346,12 @@ The aforementioned tests are just an example of a few different project scenario
 
 ## User Story Testing
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+Each of the User Stories mentioned in the [README.md](README.md) file were tested to ensure correct functionality and complete implementation of the User Story.
 
-Testing user stories is actually quite simple, once you've already got the stories defined on your README.
+[User Story testing](https://docs.google.com/spreadsheets/d/1gGXyeVyqV9Qn-6OWgzcTl8FbropnZFla_UFe-G648LY/edit#gid=0) is linked here in an external Google sheet.
 
-Most of your project's **features** should already align with the **user stories**,
-so this should as simple as creating a table with the user story, matching with the re-used screenshot
-from the respective feature.
+For each User Story, the Epic to which the User Story belongs is listed along with the user story number, the title of the User Story, it's MoSCow prioritation and each of the acceptance criteria for the User Story. There is then a column each for whether the feature was implemented and (if implemented) whether it is working correctly. There is also a screenshot where relevant to demonstrate the implementation of the User Sotry.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-| User Story | Screenshot |
-| --- | --- |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature01.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature02.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature03.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature04.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature05.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature06.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature07.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature08.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature09.png) |
-| repeat for all remaining user stories | x |
 
 ## Automated Testing
 
@@ -590,6 +571,27 @@ It is unclear why this error should be thrown, and when investigating using a br
 | Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)    |
 |   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)    |
 
+### GitHub CI
+For this project, a [Continuous Integration (CI) workflow](https://github.com/dragon-fire-fly/developer_matcher/actions) was implemented using GitHub Actions. This means that the requested tests may be run on the project each time a push or a pull request is performed. The specifics of the CI workflow can be found in the [ci.yml file in the project](https://github.com/dragon-fire-fly/developer_matcher/blob/main/.github/workflows/ci.yml). The CI performs 15 steps including importing requirements, making relevant database migrations, performing unittests and performing a pep8 compliance check using Black (with a custom line-length of 79 characters).
+
+Once set up, a CI worflow is extremely helpful for monitoring the quality of the code and ensuring that all unittests continue to run successfully when code is altered or added to.
+
+An example of a successful ci run is shown below:  
+![GitHub CI workflow run](documentation/testing/github_ci.png)
+
+Unfortunately, the CI appears unable to access the SECRET_KEY value stored in Github and therefore requires a hard coded SECRET_KEY in the settings.py file. This was accomplished throughout development with the following code:  
+```python
+if os.getenv("GITHUB_WORKFLOW"):
+    SECRET_KEY = (
+        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Chars"
+    )
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY", "")
+```
+
+This provided the real secret key value for the local and deployed version, but supplied a fake secret_key value to GitHub Actions. However, for official release, this was removed from the settings.py file. The database migrations therefore fail in the ci and the unittests and pep8 check cannot be run. To reinstate the GitHub CI, a secret key must be provided.
+
+![GitHub CI failed run](documentation/testing/github_ci_fail.png)
 
 ## Bugs
 ### GitHub **Issues**
