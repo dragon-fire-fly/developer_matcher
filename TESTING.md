@@ -307,25 +307,40 @@ Defensive programming was manually tested with the below user acceptance testing
 | --- | --- | --- | --- | --- |
 | Home Page | | | | |
 | | Click on Logo | Redirection to Home page | Pass | |
-| | Click on Home link in navbar | Redirection to Home page | Pass | |
-| Gallery Page | | | | |
-| | Click on Gallery link in navbar | Redirection to Gallery page | Pass | |
-| | Load gallery images | All images load as expected | Pass | |
-| Contact Page | | | | |
-| | Click on Contact link in navbar | Redirection to Contact page | Pass | |
-| | Enter first/last name | Field will accept freeform text | Pass | |
-| | Enter valid email address | Field will only accept email address format | Pass | |
-| | Enter message in textarea | Field will accept freeform text | Pass | |
-| | Click the Submit button | Redirects user to form-dump | Pass | User must click 'Back' button to return |
+| | Click on sign up button | Redirection to registration page | Pass | |
+| | Click on sign in button | Redirection to sign in page | Pass | |
+| Developer Search Page | | | | |
+| | Click on Developer Search link in navbar | Redirection to Developer Overview page | Pass | |
+| | Click "next" page | Redirected to page 2 of the Developer overview | Pass | |
+| | Click page "2" | Redirected to page 2 of the Developer overview | Pass | |
+| | Click "previous" page on page 1 | No redirection occurs as this button is disabled | Pass | |
+| | Click page "2" | Redirected to page 2 of the Developer overview | Pass | |
+| | Click on name of individual user | Redirected to that user's profile | Pass | |
+| | Submit a filter query | The users are filtered to only those who contain all the specified programming languages | Pass | |
+| Project Search Page | | | | |
+| | Click on Project Search link in navbar | Redirection to Project Search page | Pass | |
+| | Click "next" page | Redirected to page 2 of the Project overview | Pass | |
+| | Click page "2" | Redirected to page 2 of the Project overview | Pass | |
+| | Click "previous" page on page 1 | No redirection occurs as this button is disabled | Pass | |
+| | Click on name of individual project | Redirected to that project page | Pass | |
+| | Submit a filter query | The projects are filtered to only those who contain all the specified programming languages | Pass | |
+| | Click the "Create a New Project" button | Redirection to new project creation form | Pass | |
+| | Select programming languages | Multiple choices may be selected by holding Ctrl or Shift | Pass | |
+| | Enter valid title | Field will accept text up to 100 chars, then stops more chars being typed. Will return an error if project title is already taken (case sensitive) or if title contains a profanity | Pass | |
+| | Enter description in textarea | Field will accept freeform text, optional | Pass | |
+| | Click the Submit button | Redirects user to project overview page | Pass | |
+| | Click the "Edit Project" button on user's own individual project | Redirects user to project edit form | Pass | |
+ | Brute forcing the URL to edit another user's project | The project ID is in the url, but if the logged in user is not the project owner, they are redirected back to the project overview page | Pass | |
+  | Brute forcing the HTML to delete another user's project | The ID used for project deletion may be manipulated by viewing page source and changing the value in the deletion modal. However, if the logged in user is not the project owner, the project is not deleted and the user is returned to the project overview page. | Pass | |
 | Sign Up | | | | |
 | | Click on Sign Up button | Redirection to Sign Up page | Pass | |
+| | Enter valid username | Field will accept up to 150 chars, no duplicates to an existing user (case sensitive) and no profanities | Pass | |
 | | Enter valid email address | Field will only accept email address format | Pass | |
 | | Enter valid password (twice) | Field will only accept password format | Pass | |
-| | Click on Sign Up button | Asks user to confirm email page | Pass | Email sent to user |
-| | Confirm email | Redirects user to blank Sign In page | Pass | |
+| | Click on Sign Up button | Signs user in and redirects to home page | Pass | |
 | Log In | | | | |
 | | Click on the Login link | Redirection to Login page | Pass | |
-| | Enter valid email address | Field will only accept email address format | Pass | |
+| | Enter valid username | Field will accept freeform text  | Pass | |
 | | Enter valid password | Field will only accept password format | Pass | |
 | | Click Login button | Redirects user to home page | Pass | |
 | Log Out | | | | |
@@ -334,8 +349,10 @@ Defensive programming was manually tested with the below user acceptance testing
 | Profile | | | | |
 | | Click on Profile button | User will be redirected to the Profile page | Pass | |
 | | Click on the Edit button | User will be redirected to the edit profile page | Pass | |
-| | Click on the My Orders link | User will be redirected to the My Orders page | Pass | |
-| | Brute forcing the URL to get to another user's profile | User should be given an error | Pass | Redirects user back to own profile |
+| | Click on the My Messages link | User will be redirected to the My Messages page | Pass | |
+| | Brute forcing the URL to get to another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass | R |
+| | Brute forcing the URL to edit another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass |  |
+| | Brute forcing the URL to delete another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass |  |
 
 ⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
 

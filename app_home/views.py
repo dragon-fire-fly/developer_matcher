@@ -216,13 +216,13 @@ class EditProjectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
-        # if project.user.get() != request.user:
-        #     return redirect("app_home:project-overview")
-        # else:
-        context = {
-            "project": project,
-            "form": ProjectEditForm(instance=project),
-        }
+        if project.user.get() != request.user:
+            return redirect("app_home:project-overview")
+        else:
+            context = {
+                "project": project,
+                "form": ProjectEditForm(instance=project),
+            }
 
         return render(request, "app_home/edit_project.html", context)
 
@@ -276,14 +276,17 @@ class DeleteProjectView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         project = get_object_or_404(Project, pk=kwargs["pk"])
-        if project:
-            project.delete()
-            messages.success(request, "Project successfully deleted!")
+        if project.user.get() != request.user:
+            return redirect("app_home:project-overview")
         else:
-            messages.error(
-                request, "Project could not be deleted. Please try again."
-            )
-        return redirect(reverse("app_home:project-overview"))
+            if project:
+                project.delete()
+                messages.success(request, "Project successfully deleted!")
+            else:
+                messages.error(
+                    request, "Project could not be deleted. Please try again."
+                )
+            return redirect(reverse("app_home:project-overview"))
 
 
 class AddProjectPicture(LoginRequiredMixin, TemplateView):
