@@ -349,28 +349,12 @@ The aforementioned tests are just an example of a few different project scenario
 
 ## User Story Testing
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+Each of the User Stories mentioned in the [README.md](README.md) file were tested to ensure correct functionality and complete implementation of the User Story.
 
-Testing user stories is actually quite simple, once you've already got the stories defined on your README.
+[Userstory testing](https://docs.google.com/spreadsheets/d/1gGXyeVyqV9Qn-6OWgzcTl8FbropnZFla_UFe-G648LY/edit#gid=0) is linked here in an external Google sheet.
 
-Most of your project's **features** should already align with the **user stories**,
-so this should as simple as creating a table with the user story, matching with the re-used screenshot
-from the respective feature.
+For each User Story, the Epic to which the User Story belongs is listed along with the user story number, the title of the User Story, it's MoSCow prioritation and each of the acceptance criteria for the User Story. There is then a column each for whether the feature was implemented and (if implemented) whether it is working correctly. There is also a screenshot where relevant to demonstrate the implementation of the User Sotry.
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-| User Story | Screenshot |
-| --- | --- |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature01.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature02.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature03.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature04.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature05.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature06.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature07.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature08.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature09.png) |
-| repeat for all remaining user stories | x |
 
 ## Automated Testing
 

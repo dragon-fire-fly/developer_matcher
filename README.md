@@ -143,39 +143,44 @@ Navbar (user not logged in)
 Navbar(user logged in)
 ![Navbar](documentation/features/navbar-logged-in.png)
 
-- **Homepage**
+- **Homepage**  
 
     - The homepage displays the "Developer Connect" logo and either "sign in" and "sign up" buttons, if no user is logged in, or hello ((username)) if a user is logged in
 
 ![Hompage](documentation//features/home-page.png)
 
-- **Registration page**
+- **Registration page**  
 
     - The registration page allows new users to register to the site. A form is provided which asks for desired username, e-mail address and a password, repeated twice. The constraints for password choice are displayed on the registration page. Users are informed if their chosen username is unavailable or unacceptable (see validation below).
+    Users may also register using their Google or Github account.
 
 ![Registration page](documentation/features/register-page.png)
+Social registration:  
+![Social sign ons](documentation/features/social_signins.png)
 
-- **Login page**
+- **Login page**  
 
     - The login page allows users who have registered on the site previously to log in with their credentials. There is also the option for a google or github log in.
 
 ![Login page](documentation/features/sign-in-page.png)
+Social sign in:  
+![Social sign ons](documentation/features/social_signins.png)
 
 
-- **Developer Overview Page**
+- **Developer Overview Page**  
 
     - The Developer Overview page displays all the users registered on the site, excluding the currently logged in user. 8 users are displayed per page (see pagination below for more details)
 
 ![Developer Overview Page](documentation/features/developer-overview-page.png)
 
 
-- **Project Overview Page**
+- **Project Overview Page**  
 
     - The Project Overview page displays all the projects made by users on the site (including any created by the logged in user). 4 projects are displayed per page (see pagination below for more details)
 
 ![Project Overview Page](documentation/features/project-overview-page.png)
 
-- **User Profile Page (logged in user)**
+- **User Profile Page (logged in user)**  
 
     - The User Profile page shows the profile for the currently logged in user and may be accessed through the dropdown menu on the right hand side of the nav bar (under the user's picture). The profile page shows all detaila of the user, including their e-mail address. 
     The user's primary profile picture is displayed in the centre of the screen and when clicked, navigates the user to the "add profile picture" page. If the user does not yet have a profile picture, a placeholder picture will be displayed, with text explaining that this is a placeholder piture and may be changed by clicking the photo and uploading a picture.
@@ -184,33 +189,38 @@ Navbar(user logged in)
 ![User Profile Page](documentation/features/profile-page.png)
 ![Placeholder picture](documentation/features/kitten-placeholder.png)
 
-- **Edit User Profile Page(logged in user)**
+- **Edit User Profile Page(logged in user)**  
 
     - Users can edit their profile by clicking "Edit" on their profile page. Only the logged in user may edit their profile. The user is taken to an edit form which is pre-filled with their existing data. If the user clicks "update", the data is updated, the user receives a notification message and they are redirected back to their profile page.
 
 ![Edit profile page](documentation/features/edit-profile-page.png)
 
-- **Delete User Account**
+- **Delete User Account**  
 
     - Users are able to delete their own account by clicking "delete" on their user profile. Only the logged in user may delete their account. Before account deletion occurs, the user is prompted with a confirmation modal to ensure they really want to delete their account and haven't clicked delete by mistake.
 
 ![Delete user account](documentation/features/delete-user-profile.png)
 
-- **Profile Picture Overview**
+- **Profile Picture Overview**  
 
     - When the user clicks on the picture on their User account (see 3 features up), they are taken the the profile picture overview page. From here they may upload new profile pictures or delete existing ones. The first uploaded picture becomes the profile picture displayed on their public profile and the thumbnail picture in the nav bar. Pictures are uploaded to [Cloudinary](https://cloudinary.com/) where they are stored and retreived and upon deletion, they are also deleted from Cloudinary.
 
 ![Profile Picture Overview page](documentation/features/profile-pic-overview.png)
 
 
-- **Profile Picture CRUD**
+- **Profile Picture CRUD**  
 
     - User profile pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a profile picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
 ![CRUD functions for profile pictures](documentation/features/crud-profile-pic.png)
 
 
-- **Project CRUD**
+- **Other User Profile**  
+    User profiles for users other than the logged in user may be viewed by the logged in user. Most of the details are the same as on the logged in user's own profile, but the e-mail address is omitted for privacy. The logged in user cannot edit or delete another user's account, nor add/remove photos from another user's profile, but they can send a message to the other user through their profile page by clicking the "Send message" button.
+![Individual profile of another user](documentation/features/individual-profile.png)
+
+
+- **Project CRUD**  
 
     - Projects have full "CRUD" functionality. A user can create (upload) a new project, read (view) an existing project, edit their own projects and delete their own projects. The create-view-edit-delete cycle is shown below.
     In the create phase, the user completes a project creation form stating the title and programming languages required for the project. They may also optionally include a project description. If successfully created, the user receives a success message and is redirected to the detail page for the newly created project.
@@ -225,19 +235,19 @@ Navbar(user logged in)
 
 ![Different project views](documentation/features/project-views.png)
 
-- **Create New Project**
+- **Create New Project**  
 
     - The create new project form is shown here on multiple screen sizes to demonstrate the responsiveness of the project creation form. Users can select at least one programming language (relabeled from "P language" to "Programming language(s)" since these screenshots were taken)
 
 ![Create new project form](documentation/features/create-project.png)
 
-- **Project Picture CRUD**
+- **Project Picture CRUD**  
 
     - Project pictures have partial "CRUD" functionality. A user can create (upload) a new image, read (view) an uploaded picture and delete a picture. The create-view-delete cycle is shown below. When deleting a project picture, the user is prompted to confirm that they really want to delete the chosen picture with a pop-up modal to prevent accidental deletion. Messages are shown when upload and deletion functions successfully complete.
 
 ![CRUD functionality for project pictures](documentation/features/crud-project-pic.png)
 
-- **Messages Inbox and Sent Messages**
+- **Messages Inbox and Sent Messages**  
 
     - Each registered user has a messages inbox and a sent messages mail box. These can be accessed by hovering over the user's profile picture in the navigation bar and selecting "My messages". This brings the user to the received messages "inbox" page. To access the "outbox", the user clicks the "Sent messages" button at the top. Inversely, to get back to the inbox from the sent messages page, the user clicks the "Received messages" button, or accesses again through the navigation bar.
 
@@ -247,14 +257,14 @@ Navbar(user logged in)
 ![Message inbox](documentation/features/message-inbox.png)
 ![Message outbox](documentation/features/messages-sent.png)
 
-- **Messages CRUD**
+- **Messages CRUD**  
 
     - The messaging feature has full "CRUD" functionality. Users can create new messages, view both sent and received messages, edit messages they sent and delete messages they sent or received. 
     Once edited, the message displays a small "edited" text at the end of the message. Only the sender may edit a particular message, but either party may delete a message. In this case, the message is deleted from the database and is no longer visible to either the sender or the receiver.
 
 ![CRUD functionality of messages](documentation/features/crud-messages.png)
 
-- **Send new message**
+- **Send new message**  
 
     - The send new message form is fully responsive and shows the profile picture of the message receiver as well as their username. 
 
@@ -267,21 +277,21 @@ Navbar(user logged in)
     Pressing cancel will take the user to the message inbox, regardless of which page the user came from.
 ![Options for sending a message](documentation/features/send-msg-options.png)
 
-- **Edit message**
+- **Edit message**  
 
     - Once a message has been sent, it may be edited by the user who sent it. Only the sender may edit the message. Once edited, a small "edited" will appear at the end of the message to indicate that changes were made from the original message. Pressing cancel will take the user back to the message. Pressing edit message will take the user back to their inbox and will display a "Message successfully updated" message.
     If using a screen size of 768px or above, users may edit messages directly from the sent messages list. Otherwise, users from all screen sizes may edit messages from the individual message page.
 
 ![Edit message form](documentation/features/edit-msg.png)
 
-- **Delete message**
+- **Delete message**  
 
     - Messages may be deleted by either the sender or the receiver. If one party deletes the message, it will be deleted from the database and will therefore no longer be accessible for either party. Before deletion occurs, the user is prompted with a pop-up modal to confirm if they really want to delete the message. It also warns that the message will be deleted for both the sender and the receiver.
     If using a screen size of 768px or above, users may delete messages directly from the inbox or sent messages list. Otherwise, users from all screen sizes may delete messages from the individual message page.
 
 ![Delete message and modal](documentation/features/delete-msg.png)
 
-- **Individual messages**
+- **Individual messages**  
 
     - From the inbox/ sent messages page, individual messages may be accessed by clicking on the title. The contents of this individual page varies slightly depending on whether it is a sent or received message. In both cases, an image of the user is displayed at the top with eiter the text "Your message to ((username))" or "Message from ((username))". Both message types then display the title and message with the option to go back to messages, view the user's profile or delete the message. If it is a sent message, the option to "Edit message" is present. If it is a received message, the option to "Reply" is present.
 
@@ -290,14 +300,14 @@ Individual sent message page
 Individual received message page
 ![Individual received message page](documentation/features/individual-msg-received.png)
 
-- **Django Messages**
+- **Django Messages**  
 
     - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
 ![Django messages](documentation/features/django-messages.png)
 The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
 ![Types of django messages](documentation/features/django-messages-types.png)
 
-- **Filtering**
+- **Filtering**  
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
@@ -305,7 +315,7 @@ The following image shows screenshots of the messages in action. All CRUD functi
 
 ![An example of filtering](documentation/features/filter-example.png)
 
-- **Pagination**
+- **Pagination**  
 
     - Django's Paginator class is utilised to provide pagination for the Developer Overview, Project Overview and messages pages. Both of these pages have a navigation panel at the bottom of the screen showing how many pages are available, the current page (highlighed in pink) and previous and next buttons. Users can nagivate using the previous and next buttons as long as a previous or next page is available (for example, the "previous" button will not work if the user is on page 1). If one or both of these buttons are unavailable, they will be greyed out as shown below and be will become non-clickable.
 
@@ -318,7 +328,7 @@ The base url for the developer page is `https://developer-connect.herokuapp.com/
 
 
 
-### Future Features
+### Future Features  
 
 There are many features which could be added to the project at a later date but were not deemed important for this iteration of the project implementation. Some ideas for future features include:
 
@@ -461,7 +471,7 @@ Through it, user stories, issues, and milestone tasks were planned, then tracked
 
 [GitHub Issues](https://github.com/dragon-fire-fly/developer_matcher/issues) served as an another Agile tool.
 
-There, I used my own **User Story Template** to manage user stories and **Bug Report Template** to report bugs as they were discovered.3.
+There, I used my own **User Story Template** to manage user stories and **Bug Report Template** to report bugs as they were discovered.
 For each User Story, at least three **Acceptance Criteria** were recorded to indicate the criteria that must be fulfilled in order for the User story to be completed and at least three **Tasks** which must be performed in order to fulfil said criteria.
 ![User Story Template](documentation/github_issues/user-story-template.png)
 
@@ -495,7 +505,7 @@ These labels were added to the default ones provided by Github and can be seen i
 
 ### Branches
 
-Branches were utilised within GitHub to help seperate areas of focus and to enable more information to be given about a series of commits and how they relate to the GitHub issues mentioned earlier.
+Branches were utilised within GitHub to help seperate areas of focus and to enable more information to be given about a series of commits and how they relate to the GitHub issues mentioned earlier. This was extremely valuable for managing which user story (or other task, such as testing or documentation) was being focused on at the time and helped keep the workflow organised. 
 
 Branching may be performed in in Visual Studio Code or GitPod using the following CLI commands:
 
@@ -529,7 +539,7 @@ Below is an example pull request. Pull requests contain the details of the commi
 
 ## Testing
 
-For all testing, please refer to the [TESTING.md](TESTING.md) file.
+For all testing, please refer to the [TESTING.md](TESTING.md) file. This includes User Story testing.
 
 ## Deployment
 
@@ -689,21 +699,6 @@ You can fork this repository by using the following steps:
 | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
 
 ### Media
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to provide attribution links to any images, videos, or audio files borrowed from online.
-A few examples have been provided below to give you some ideas.
-
-If you're the owner (or a close acquaintance) of all media files, then make sure to specify this.
-Let the assessors know that you have explicit rights to use the media files within your project.
-
-Ideally, you should provide an actual link to every media file used, not just a generic link to the main site!
-The list below is by no means exhaustive. Within the Code Institute Slack community, you can find more "free media" links
-by sending yourself the following command: `!freemedia`.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
 | [404 image](https://www.freepik.com/free-vector/two-people-connecting-plug-socket-man-woman-pulling-cords-with-outlet-plug-flat-illustration_12291325.htm#query=cartoon%20connected%20plug&position=2&from_view=search&track=robertav1)| entire site | image | 404 page image |
@@ -717,14 +712,8 @@ by sending yourself the following command: `!freemedia`.
 
 ### Acknowledgements
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to provide attribution to any supports that helped, encouraged, or supported you throughout the development stages of this project.
-A few examples have been provided below to give you some ideas.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for their support throughout the development of this project.
+- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome, particularly the class of May 2022.
+- I would also like to thank Peer Hoffmann for his help with unittesting, testing the application using Safari and for his general support and friendship. It is very appreciated!
 - I would like to thank my husband (Christian Schmidt), for believing in me, and allowing me to make this transition into software development.
