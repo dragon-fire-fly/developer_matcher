@@ -81,11 +81,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         user = request.user
         try:
             user_projects = Project.objects.filter(user=user)
-        except:
+        except Exception:
             user_projects = None
         try:
             p_langs = user.p_language.values()
-        except:
+        except Exception:
             p_langs = None
         context = {
             "user": user,

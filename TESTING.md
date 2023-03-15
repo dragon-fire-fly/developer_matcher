@@ -6,14 +6,14 @@ Return back to the [README.md](README.md) file.
 ### HTML
 
 I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my HTML files.
-Pages which do not require a user to be logged in have been validated using the live link. The source code of pages that require log in to be viewed were manually tested by visiting each page, right clicking and selecting "View page source". This compiled code was then copied and pasted into the W3C HTML validator. For this reason,k the W3C URL is shown as "n/a" in the table below.
+Pages which do not require a user to be logged in have been validated using the live link. The source code of pages that require log in to be viewed were manually tested by visiting each page, right clicking and selecting "View page source". This compiled code was then copied and pasted into the W3C HTML validator. For this reason, the W3C URL is shown as "n/a" in the table below.
 
 | Page | W3C URL | Screenshot | Notes |
 | --- | --- | --- | --- |
 | Home | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2F) | ![Home page](documentation/testing/html/home.png) | Pass: No errors |
 | Registration page | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fuser%2Fregister%2F) | ![registration](documentation/testing/html/register.png)![registration](documentation/testing/html/register-1.png) | Element ul not allowed as child of element small in this context - This is part of the form created by Allauth and so this error was ignored. |
 | Login page | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fuser%2Flogin%2F) | ![log in](documentation/testing/html/login.png) | Pass: No Errors |
-| About | [W3C]() | ![screenshot](documentation/) |  |
+| About | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fabout) | ![screenshot](documentation/testing/html/about.png) |  |
 | Developer Overview (not logged in) | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fdevelopers%2F) | ![Developer overview - not logged in](documentation/testing/html/developers.png) | Pass: No Errors |
 | Developer Overview (logged in) | n/a | ![Developer overview - logged in](documentation/testing/html/developers-loggedin.png) | Pass: No Errors |
 | Project Overview (not logged in) | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fprojects) | ![Project overview - not logged in](documentation/testing/html/projects.png) | Pass: No Errors |
@@ -90,7 +90,7 @@ The CI Python Linter can be used two different ways.
 
     | File | CI URL | Raw URL | Combined |
     | --- | --- | --- | --- |
-    | PP3 *run.py* file | `https://pep8ci.herokuapp.com/` | `https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/run.py` | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/run.py |
+    | app_home/test_home_views.py | `https://pep8ci.herokuapp.com/` | `https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/tests/test_home_views.py` | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/tests/test_home_views.py|
     | Boutique Ado *settings.py* | `https://pep8ci.herokuapp.com/` | `https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/boutique_ado/settings.py` | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/boutique_ado/settings.py |
 
 It's recommended to validate each file using the API URL.
@@ -161,41 +161,23 @@ Sample Python code validation documentation (tables are extremely helpful!):
 
 | File | CI URL | Screenshot | Notes |
 | --- | --- | --- | --- |
-| run.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/run.py) | ![screenshot](documentation/py-validation-run.png) | W291 trailing whitespace |
-| settings.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/boutique-ado/settings.py) | ![screenshot](documentation/py-validation-settings.png) | E501 line too long |
-| Blog views.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/blog/views.py) | ![screenshot](documentation/py-validation-blog-views.png) | Pass: No Errors |
-| Checkout urls.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/checkout/urls.py) | ![screenshot](documentation/py-validation-checkout-urls.png) | W292 no newline at end of file |
-| Profiles models.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/profiles/models.py) | ![screenshot](documentation/py-validation-profiles-models.png) | Pass: No Errors |
-| x | x | x | repeat for all remaining Python files |
+| app_home/tests/test_home_views.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/tests/test_home_views.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_tests_test_home_views.png) | Pass: No Errors |
+| app_home/forms.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/forms.py) | ![screenshot](documentation/testing/python/ci_linter/app_home_forms.png) | Pass: No Errors |
+| app_home/urls.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/urls.py) | ![screenshot](documentation/testing/python/ci_linter/app_home_urls.png) | Pass: No Errors |
+| app_home/views.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/views.py) | ![screenshot](documentation/testing/python/ci_linter/app_home_views.png) | Pass: No Errors |
+| app_user/tests/test_user_models.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/tests/test_user_models.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_tests_test_user_models.png) | Pass: No Errors |
+| app_user/tests/test_user_views.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/tests/test_user_views.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_tests_test_user_views.png) | Pass: No Errors |
+| app_user/admin.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/admin.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_admin.png) | Pass: No Errors |
+| app_user/forms.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/forms.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_forms.png) | Pass: No Errors |
+| app_user/models.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/models.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_models.png) | Pass: No Errors |
+| app_user/urls.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_user/urls.py) | ![screenshot](documentation/testing/python/ci_linter/app_user_urls.png) | Pass: No Errors |
+| settings.py | [CI PEP8](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/developer_matcher/settings.py) | ![screenshot](documentation/testing/python/ci_linter/settings.png) | Pass: No Errors |
+
+
 
 ## Browser Compatibility
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Use this space to discuss testing the live/deployed site on various browsers.
-
-Consider testing at least 3 different browsers, if available on your system.
-
-Recommended browsers to consider:
-- [Chrome](https://www.google.com/chrome)
-- [Firefox (Developer Edition)](https://www.mozilla.org/firefox/developer)
-- [Edge](https://www.microsoft.com/edge)
-- [Safari](https://support.apple.com/downloads/safari)
-- [Brave](https://brave.com/download)
-- [Opera](https://www.opera.com/download)
-
-**IMPORTANT**: You must provide screenshots of the tested browsers, to "prove" that you've actually tested them.
-
-Please note, there are services out there that can test multiple browser compatibilities at the same time.
-Some of these are paid services, but some are free.
-If you use these, you must provide a link to the source used for attribution, and multiple screenshots of the results.
-
-Sample browser testing documentation:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 I've tested my deployed project on multiple browsers to check for compatibility issues.
-All screenshots in the main [README.md](README.md) file were taken on Chrome as Chrome was used during the development of this project.
+All screenshots in the main [README.md](README.md) file were taken on Chrome as Chrome was used during the development of this project. In addition, the application was tested on [Firefox](https://www.mozilla.org/) (on Linux) and [Safari](https://www.apple.com/safari/) (on Mac). The screenshots for these browsers can be found below.  
 
 | Browser | Screenshot | Notes |
 | --- | --- | --- |
@@ -230,15 +212,15 @@ One example is provided below:
 ## Lighthouse Audit
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
 All scores came back with a score of at least 50, in many cases much higher than this. Most of the reasons for lower scores were due to the presence of user uploaded large image files that are not properly scaled or next-gen fomet (e.g. WebP). The pictures used for sample user accounts and projects were not updated as this would not be representative of genuine user uploaded pictures and thus would artificially skew the lighthouse scores. In the future, an image uploader could be used to convert user uploaded pictures to WebP format automatically before storage in the database.
-Another reason for the longer laoding time is the use of "Minty" from Bootswatch. This means that a lot of unused CSS must be loaded by the browser, lengthening loading times. By removing this Bootswatch theme and sticking to a simpler custom CSS file with use of the Bootstrap CDN delivery option. 
+Another reason for the longer laoding time is the use of "Minty" from Bootswatch. This means that a lot of unused CSS must be loaded by the browser, lengthening loading times. By removing this Bootswatch theme and sticking to a simpler custom CSS file with use of the Bootstrap CDN delivery option, these loading times could be reduced and the lighthouse scores improved. 
 Overall, the lighthouse scores were deemed high enough for the minimum viable product.
 
 | Page | Screenshot | Notes |
 | --- | --- | --- |
-| Home  | ![Home page](documentation/testing/lighthouse/home.png) | Some minor warnings |
-| Login | ![Login](documentation/testing/lighthouse/login.png) | Few warnings |
-| Register | ![Register](documentation/testing/lighthouse/register.png) | Some minor warnings |
-| About | ![About Page](documentation) | Few warnings |
+| Home  | ![Home page](documentation/testing/lighthouse/home.png) | A couple of minor warnings |
+| Login | ![Login](documentation/testing/lighthouse/login.png) | A couple of minor warnings |
+| Register | ![Register](documentation/testing/lighthouse/register.png) | A couple of minor warnings |
+| About | ![About Page](documentation) | A couple of minor warnings |
 | Developer Overview | ![Developer overview](documentation/testing/lighthouse/developers.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | User profile | ![User profile](documentation/testing/lighthouse/profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | Edit profile | ![Edit profile](documentation/testing/lighthouse/edit-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
@@ -595,20 +577,6 @@ Once set up, a CI worflow is extremely helpful for monitoring the quality of the
 
 An example of a successful ci run is shown below:  
 ![GitHub CI workflow run](documentation/testing/github_ci.png)
-
-Unfortunately, the CI appears unable to access the SECRET_KEY value stored in Github and therefore requires a hard coded SECRET_KEY in the settings.py file. This was accomplished throughout development with the following code:  
-```python
-if os.getenv("GITHUB_WORKFLOW"):
-    SECRET_KEY = (
-        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Chars"
-    )
-else:
-    SECRET_KEY = os.environ.get("SECRET_KEY", "")
-```
-
-This provided the real secret key value for the local and deployed version, but supplied a fake secret_key value to GitHub Actions. However, for official release, this was removed from the settings.py file. The database migrations therefore fail in the ci and the unittests and pep8 check cannot be run. To reinstate the GitHub CI, a secret key must be provided.
-
-![GitHub CI failed run](documentation/testing/github_ci_fail.png)
 
 ## Bugs
 ### GitHub **Issues**
