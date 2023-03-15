@@ -45,7 +45,8 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GITHUB_SECRET: ${{ secrets.GH_SECRET }}
           GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
-        run: python manage.py migrate
+        run: |
+          python manage.py migrate
       - name: Run Django Unittests # running tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
@@ -53,6 +54,8 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GITHUB_SECRET: ${{ secrets.GH_SECRET }}
           GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
-        run: python manage.py test
+        run: |
+          python manage.py test
       - name: Check pep8 with black # pep8 compliance check
-        run: python -m black --line-length 79 --check .
+        run: |
+          python -m black --line-length 79 --check .
