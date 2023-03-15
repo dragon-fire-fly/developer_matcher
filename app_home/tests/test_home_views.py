@@ -28,6 +28,8 @@ class TestAppHomeViews(TestCase):
             description="project description1",
         )
 
+        self.project1.user.add(self.user1)
+
         self.project2 = Project.objects.create(
             title="ProjectTitle2",
             description="project description2",
@@ -269,13 +271,12 @@ class TestAppHomeViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f"/user/login/?next={url}")
 
-        # # user (NOT project owner)logged in
-        # self.client.force_login(self.user2)
-        # response = self.client.get(url)
+        # user (NOT project owner)logged in
+        self.client.force_login(self.user2)
+        response = self.client.get(url)
 
-        # self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, "app_home/project_overview.html")
-        # self.assertRedirects(response, reverse("app_home:project-overview"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("app_home:project-overview"))
 
         # Project owner logged in
         self.client.force_login(self.user1)
