@@ -14,7 +14,8 @@ def create_db_entry_social_app(
         site = Site.objects.create(domain=site_domain, name=site_name)
 
     try:
-        # Check if a social application with the given provider name already exists
+        # Check if a social application with the given provider name
+        # already exists
         social_app = SocialApp.objects.get(provider=provider)
         if social_app.client_id != client_id or social_app.secret != secret:
             social_app.client_id = client_id
