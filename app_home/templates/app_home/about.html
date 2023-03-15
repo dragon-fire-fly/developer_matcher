@@ -2,6 +2,40 @@
 {% block title %}About{% endblock %}
 
 {% block content %}
-<h1>About</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+            <h1>About</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+            <p>
+                Welcome to Developer Connect!
+            </p>
+            <p>
+                The site was developed with the purpose to link up developers with one another so that they can connect with one another and develop and work on ideas together.
+            </p>
+            <p>
+                Please select an option below to get started!
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-center">
+    {% if user.is_authenticated %}
+        <a href="{% url 'app_home:developer-overview' %}" class="btn btn-primary small-margin-top small-margin-top">Developer Overview</a>
+        <a href="{% url 'app_home:project-overview' %}" class="btn btn-primary small-margin-top">Project Overview</a>
+    {% else %}
+        <a href="{% url 'app_user:register' %}" class="btn btn-primary small-margin-top">Register</a>
+        <a href="/user/login/" class="btn btn-primary small-margin-top">Login</a>
+    {% endif%}
+        </div>
+    </div>
+
+</div>
+
+
 
 {% endblock %}
