@@ -149,6 +149,13 @@ Navbar(user logged in)
 
 ![Hompage](documentation//features/home-page.png)
 
+- **About Page**  
+
+    - The about page gives a short overview of the purpose of the site and shows either "sign in" and "sign up" buttons, if no user is logged in, or buttons with links to the Developer overview and Project overview if the user is logged in.
+
+![About page (not logged in)](documentation//features/about-not-logged-in.png)
+![About page (logged in)](documentation//features/about-page.png)
+
 - **Registration page**  
 
     - The registration page allows new users to register to the site. A form is provided which asks for desired username, e-mail address and a password, repeated twice. The constraints for password choice are displayed on the registration page. Users are informed if their chosen username is unavailable or unacceptable (see validation below).

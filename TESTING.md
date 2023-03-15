@@ -351,7 +351,7 @@ The aforementioned tests are just an example of a few different project scenario
 
 Each of the User Stories mentioned in the [README.md](README.md) file were tested to ensure correct functionality and complete implementation of the User Story.
 
-[Userstory testing](https://docs.google.com/spreadsheets/d/1gGXyeVyqV9Qn-6OWgzcTl8FbropnZFla_UFe-G648LY/edit#gid=0) is linked here in an external Google sheet.
+[User Story testing](https://docs.google.com/spreadsheets/d/1gGXyeVyqV9Qn-6OWgzcTl8FbropnZFla_UFe-G648LY/edit#gid=0) is linked here in an external Google sheet.
 
 For each User Story, the Epic to which the User Story belongs is listed along with the user story number, the title of the User Story, it's MoSCow prioritation and each of the acceptance criteria for the User Story. There is then a column each for whether the feature was implemented and (if implemented) whether it is working correctly. There is also a screenshot where relevant to demonstrate the implementation of the User Sotry.
 
@@ -574,6 +574,27 @@ It is unclear why this error should be thrown, and when investigating using a br
 | Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)    |
 |   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)    |
 
+### GitHub CI
+For this project, a [Continuous Integration (CI) workflow](https://github.com/dragon-fire-fly/developer_matcher/actions) was implemented using GitHub Actions. This means that the requested tests may be run on the project each time a push or a pull request is performed. The specifics of the CI workflow can be found in the [ci.yml file in the project](https://github.com/dragon-fire-fly/developer_matcher/blob/main/.github/workflows/ci.yml). The CI performs 15 steps including importing requirements, making relevant database migrations, performing unittests and performing a pep8 compliance check using Black (with a custom line-length of 79 characters).
+
+Once set up, a CI worflow is extremely helpful for monitoring the quality of the code and ensuring that all unittests continue to run successfully when code is altered or added to.
+
+An example of a successful ci run is shown below:  
+![GitHub CI workflow run](documentation/testing/github_ci.png)
+
+Unfortunately, the CI appears unable to access the SECRET_KEY value stored in Github and therefore requires a hard coded SECRET_KEY in the settings.py file. This was accomplished throughout development with the following code:  
+```python
+if os.getenv("GITHUB_WORKFLOW"):
+    SECRET_KEY = (
+        "MySuperInsecureSecretKeyOnlyForGithubActionsThatIsLongerThan50Chars"
+    )
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY", "")
+```
+
+This provided the real secret key value for the local and deployed version, but supplied a fake secret_key value to GitHub Actions. However, for official release, this was removed from the settings.py file. The database migrations therefore fail in the ci and the unittests and pep8 check cannot be run. To reinstate the GitHub CI, a secret key must be provided.
+
+![GitHub CI failed run](documentation/testing/github_ci_fail.png)
 
 ## Bugs
 ### GitHub **Issues**
