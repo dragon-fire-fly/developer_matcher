@@ -192,6 +192,7 @@ class DeleteProfilePicView(LoginRequiredMixin, TemplateView):
             pic_to_delete.delete()
             messages.success(request, "Picture successfully deleted!")
             return redirect(reverse("app_user:add-profile-pic"))
+        messages.error(request, "Picture could not be deleted.")
         return redirect("app_home:about")
 
 
@@ -291,6 +292,11 @@ class AddMessage(LoginRequiredMixin, TemplateView):
             new_msg.user_receiver_id = request.POST["receiver"]
             new_msg.save("new")
             messages.success(request, "Message sent!")
+        else:
+            messages.error(
+                request,
+                "Message could not  be sent. Please try again"
+            )
         return redirect("app_user:messages")
 
 
@@ -335,4 +341,6 @@ class DeleteMessage(LoginRequiredMixin, TemplateView):
         ):
             message.delete()
             messages.success(request, "Message successfully deleted!")
+        else:
+            messages.error(request, "Message could not be deleted.")
         return redirect(reverse("app_user:messages"))
