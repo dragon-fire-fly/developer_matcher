@@ -41,36 +41,15 @@ Pages which do not require a user to be logged in have been validated using the 
 
 I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) to validate all of my CSS files.
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+There are two sources for the CSS for the website - most comes from an import of Bootstrap and some comes from a custom CSS file (static/css/style.css). The Jigsaw validator attempted to validate all the CSS from the site, but any errors or warnings arising from the Bootstrap import were ignored in this case as they come from a third party.
 
-- If you are copying/pasting your HTML code, use this link: https://jigsaw.w3.org/css-validator/#validate_by_input
-- (*recommended*) If you are using the live deployed site, use this link: https://jigsaw.w3.org/css-validator/#validate_by_uri
-
-It's recommended to validate the live site if you only have a single CSS file using the deployed URL.
-This will give you a custom URL as well, which you can use on your testing documentation.
-It makes it easier to return back to the page to validate it again in the future.
-The URL will look something like this:
-
-- https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fdragon-fire-fly.github.io%2Fdeveloper_matcher
-
-If you have multiple CSS files, then individual [validation by input](https://jigsaw.w3.org/css-validator/#validate_by_input)
-is recommended for the additional CSS files.
-
-**IMPORTANT**: Third-Party tools
-
-If you're using extras like Bootstrap, Materialize, Font Awesome, then sometimes the validator
-will attempt to also validate this code, even if it's not part of your own actual code.
-You are not required to validate the external libraries or frameworks!
-
-Sample CSS code validation documentation (tables are extremely helpful!):
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Below is a table summary for the CSS code validation.
 
 | File | Jigsaw URL | Screenshot | Notes |
 | --- | --- | --- | --- |
-| style.css | [Jigsaw](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fdragon-fire-fly.github.io%2Fdeveloper_matcher) | ![screenshot](documentation/css-validation-style.png) | Pass: No Errors |
-| checkout.css | n/a | ![screenshot](documentation/css-validation-checkout.png) | Pass: No Errors |
-| x | x | x | repeat for all remaining CSS files |
+| style.css | [Jigsaw](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) | ![style.css](documentation/testing/css/valid.png) | Pass: No Errors (custom CSS code can be seen at the bottom of the "validated CSS" section) |
+| checkout.css | [Jigsaw](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) | ![errors](documentation/testing/css/errors.png) | 17 errors, all coming from bootstrap import |
+| x | [Jigsaw](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) | ![warnings](documentation/testing/css/warnings.png) | 368 warnings, all coming from bootstrap import |
 
 ### JavaScript
 
@@ -158,7 +137,6 @@ One example is provided below:
 ## Lighthouse Audit
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
 All scores came back with a score of at least 50, in many cases much higher than this. Most of the reasons for lower scores were due to the presence of user uploaded large image files that are not properly scaled or next-gen fomet (e.g. WebP). The pictures used for sample user accounts and projects were not updated as this would not be representative of genuine user uploaded pictures and thus would artificially skew the lighthouse scores. In the future, an image uploader could be used to convert user uploaded pictures to WebP format automatically before storage in the database.
-Another reason for the longer laoding time is the use of "Minty" from Bootswatch. This means that a lot of unused CSS must be loaded by the browser, lengthening loading times. By removing this Bootswatch theme and sticking to a simpler custom CSS file with use of the Bootstrap CDN delivery option, these loading times could be reduced and the lighthouse scores improved. 
 Overall, the lighthouse scores were deemed high enough for the minimum viable product.
 
 | Page | Screenshot | Notes |
@@ -167,19 +145,19 @@ Overall, the lighthouse scores were deemed high enough for the minimum viable pr
 | Login | ![Login](documentation/testing/lighthouse/login.png) | A couple of minor warnings |
 | Register | ![Register](documentation/testing/lighthouse/register.png) | A couple of minor warnings |
 | About | ![About Page](documentation/testing/lighthouse/about.png) | A couple of minor warnings |
-| Developer Overview | ![Developer overview](documentation/testing/lighthouse/developers.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| User profile | ![User profile](documentation/testing/lighthouse/profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Edit profile | ![Edit profile](documentation/testing/lighthouse/edit-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Profile pictures page | ![Profile pictures page](documentation/testing/lighthouse/profile-pics.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Other user profile | ![Other user profile](documentation/testing/lighthouse/other-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Project Overview | ![Project overview](documentation/testing/lighthouse/projects.png) |Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Individual project | ![Individual project](documentation/testing/lighthouse/individual-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| New project | ![New project](documentation/testing/lighthouse/new-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Edit project | ![Edit project](documentation/testing/lighthouse/edit-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Project pictures | ![Project pictures](documentation/testing/lighthouse/project-pic.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Messages | ![Messages](documentation/testing/lighthouse/messages.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| New message | ![New message](documentation/testing/lighthouse/new-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
-| Edit message | ![Edit message](documentation/testing/lighthouse/edit-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
+| Developer Overview | ![Developer overview](documentation/testing/lighthouse/developers.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| User profile | ![User profile](documentation/testing/lighthouse/profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Edit profile | ![Edit profile](documentation/testing/lighthouse/edit-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Profile pictures page | ![Profile pictures page](documentation/testing/lighthouse/profile-pics.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Other user profile | ![Other user profile](documentation/testing/lighthouse/other-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Project Overview | ![Project overview](documentation/testing/lighthouse/projects.png) |Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Individual project | ![Individual project](documentation/testing/lighthouse/individual-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| New project | ![New project](documentation/testing/lighthouse/new-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Edit project | ![Edit project](documentation/testing/lighthouse/edit-project.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Project pictures | ![Project pictures](documentation/testing/lighthouse/project-pic.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Messages | ![Messages](documentation/testing/lighthouse/messages.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| New message | ![New message](documentation/testing/lighthouse/new-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
+| Edit message | ![Edit message](documentation/testing/lighthouse/edit-msg.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats. Does not use HTTPS. |
 
 ## Accessibility
 Accessibility of websites is extremely important so that users from all backgrounds can enjoy a website. Good website accessibility includes easy to read text (with a good contrast between text and background) as well as appropriately labelling elements so they may be read by screen reader technology.
