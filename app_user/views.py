@@ -252,13 +252,17 @@ class IndividualMsg(LoginRequiredMixin, TemplateView):
         message = Message.objects.get(pk=message_pk)
         if message.user_sender == request.user:
             msg_type = "sent"
-        else:
+        elif message.user_receiver == request.user:
             msg_type = "received"
-        context = {
-            "msg": message,
-            "msg_type": msg_type,
-        }
-        return render(request, "app_user/individual_msg.html", context)
+        else:
+            msg_type = "None"
+        if msg_type == "sent" or msg_type == "received":
+            context = {
+                "msg": message,
+                "msg_type": msg_type,
+            }
+            return render(request, "app_user/individual_msg.html", context)
+        return redirect(reverse("app_user:messages"))
 
 
 class AddMessage(LoginRequiredMixin, TemplateView):
@@ -309,13 +313,14 @@ class EditMessage(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
         form = MessageForm(request.POST, instance=message)
-        if form.is_valid():
-            form.save("edit")
-            messages.success(request, "Message successfully updated.")
-        else:
-            messages.error(
-                request, "Message could not be edited. Please try again."
-            )
+        if message.user_sender == request.user:
+            if form.is_valid():
+                form.save("edit")
+                messages.success(request, "Message successfully updated.")
+            else:
+                messages.error(
+                    request, "Message could not be edited. Please try again."
+                )
         return redirect(reverse("app_user:messages"))
 
 
@@ -324,6 +329,10 @@ class DeleteMessage(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         message = get_object_or_404(Message, pk=kwargs["pk"])
-        message.delete()
-        messages.success(request, "Message successfully deleted!")
+        if (
+            message.user_sender == request.user
+            or message.user_receiver == request.user
+        ):
+            message.delete()
+            messages.success(request, "Message successfully deleted!")
         return redirect(reverse("app_user:messages"))

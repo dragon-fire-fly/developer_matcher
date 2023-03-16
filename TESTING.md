@@ -13,7 +13,7 @@ Pages which do not require a user to be logged in have been validated using the 
 | Home | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2F) | ![Home page](documentation/testing/html/home.png) | Pass: No errors |
 | Registration page | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fuser%2Fregister%2F) | ![registration](documentation/testing/html/register.png)![registration](documentation/testing/html/register-1.png) | Element ul not allowed as child of element small in this context - This is part of the form created by Allauth as part of social account login and so this error was ignored. |
 | Login page | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fuser%2Flogin%2F) | ![log in](documentation/testing/html/login.png) | Pass: No Errors |
-| About | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fabout) | ![screenshot](documentation/testing/html/about.png) |  |
+| About | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fabout) | ![screenshot](documentation/testing/html/about.png) | Pass: No errors |
 | Developer Overview (not logged in) | [W3C](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fdevelopers%2F) | ![Developer overview - not logged in](documentation/testing/html/developers.png) | Pass: No Errors |
 | Developer Overview (logged in) | n/a | ![Developer overview - logged in](documentation/testing/html/developers-loggedin.png) | Pass: No Errors |
 | Project Overview (not logged in) | [WC3](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fdeveloper-connect.herokuapp.com%2Fprojects) | ![Project overview - not logged in](documentation/testing/html/projects.png) | Pass: No Errors |
@@ -81,34 +81,8 @@ No Javascript was used in this project.
 I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
 In addition, I used the [Black](https://pypi.org/project/black/) pep8 validation tool, installed into my VSCode environment throughout the development of the project.
 
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
+In the settings.py file, there are 4 lines which come as default with Django which throw a "line too long" error and cannot be broken down without compromising code functionality. For these lines (settings.py 184, 189, 194 and 199) have had the `# noqa` comment added to the end of them to exclude them from code validation. These are the only lines which are exempted in this way.
 
-The CI Python Linter can be used two different ways.
-- Copy/Paste your Python code directly into the linter.
-- As an API, using the "raw" URL appended to the linter URL.
-    - To find the "raw" URL, navigate to your file directly on the GitHub repo.
-    - On that page, GitHub provides a button on the right called "Raw" that you can click on.
-    - From that new page, copy the full URL, and paste it after the CI Python Linter URL (with a `/` separator).
-    - Examples:
-
-    | File | CI URL | Raw URL | Combined |
-    | --- | --- | --- | --- |
-    | app_home/test_home_views.py | `https://pep8ci.herokuapp.com/` | `https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/tests/test_home_views.py` | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/app_home/tests/test_home_views.py|
-    | Boutique Ado *settings.py* | `https://pep8ci.herokuapp.com/` | `https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/boutique_ado/settings.py` | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/dragon-fire-fly/developer_matcher/main/boutique_ado/settings.py |
-
-It's recommended to validate each file using the API URL.
-This will give you a custom URL which you can use on your testing documentation.
-It makes it easier to return back to a file to validate it again in the future.
-Use the steps above to generate your own custom URLs for each Python file.
-
-**IMPORTANT**: Django settings.py
-
-The Django settings.py file comes with 4 lines that are quite long, and will throw the `E501 line too long` error.
-This is default behavior, but can be fixed by adding `# noqa` to the end of those lines.
-
-`noqa` = **NO Quality Assurance**
-
-Example:
 
 ```python
 AUTH_PASSWORD_VALIDATORS = [
@@ -127,40 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 ```
 
-**NOTE**: You must include 2 *spaces* before the `#`, and 1 *space* after the `#`.
-
-Do not use `# noqa` all over your project just to clear down validation errors!
-This can still cause a project to fail, for failing to fix actual PEP8 validation errors.
-
-Sometimes strings or variables get too long, or long `if` conditional statements.
-These are acceptable instances to use the `# noqa`.
-
-When trying to fix "line too long" errors, try to avoid using `/` to split lines.
-A better approach would be to use any type of opening bracket, and hit Enter just after that.
-Any opening bracket type will work: `(`, `[`, `{`.
-By using an opening bracket, Python knows where to appropriately indent the next line of code,
-without having to "guess" yourself and attempt to tab to the correct indentation level.
-
-Example:
-
-```python
-return HttpResponse(
-    content=(
-        f'Webhook received: {event["type"]} | '
-        'SUCCESS: Verified order already in database'
-    ),
-    status=200
-)
-```
-
-**IMPORTANT**: migration and pycache files
-
-You do not have to ever validate files from the `migrations/` or `pycache/` folders!
-Ignore these `.py` files, and validate just the files that you've created or modified.
-
-Sample Python code validation documentation (tables are extremely helpful!):
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Below are the results of running the [Code Institute PEP8 linter](https://pep8ci.herokuapp.com/):
 
 | File | CI URL | Screenshot | Notes |
 | --- | --- | --- | --- |
@@ -225,7 +166,7 @@ Overall, the lighthouse scores were deemed high enough for the minimum viable pr
 | Home  | ![Home page](documentation/testing/lighthouse/home.png) | A couple of minor warnings |
 | Login | ![Login](documentation/testing/lighthouse/login.png) | A couple of minor warnings |
 | Register | ![Register](documentation/testing/lighthouse/register.png) | A couple of minor warnings |
-| About | ![About Page](documentation) | A couple of minor warnings |
+| About | ![About Page](documentation/testing/lighthouse/about.png) | A couple of minor warnings |
 | Developer Overview | ![Developer overview](documentation/testing/lighthouse/developers.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | User profile | ![User profile](documentation/testing/lighthouse/profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
 | Edit profile | ![Edit profile](documentation/testing/lighthouse/edit-profile.png) | Few warnings such as slow response time due to large images, images not properly sized or in next-gen formats, unused CSS present. Does not use HTTPS. |
@@ -256,37 +197,19 @@ Following this assessment, many of the colour combinations on the site were chan
 
 
 ## Defensive Programming
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Defensive programming (defensive design) is extremely important!
-
-When building projects that accept user inputs or forms, you should always test the level of security for each.
-Examples of this could include (not limited to):
+Definsive programming techniques have been applied to this project to ensure correct security is in place and that users can only access areas they are supposed to have access to. This includes:
 
 Forms:
 - Users cannot submit an empty form
 - Users must enter valid email addresses
 
-PP3 (Python-only):
-- Users must enter a valid letter/word/string when prompted
-- Users must choose from a specific list only
+![Form validation](documentation/testing/form-validation.png)
 
 Flask/Django:
 - Users cannot brute-force a URL to navigate to a restricted page
 - Users cannot perform CRUD functionality while logged-out
 - User-A should not be able to manipulate data belonging to User-B, or vice versa
 - Non-Authenticated users should not be able to access pages that require authentication
-- Standard users should not be able to access pages intended for superusers
-
-You'll want to test all functionality on your application, whether it's a standard form,
-or uses CRUD functionality for data manipulation on a database.
-Make sure to include the `required` attribute on any form-fields that should be mandatory.
-Try to access various pages on your site as different user types (User-A, User-B, guest user, admin, superuser).
-
-You should include any manual tests performed, and the expected results/outcome.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 Defensive programming was manually tested with the below user acceptance testing:
 
@@ -297,15 +220,16 @@ Defensive programming was manually tested with the below user acceptance testing
 | | Click on sign up button | Redirection to registration page | Pass | |
 | | Click on sign in button | Redirection to sign in page | Pass | |
 | Developer Search Page | | | | |
-| | Click on Developer Search link in navbar | Redirection to Developer Overview page | Pass | |
+| | Click on Developer Search link in navbar (not logged in) | Redirection to Developer Overview page which only displays sign in and sign up buttons | Pass | |
+| | Click on Developer Search link in navbar (logged in) | Redirection to Developer Overview page with full contents | Pass | |
 | | Click "next" page | Redirected to page 2 of the Developer overview | Pass | |
 | | Click page "2" | Redirected to page 2 of the Developer overview | Pass | |
 | | Click "previous" page on page 1 | No redirection occurs as this button is disabled | Pass | |
-| | Click page "2" | Redirected to page 2 of the Developer overview | Pass | |
 | | Click on name of individual user | Redirected to that user's profile | Pass | |
 | | Submit a filter query | The users are filtered to only those who contain all the specified programming languages | Pass | |
 | Project Search Page | | | | |
-| | Click on Project Search link in navbar | Redirection to Project Search page | Pass | |
+| | Click on Project Search link in navbar (not logged in) | Redirection to Project Overview page which only displays sign in and sign up buttons | Pass | |
+| | Click on Project Search link in navbar (logged in) | Redirection to Project Search page with full contents | Pass | |
 | | Click "next" page | Redirected to page 2 of the Project overview | Pass | |
 | | Click page "2" | Redirected to page 2 of the Project overview | Pass | |
 | | Click "previous" page on page 1 | No redirection occurs as this button is disabled | Pass | |
@@ -315,10 +239,10 @@ Defensive programming was manually tested with the below user acceptance testing
 | | Select programming languages | Multiple choices may be selected by holding Ctrl or Shift | Pass | |
 | | Enter valid title | Field will accept text up to 100 chars, then stops more chars being typed. Will return an error if project title is already taken (case sensitive) or if title contains a profanity | Pass | |
 | | Enter description in textarea | Field will accept freeform text, optional | Pass | |
-| | Click the Submit button | Redirects user to project overview page | Pass | |
+| | Click the Submit button | Redirects user to project overview page where the newly created project will have been added | Pass | |
 | | Click the "Edit Project" button on user's own individual project | Redirects user to project edit form | Pass | |
- | Brute forcing the URL to edit another user's project | The project ID is in the url, but if the logged in user is not the project owner, they are redirected back to the project overview page | Pass | |
-  | Brute forcing the HTML to delete another user's project | The ID used for project deletion may be manipulated by viewing page source and changing the value in the deletion modal. However, if the logged in user is not the project owner, the project is not deleted and the user is returned to the project overview page. | Pass | |
+| | Brute forcing the URL to edit another user's project | The project ID is in the url, but if the logged in user is not the project owner, they are redirected back to the project overview page | Pass | |
+| | Brute forcing the HTML to delete another user's project | The ID used for project deletion may be manipulated by viewing page source and changing the value in the deletion modal. However, if the logged in user is not the project owner, the project is not deleted and the user is returned to the project overview page. | Pass | |
 | Sign Up | | | | |
 | | Click on Sign Up button | Redirection to Sign Up page | Pass | |
 | | Enter valid username | Field will accept up to 150 chars, no duplicates to an existing user (case sensitive) and no profanities | Pass | |
@@ -329,10 +253,10 @@ Defensive programming was manually tested with the below user acceptance testing
 | | Click on the Login link | Redirection to Login page | Pass | |
 | | Enter valid username | Field will accept freeform text  | Pass | |
 | | Enter valid password | Field will only accept password format | Pass | |
-| | Click Login button | Redirects user to home page | Pass | |
+| | Click Login button | Signs user in and redirects to home page | Pass | |
 | Log Out | | | | |
 | | Click Logout button | Redirects user to logout page | Pass | Confirms logout first |
-| | Click Confirm Logout button | Redirects user to home page | Pass | |
+| | Click Confirm Logout button | Signs user out and redirects to home page | Pass | |
 | Profile | | | | |
 | | Click on Profile button | User will be redirected to the Profile page | Pass | |
 | | Click on the Edit button | User will be redirected to the edit profile page | Pass | |
@@ -340,13 +264,13 @@ Defensive programming was manually tested with the below user acceptance testing
 | | Brute forcing the URL to get to another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass | R |
 | | Brute forcing the URL to edit another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass |  |
 | | Brute forcing the URL to delete another user's personal profile | This URL was designed not to contain any ids or usernames so this is not possible. The profile gets the user details directly from the request | Pass |  |
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-Repeat for all other tests, as applicable to your own site.
-The aforementioned tests are just an example of a few different project scenarios.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+| Messages | | | | |
+| | Click on My Messages in dropdown menu | User will be redirected to the Messages (inbox) page | Pass | |
+| | Click on Sent Messages button | User will be redirected to the Messages (sent messages) page | Pass | |
+| | Click on individual message | User will be redirected to that specific message page | Pass | |
+| | Brute forcing the URL to read another user's message | This URL contains the id of the message which can be manipulated, but if a user enters the id of message for which they are not the sender or intended recipient, they will be redirected to the message inbox | Pass |  |
+| | Brute forcing the URL to edit another user's message | This URL contains the id of the message which can be manipulated, but if a user enters the id of message for which they are not the sender, they will be redirected to the message inbox | Pass |  |
+| | Brute forcing the URL to delete another user's message | The ID used for message deletion may be manipulated by viewing page source and changing the value in the deletion modal. However, if the logged in user is not the message sender or intended recipient, the message is not deleted and the user is returned to the message inbox | Pass |  |
 
 ## User Story Testing
 
@@ -374,8 +298,8 @@ In order to run the tests, I ran the following command in the terminal each time
 
 The unittests run for the project are listed below, seperated by Django app and file (models or views)
 
-For **app_user** app:
-**views.py**
+For **app_user** app:  
+**views.py**  
 
 | Function Tested  | Function Type  |  Testing for.. | Assert Statement   |  Pass |
 |---|---|---|---|---|
@@ -409,8 +333,8 @@ For **app_user** app:
 |   |    | project picture upload  | self.assertEqual(project_picture.project_picture, cloudinary_field_mock.return_value)  | pass  |
 
 
-For **app_home** app:
-**views.py**
+For **app_home** app:  
+**views.py**  
 Home and about views
 | Function Tested  | Function Type  | Status | Testing for.. | Assert Statement   |  Pass |
 |---|---|---|---|---|---|
@@ -483,6 +407,7 @@ Edit a project
 |---|---|---|---|---|---|
 | Edit project  | get (form) | not logged in  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
 |   |   |   | redirection url  | self.assertRedirects(response, f"/user/login/?next={url}")  | pass  |
+|   |   | logged in (not project owner)  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
 |   |   | logged in (project owner)  | status code 200 (success)  | self.assertEqual(response.status_code, 200)  | pass  |
 |   |   |   | correct template used  | self.assertTemplateUsed(response, template)  | pass  |
 | Edit project  | post (valid)  | project owner  | status code 302 (redirect)  | self.assertEqual(response.status_code, 302)  | pass  |
