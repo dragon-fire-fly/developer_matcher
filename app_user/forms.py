@@ -53,13 +53,6 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserEditForm(forms.ModelForm):
-    # p_language_objects = ProgramLang.objects.all()
-    # lang_choices = []
-    # for lang in p_language_objects:
-    #     lang_choices.append((lang.id, lang.language))
-    # p_language = forms.MultipleChoiceField(
-    #     widget=forms.CheckboxSelectMultiple(), choices=lang_choices
-    # )
 
     class Meta:
         model = User
@@ -79,14 +72,6 @@ class UserEditForm(forms.ModelForm):
             "p_language": "Programming Language(s)",
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super(UserEditForm, self).__init__(*args, **kwargs)
-    #     p_lang_q_set = ProgramLang.objects.filter(user=self.instance)
-    #     p_langs_init = []
-    #     for lang in p_lang_q_set:
-    #         p_langs_init.append(lang.pk)
-    #     self.initial["p_language"] = p_langs_init
-
     def clean(self):
         validate_username(self)
 
@@ -96,6 +81,7 @@ class AddProfilePictureForm(forms.ModelForm):
         model = UserProfilePicture
         fields = "__all__"
         exclude = ["user"]
+        labels = {"profile_picture": "Profile picture"}
 
 
 class MessageForm(forms.ModelForm):

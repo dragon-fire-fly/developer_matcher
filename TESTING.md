@@ -524,4 +524,6 @@ Any remaining open issues can be tracked [here](https://github.com/dragon-fire-f
 
 ## Unfixed Bugs  
 
-There are no remaining bugs that I am aware of.
+The live version of the admin panel does not appear to be rendering CSS. This was a problem with all CSS used for the site and was remedied by uploading custom CSS to cloudinary and importing it from there. I attempted to fix this CSS problem by using whitenoice, however this did not resolve the issue. If the overall CSS display problem could be fixed, it is likely that the Django Admin panel CSS would also be fixed.
+
+![Admin Panel CSS problem](documentation/testing/css/admin-panel-css-bug.png)
