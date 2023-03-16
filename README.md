@@ -169,6 +169,8 @@ Social sign in:
     The user's primary profile picture is displayed in the centre of the screen and when clicked, navigates the user to the "add profile picture" page. If the user does not yet have a profile picture, a placeholder picture will be displayed, with text explaining that this is a placeholder piture and may be changed by clicking the photo and uploading a picture.
     This placeholder picture is a randomly generated photo of a kitten, from [Place Kitten](https://placekitten.com/).
 
+    The user profile has full CRUD (Create Read Update Delete) functionality. "Create" is invoked when a user signs up to the website, and the "Read" functionality is displayed here. See below for the "Update" and "Delete" functions.
+
 ![User Profile Page](documentation/features/profile-page.png)
 ![Placeholder picture](documentation/features/kitten-placeholder.png)
 
@@ -285,14 +287,14 @@ Individual received message page
 
 - **Django Messages**  
 
-    - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.
+    - The Django messages feature is utilised in this project to provide feedback to the user. The messages are displayed at the top of the screen for all screen sizes, just under the navigation bar. The messages are styled with bootstrap.  
 ![Django messages](documentation/features/django-messages.png)
-The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.
+The following image shows screenshots of the messages in action. All CRUD functions give user feedback via these messages.  
 ![Types of django messages](documentation/features/django-messages-types.png)
 
 - **Filtering**  
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - The Developer Overview and Project overview pages both have a filter function where profiles/projects can be filtered by programming language. By default, no filters are applied and all users/projects are displayed. The user selects one or more programming language that they are interested in and only users/projects that have that programming language are displayed. The user can select more than one programming language by holding down the control (or command on Mac) key and clicking any languages of interest, or by holding shift to select a block of languages. Below is an example of a filtered page, showing all users who have added Python, HTML and Javascript to their profiles.
 
 ![The filtering panels](documentation/features/filter-panels.png)
 
