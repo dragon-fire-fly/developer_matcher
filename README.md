@@ -310,7 +310,6 @@ The base url for the developer page is `https://developer-connect.herokuapp.com/
 ![The urls for filtered and/or paginated pages](documentation/features/urls-filter-paginate.png)
 
 
-
 ### Future Features  
 
 There are many features which could be added to the project at a later date but were not deemed important for this iteration of the project implementation. Some ideas for future features include:
@@ -343,10 +342,9 @@ There are many features which could be added to the project at a later date but 
 
 - [HTML](https://en.wikipedia.org/wiki/HTML) used for the main site content.
 - [CSS](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
-<!-- - [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site. -->
-- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp)
+- [CSS :root variables](https://www.w3schools.com/css/css3_variables.asp) used for reusable styles throughout the site.
 - [Bootstrap](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
-- [Bootswatch](https://bootswatch.com/) used as an extension to Bootstrap to provide pleasant aesthetics for the site.
+- [Bootswatch*](https://bootswatch.com/) used as an extension to Bootstrap to provide pleasant aesthetics for the site.
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
@@ -362,6 +360,8 @@ There are many features which could be added to the project at a later date but 
 - [DBeaver](https://dbeaver.io/) used to produce ERDs and help plan the database models
 - [Balsamiq](https://balsamiq.com/) used to produce wireframes
 
+
+* Bootswatch was later removed but many of the colours in the chosen theme were used, so this credit remains
 ## Database Design
 An Entity Relationship Diagram (ERD) was created using [DBeaver](https://dbeaver.io/) in order to visualize the database architecture before creating Django models.
 

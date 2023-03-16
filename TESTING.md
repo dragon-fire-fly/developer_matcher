@@ -171,23 +171,30 @@ Following this assessment, many of the colour combinations on the site were chan
 
 
 ### WAVE Accessibility Testing
-
+| Page | Screenshot(s) | Notes |
+| --- | --- | --- |
+| Home  | ![Home page](documentation/testing/accessibility/wave/home.png) | Pass: No errors or alerts |
+| Login  | ![Login](documentation/testing/accessibility/wave/signin.png) | 2 x redundant links because the login page contains a link to iteslf (in the navbar) and 2 links to the register page. These alerts were ignored as one link is in the nav bar and the other came with Django Allauth |
+| Register  | ![Register](documentation/testing/accessibility/wave/register.png) | 1 x redundant links because the register page contains a link to iteslf (in the navbar). This alert was ignored as the redundant link is in the navbar |
+| About  | ![About](documentation/testing/accessibility/wave/about.png) | Pass: No errors or alerts |
+| Developer Overview  | ![Developer Overview](documentation/testing/accessibility/wave/developer-overview.png) | 8 alerts due to redundant links (both the image and title lead to the individual profile page). These alerts were ignored as this was a design choice for the site. To remove these alerts, the <a> tag on either the image or the title could be removed. |
+| Individual profile  | ![Individual profile](documentation/testing/accessibility/wave/individual-profile.png) | Pass: No errors or alerts |
+| Project Overview  | ![Project Overview](documentation/testing/accessibility/wave/project-overview.png) | 5 alerts due to redundant links (both the image and title lead to the individual project page). These alerts were ignored as this was a design choice for the site. To remove these alerts, the <a> tag on either the image or the title could be removed. |
+| Individual project  | ![Individual project](documentation/testing/accessibility/wave/individual-project.png) | Pass: No errors or alerts |
+| Edit project  | ![Edit project](documentation/testing/accessibility/wave/edit-project.png) | Pass: No errors or alerts |
+| User Profile  | ![User profile](documentation/testing/accessibility/wave/user-profile.png) | 1 alert due to "suspicious alternative text" as the alt text is "Your profile image". This was not updated to something more descriptive, as this field is a user uploaded image and is it therefore unknown what a more appropriate image description could be. |
+| Profile pictures  | ![Profile pictures](documentation/testing/accessibility/wave/profile-pictures.png) | 2 x alerts due to "suspicious alternative text" as the alt text is "Your profile image". This was not updated to something more descriptive, as this field is a user uploaded image and is it therefore unknown what a more appropriate image description could be. There was also 1 alert as "A nearby image has the same alternative text". This is due to the alt-text field being generated in a for loop and therefore each user uploaded image has the same alt text. |
+| Edit profile  | ![Edit profile](documentation/testing/accessibility/wave/edit-profile.png) | Pass: No errors or alerts |
+| Messages inbox  | ![About](documentation/testing/accessibility/wave/inbox.png) | 1 redundant link present as both the thumbnail img and the user name lead to the user's individual profile. This alert was ignored as this was a design choice. To remove this alert, the <a> tag on either the image or the user name could be removed. |
+| Messages sent items  | ![Sent messages](documentation/testing/accessibility/wave/msgs-sent.png) | The WAVE assessment tool identified 3 errors due to "empty links". However, when the code is inspected, there is infact  |
+| New message  | ![New message](documentation/testing/accessibility/wave/new-msg.png) | Pass: No errors or alerts |
+| Edit message  | ![Edit message](documentation/testing/accessibility/wave/edit_msg.png) | Pass: No errors or alerts |
 
 
 ## Defensive Programming
-Definsive programming techniques have been applied to this project to ensure correct security is in place and that users can only access areas they are supposed to have access to. This includes:
-
-Forms:
-- Users cannot submit an empty form
-- Users must enter valid email addresses
+Definsive programming techniques have been applied to this project to ensure correct security is in place and that users can only access areas they are supposed to have access to. This includes form validation, which is illustrated below.
 
 ![Form validation](documentation/testing/form-validation.png)
-
-Flask/Django:
-- Users cannot brute-force a URL to navigate to a restricted page
-- Users cannot perform CRUD functionality while logged-out
-- User-A should not be able to manipulate data belonging to User-B, or vice versa
-- Non-Authenticated users should not be able to access pages that require authentication
 
 Defensive programming was manually tested with the below user acceptance testing:
 
@@ -478,7 +485,7 @@ It is unclear why this error should be thrown, and when investigating using a br
 | Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)    |
 |   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)    |
 
-### GitHub CI
+### GitHub CI  
 For this project, a [Continuous Integration (CI) workflow](https://github.com/dragon-fire-fly/developer_matcher/actions) was implemented using GitHub Actions. This means that the requested tests may be run on the project each time a push or a pull request is performed. The specifics of the CI workflow can be found in the [ci.yml file in the project](https://github.com/dragon-fire-fly/developer_matcher/blob/main/.github/workflows/ci.yml). The CI performs 15 steps including importing requirements, making relevant database migrations, performing unittests and performing a pep8 compliance check using Black (with a custom line-length of 79 characters).
 
 Once set up, a CI worflow is extremely helpful for monitoring the quality of the code and ensuring that all unittests continue to run successfully when code is altered or added to.
@@ -486,12 +493,12 @@ Once set up, a CI worflow is extremely helpful for monitoring the quality of the
 An example of a successful ci run is shown below:  
 ![GitHub CI workflow run](documentation/testing/github_ci.png)
 
-## Bugs
-### GitHub **Issues**
+## Bugs  
+### GitHub **Issues**  
 Bugs were tracked from the start of the project using **GitHub Issues**
 A custom [**Bug Report Template**](https://github.com/dragon-fire-fly/developer_matcher/issues/new?assignees=dragon-fire-fly&labels=bug&template=bug_report.md&title=%5BBUG%5D) was created for the purpose of concisely and accurately tracking bugs at the time they were discovered.
 
-**Fixed Bugs**
+**Fixed Bugs**  
 Closed bug issues may be found on [GitHub Issues](https://github.com/dragon-fire-fly/developer_matcher/issues?q=is%3Aissue+is%3Aclosed+BUG) and are also listed in the table below.
 
 | Issue no.  | Bug name  | Milestone  | Fixed |
@@ -511,49 +518,10 @@ Closed bug issues may be found on [GitHub Issues](https://github.com/dragon-fire
 | 74  | [Developer overview page pagination problem](https://github.com/dragon-fire-fly/developer_matcher/issues/74)  | User Interation  | Yes  |
 
 
-**Open Issues**
+**Open Issues**  
 
 Any remaining open issues can be tracked [here](https://github.com/dragon-fire-fly/developer_matcher/issues).
 
-## Unfixed Bugs
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-You will need to mention unfixed bugs and why they were not fixed.
-This section should include shortcomings of the frameworks or technologies used.
-Although time can be a big variable to consider, paucity of time and difficulty understanding
-implementation is not a valid reason to leave bugs unfixed.
-
-If you've identified any unfixed bugs, no matter how small, be sure to list them here.
-It's better to be honest and list them, because if it's not documented and an assessor finds the issue,
-they need to know whether or not you're aware of them as well, and why you've not corrected/fixed them.
-
-Some examples:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- On devices smaller than 375px, the page starts to have `overflow-x` scrolling.
-
-    ![screenshot](documentation/unfixed-bug01.png)
-
-    - Attempted fix: I tried to add additional media queries to handle this, but things started becoming too small to read.
-
-- For PP3, when using a helper `clear()` function, any text above the height of the terminal does not clear, and remains when you scroll up.
-
-    ![screenshot](documentation/unfixed-bug02.png)
-
-    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text.
-
-- When validating HTML with a semantic `section` element, the validator warns about lacking a header `h2-h6`. This is acceptable.
-
-    ![screenshot](documentation/unfixed-bug03.png)
-
-    - Attempted fix: this is a known warning and acceptable, and my section doesn't require a header since it's dynamically added via JS.
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-If you legitimately cannot find any unfixed bugs or warnings, then use the following sentence:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+## Unfixed Bugs  
 
 There are no remaining bugs that I am aware of.
