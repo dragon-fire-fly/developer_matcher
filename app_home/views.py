@@ -323,6 +323,10 @@ class AddProjectPicture(LoginRequiredMixin, TemplateView):
             new_picture.project = project
             new_picture.save()
             messages.success(request, "Picture successfully added!")
+        else:
+            messages.error(
+                request, "Your picture could not be added at this time."
+            )
 
         return redirect(
             reverse("app_home:add-project-pic", kwargs={"pk": project_pk})
