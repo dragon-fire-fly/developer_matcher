@@ -485,7 +485,7 @@ It is unclear why this error should be thrown, and when investigating using a br
 | Delete project pic  | get  | project owner  | ensure that mocked picture has been added first  | self.assertEqual(len(self.project1.project_pic.all()), no_pics + 1)    |
 |   |   |   | mocked picture has been deleted  | self.assertEqual(len(self.project1.project_pic.all()), no_pics)    |
 
-### GitHub CI
+### GitHub CI  
 For this project, a [Continuous Integration (CI) workflow](https://github.com/dragon-fire-fly/developer_matcher/actions) was implemented using GitHub Actions. This means that the requested tests may be run on the project each time a push or a pull request is performed. The specifics of the CI workflow can be found in the [ci.yml file in the project](https://github.com/dragon-fire-fly/developer_matcher/blob/main/.github/workflows/ci.yml). The CI performs 15 steps including importing requirements, making relevant database migrations, performing unittests and performing a pep8 compliance check using Black (with a custom line-length of 79 characters).
 
 Once set up, a CI worflow is extremely helpful for monitoring the quality of the code and ensuring that all unittests continue to run successfully when code is altered or added to.
@@ -493,12 +493,12 @@ Once set up, a CI worflow is extremely helpful for monitoring the quality of the
 An example of a successful ci run is shown below:  
 ![GitHub CI workflow run](documentation/testing/github_ci.png)
 
-## Bugs
-### GitHub **Issues**
+## Bugs  
+### GitHub **Issues**  
 Bugs were tracked from the start of the project using **GitHub Issues**
 A custom [**Bug Report Template**](https://github.com/dragon-fire-fly/developer_matcher/issues/new?assignees=dragon-fire-fly&labels=bug&template=bug_report.md&title=%5BBUG%5D) was created for the purpose of concisely and accurately tracking bugs at the time they were discovered.
 
-**Fixed Bugs**
+**Fixed Bugs**  
 Closed bug issues may be found on [GitHub Issues](https://github.com/dragon-fire-fly/developer_matcher/issues?q=is%3Aissue+is%3Aclosed+BUG) and are also listed in the table below.
 
 | Issue no.  | Bug name  | Milestone  | Fixed |
@@ -518,49 +518,10 @@ Closed bug issues may be found on [GitHub Issues](https://github.com/dragon-fire
 | 74  | [Developer overview page pagination problem](https://github.com/dragon-fire-fly/developer_matcher/issues/74)  | User Interation  | Yes  |
 
 
-**Open Issues**
+**Open Issues**  
 
 Any remaining open issues can be tracked [here](https://github.com/dragon-fire-fly/developer_matcher/issues).
 
-## Unfixed Bugs
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-You will need to mention unfixed bugs and why they were not fixed.
-This section should include shortcomings of the frameworks or technologies used.
-Although time can be a big variable to consider, paucity of time and difficulty understanding
-implementation is not a valid reason to leave bugs unfixed.
-
-If you've identified any unfixed bugs, no matter how small, be sure to list them here.
-It's better to be honest and list them, because if it's not documented and an assessor finds the issue,
-they need to know whether or not you're aware of them as well, and why you've not corrected/fixed them.
-
-Some examples:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-- On devices smaller than 375px, the page starts to have `overflow-x` scrolling.
-
-    ![screenshot](documentation/unfixed-bug01.png)
-
-    - Attempted fix: I tried to add additional media queries to handle this, but things started becoming too small to read.
-
-- For PP3, when using a helper `clear()` function, any text above the height of the terminal does not clear, and remains when you scroll up.
-
-    ![screenshot](documentation/unfixed-bug02.png)
-
-    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text.
-
-- When validating HTML with a semantic `section` element, the validator warns about lacking a header `h2-h6`. This is acceptable.
-
-    ![screenshot](documentation/unfixed-bug03.png)
-
-    - Attempted fix: this is a known warning and acceptable, and my section doesn't require a header since it's dynamically added via JS.
-
-⚠️⚠️⚠️⚠️⚠️ START OF NOTES (to be deleted) ⚠️⚠️⚠️⚠️⚠️
-
-If you legitimately cannot find any unfixed bugs or warnings, then use the following sentence:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+## Unfixed Bugs  
 
 There are no remaining bugs that I am aware of.
