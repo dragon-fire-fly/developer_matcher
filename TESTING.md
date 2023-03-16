@@ -171,23 +171,30 @@ Following this assessment, many of the colour combinations on the site were chan
 
 
 ### WAVE Accessibility Testing
-
+| Page | Screenshot(s) | Notes |
+| --- | --- | --- |
+| Home  | ![Home page](documentation/testing/accessibility/wave/home.png) | Pass: No errors or alerts |
+| Login  | ![Login](documentation/testing/accessibility/wave/signin.png) | 2 x redundant links because the login page contains a link to iteslf (in the navbar) and 2 links to the register page. These alerts were ignored as one link is in the nav bar and the other came with Django Allauth |
+| Register  | ![Register](documentation/testing/accessibility/wave/register.png) | 1 x redundant links because the register page contains a link to iteslf (in the navbar). This alert was ignored as the redundant link is in the navbar |
+| About  | ![About](documentation/testing/accessibility/wave/about.png) | Pass: No errors or alerts |
+| Developer Overview  | ![Developer Overview](documentation/testing/accessibility/wave/developer-overview.png) | 8 alerts due to redundant links (both the image and title lead to the individual profile page). These alerts were ignored as this was a design choice for the site. To remove these alerts, the <a> tag on either the image or the title could be removed. |
+| Individual profile  | ![Individual profile](documentation/testing/accessibility/wave/individual-profile.png) | Pass: No errors or alerts |
+| Project Overview  | ![Project Overview](documentation/testing/accessibility/wave/project-overview.png) | 5 alerts due to redundant links (both the image and title lead to the individual project page). These alerts were ignored as this was a design choice for the site. To remove these alerts, the <a> tag on either the image or the title could be removed. |
+| Individual project  | ![Individual project](documentation/testing/accessibility/wave/individual-project.png) | Pass: No errors or alerts |
+| Edit project  | ![Edit project](documentation/testing/accessibility/wave/edit-project.png) | Pass: No errors or alerts |
+| User Profile  | ![User profile](documentation/testing/accessibility/wave/user-profile.png) | 1 alert due to "suspicious alternative text" as the alt text is "Your profile image". This was not updated to something more descriptive, as this field is a user uploaded image and is it therefore unknown what a more appropriate image description could be. |
+| Profile pictures  | ![Profile pictures](documentation/testing/accessibility/wave/profile-pictures.png) | 2 x alerts due to "suspicious alternative text" as the alt text is "Your profile image". This was not updated to something more descriptive, as this field is a user uploaded image and is it therefore unknown what a more appropriate image description could be. There was also 1 alert as "A nearby image has the same alternative text". This is due to the alt-text field being generated in a for loop and therefore each user uploaded image has the same alt text. |
+| Edit profile  | ![Edit profile](documentation/testing/accessibility/wave/edit-profile.png) | Pass: No errors or alerts |
+| Messages inbox  | ![About](documentation/testing/accessibility/wave/inbox.png) | 1 redundant link present as both the thumbnail img and the user name lead to the user's individual profile. This alert was ignored as this was a design choice. To remove this alert, the <a> tag on either the image or the user name could be removed. |
+| Messages sent items  | ![Sent messages](documentation/testing/accessibility/wave/msgs-sent.png) | The WAVE assessment tool identified 3 errors due to "empty links". However, when the code is inspected, there is infact  |
+| New message  | ![New message](documentation/testing/accessibility/wave/new-msg.png) | Pass: No errors or alerts |
+| Edit message  | ![Edit message](documentation/testing/accessibility/wave/edit_msg.png) | Pass: No errors or alerts |
 
 
 ## Defensive Programming
-Definsive programming techniques have been applied to this project to ensure correct security is in place and that users can only access areas they are supposed to have access to. This includes:
-
-Forms:
-- Users cannot submit an empty form
-- Users must enter valid email addresses
+Definsive programming techniques have been applied to this project to ensure correct security is in place and that users can only access areas they are supposed to have access to. This includes form validation, which is illustrated below.
 
 ![Form validation](documentation/testing/form-validation.png)
-
-Flask/Django:
-- Users cannot brute-force a URL to navigate to a restricted page
-- Users cannot perform CRUD functionality while logged-out
-- User-A should not be able to manipulate data belonging to User-B, or vice versa
-- Non-Authenticated users should not be able to access pages that require authentication
 
 Defensive programming was manually tested with the below user acceptance testing:
 

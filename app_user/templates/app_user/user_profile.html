@@ -9,7 +9,7 @@
             <div class="square-container">
                 {% if user.profile_pic.values %}
                 <a href="{% url 'app_user:add-profile-pic' %}" class="square-img">
-                    <img src={{user.profile_pic.values.0.profile_picture.url}} alt="Your main profile image">
+                    <img src={{user.profile_pic.values.0.profile_picture.url}} alt="Your uploaded profile image">
                 </a>
                 {% else %}
                 <a href="{% url 'app_user:add-profile-pic' %}" class="square-img">
@@ -59,7 +59,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteProfileModal">Are you sure?</h5>
+                    <h2 class="modal-title" id="deleteProfileModal">Are you sure?</h2>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span id="close-modal-span" aria-hidden="true">&times;</span>
                     </button>
