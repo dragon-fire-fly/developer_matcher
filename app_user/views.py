@@ -294,8 +294,7 @@ class AddMessage(LoginRequiredMixin, TemplateView):
             messages.success(request, "Message sent!")
         else:
             messages.error(
-                request,
-                "Message could not  be sent. Please try again"
+                request, "Message could not  be sent. Please try again"
             )
         return redirect("app_user:messages")
 
