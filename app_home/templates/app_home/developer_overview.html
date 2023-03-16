@@ -13,7 +13,6 @@
     {% if user.is_authenticated %}
     <div class="row">
         <div class="col-md-8">
-            <h3>Filter Users by Language:</h3>
                 <form method="GET">
                     {{ form|crispy }}
                     <button class="btn btn-primary small-margin">Submit</button>
@@ -29,9 +28,9 @@
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}">
                             {% if dev.profile_pic.values %}
                             <img src="{{ dev.profile_pic.values.0.profile_picture.url }}" alt="{{ dev.username }}'s profile picture" class="card-img-top dev-img">
-                        {% else %}
-                        <img src="http://placekitten.com/300/300" alt="a random kitten photo used as a placeholder picture" class="card-img-top dev-img">
-                        {% endif %}
+                            {% else %}
+                            <img src="http://placekitten.com/300/300" alt="a random kitten photo used as a placeholder picture" class="card-img-top dev-img">
+                            {% endif %}
                         </a>
                         <a href="{% url 'app_home:profile-detail-view' dev.pk %}" class="card-title">{{ dev.username }}</a>
                         <p>{% for language in dev.p_language.values %}

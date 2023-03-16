@@ -106,7 +106,7 @@ class UserLangSelectFilterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["p_language"]
-        labels = {"p_language": ""}
+        labels = {"p_language": "Filter users by programming language(s)"}
         widgets = {
             "p_language": forms.SelectMultiple(attrs={"class": "p-lang-form"})
         }
@@ -121,7 +121,7 @@ class ProjectLangSelectFilterForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["p_language"]
-        labels = {"p_language": ""}
+        labels = {"p_language": "Filter projects by programming language(s)"}
         widgets = {
             "p_language": forms.SelectMultiple(attrs={"class": "p-lang-form"})
         }
