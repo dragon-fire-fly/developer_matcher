@@ -95,6 +95,7 @@ class AddProjectPictureForm(forms.ModelForm):
         model = ProjectPicture
         fields = "__all__"
         exclude = ["project"]
+        labels = {"project_picture": "Project picture"}
 
 
 class UserLangSelectFilterForm(forms.ModelForm):
