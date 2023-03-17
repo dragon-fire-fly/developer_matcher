@@ -34,11 +34,12 @@ I've used CSS `:root` variables to easily update the global colour scheme by cha
 :root {
     --mint-green: #78C2AD;
     --hover-mint-green: #66a593;
-    --alternative: #5B9685;
+    --disabled-green: #CCE8E0;
     --pink:#F3969A;
     --red: #C63D17;
     --black: #000;
     --white: #FFF;
+    --off-white: #ccc;
     --dark-green: #006400;
     --dark-grey: #5a5a5a;
 }
